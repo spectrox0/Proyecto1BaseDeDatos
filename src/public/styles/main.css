@@ -5,7 +5,7 @@ footer{
     color: aliceblue;
     margin: 0%;
     font-family: 'Oleo Script', cursive;
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url(../images/fondo5.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(../images/fondo5.jpg);
     background-position: bottom;
 }
 a{
@@ -41,14 +41,13 @@ a{
     box-sizing: border-box;
     }
   .navbar-brand img{
-    width: 85px;
+    width: 100px;
      height: auto;
   }
    div img {
      width: 40px;
      height: 40px;
      border-radius: 50%;
-     border: 1px ridge crimson;
      max-height: 40px;
      max-width: 40px;
      object-fit: fill;
@@ -56,8 +55,6 @@ a{
    }
    .navbar-toggler:hover div img{
     opacity:1;
-   border-color: rgb(16, 223, 205);
-    box-shadow: 0px 0px 6px rgb(16, 223, 205);
     transition: all .5s ease;
   }
   .navbar {
@@ -71,9 +68,12 @@ a{
       padding:5px;
     }
     .bg-dark {
-      background: linear-gradient(rgba(5, 5, 5, 0.6), rgba(0, 0, 0, 1)), center ,url(../images/fondo5.jpg) !important;
-     border-bottom: 0.7px ridge black;
+      background: linear-gradient(rgba(5, 5, 5, 0.05), rgba(0, 0, 0, 0.9)),url(../images/fondo5.jpg) !important;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+      background-size: cover;
      box-shadow: 0 5px 10px black;
+     border-bottom: 0.7px ridge black;
     }
     .navbar-dark nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
       color: rgba(16, 223, 205, 0.75);
@@ -81,13 +81,12 @@ a{
     }
    .navbar-dark .navbar-toggler {
       color: whitesmoke;
-      border-color: rgba(255, 0, 64, 0.575);
-      background: linear-gradient(rgba(255, 0, 64, 0.575),rgba(0, 0, 0,0.8));
-      border-radius: 16px;
+      border-color: rgba(0, 195, 255, 0.575);
+      background: linear-gradient(rgba(0, 119, 255, 0.575),rgba(0, 0, 0,0.8));
+     
       font-family: 'Oleo Script', cursive;
       font-size:20px;
-      border-top-left-radius: 50%;
-      border-top-right-radius: 50%;
+      border-radius: 50%;
       padding:3px;
       margin:1px;
     }
@@ -109,7 +108,7 @@ a{
     .navbar-dark .navbar-toggler:hover {
      color: rgb(16, 223, 205);
      text-shadow: 0px 0px 10px rgb(16, 223, 205);
-     box-shadow: 0px 0px 10px 2px rgb(255, 0, 64);
+     box-shadow: 0px 0px 10px 2px rgb(0, 68, 255);
      transition: all .5s ease;
     }
   
@@ -140,5 +139,153 @@ a{
       font-weight: bold;
       text-shadow: 0px 0px 10px  rgb(16, 223, 205);
     }
+
+
+    .modal {
+      background: rgba(0, 0, 0, 0.3);
+      color:rgb(255, 255, 255);
+      padding: 0px !important;
+    }
+     .modal-title {
+      text-align: center;
+      font-family: 'Oleo Script',cursive;
+      text-shadow: 0px 0px 10px rgb(16, 223, 205);
+     }
+    
+     .close{
+        font-size: 40px;
+        padding: 0px;
+        margin: 0px;
+       color:red;
+       text-shadow: 0px 5px 10px black;
+     }
+     .modal-header , .modal-footer{
+       border:none;
+       margin: 0px;
+     }
+      .modal-header {
+        background: rgba(17, 17, 17, 0.9);
+        box-shadow: 0px 4px 4px black;
+      }
+     .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
+      color: rgb(255, 0, 0);
+      text-shadow: 0px 0px 20px red;
+    }
+    .modal-dialog .paypal{
+    color:white;
+    margin:0px;
+    padding: 0px;
+    }
+    
+    .modal-content{  background: linear-gradient(rgba(0, 0, 0, 0.05),rgba(0, 0, 0, 0.9));
+      box-shadow:0px 0px 10px crimson;
+    padding:0px;}
+    .modal input[type="submit"] {
+     width:auto;
+    
+    }
+    .modal .container {
+      background: linear-gradient(#c51d4159,#00000023);
+      margin: 4px;
+      border-radius:10px;
+    }
+    .modal .container span {
+      text-shadow: 0 0 10px rgb(16, 223, 205);
+    }
+    .modal p {
+      text-align: center;
+      font-size: 30px;
+    }
+    select {
+      text-align-last:center;
+    }
+
+    
+
+.table{
+  margin: 20px;
+  color: white;
+  font-family:'Acme', sans-serif;
   
+  }
+   .table tbody{
+    background: rgba(0, 0, 0, 0.5);
+   }
   
+  table thead{
+    background: linear-gradient(rgba(0, 0, 0,0),black);
+    border:none;
+  }
+   .table thead th{
+     text-align:center;
+     padding:4px;
+     margin:0 ;
+     border:none;
+    font-family: 'Oleo script',cursive;
+    box-shadow: 0 2px 15px 2px black;
+  color: white;
+  font-size: 27px;
+  text-shadow: 0px 0px 10px rgb(16, 223, 205);
+   }
+  
+   .btn-primary {
+    border: ridge 1px crimson;
+    border-radius:15px;
+    background: #dc143cab;
+    background: radial-gradient(#dc143c7c,#dc143cf6,black);
+    color: whitesmoke;
+    margin-right: 0px;
+    float: right;
+  }
+  .btn-primary[type="submit"] {
+   border: ridge 1px rgb(43, 220, 20);
+    background: #25dc14ab;
+    background: linear-gradient(#32dc142f,#4ddc14da);
+ 
+ }
+  .btn-secondary {
+   border: ridge 1px rgb(16, 223, 205);
+   border-radius:15px;
+   background: radial-gradient(rgba(16, 223, 205,0.1),rgba(16, 223, 205, 0.6),black);
+   color: whitesmoke;
+   margin-right: 10px;
+   float: right;
+ }
+  button:focus{
+   outline :0 !important;
+ }
+ button:active{
+  border:none;
+ }
+  .btn-primary:hover {
+   box-shadow: 0px 0px 15px crimson;
+   font-weight: bold;
+ }
+ .btn-secondary:hover {
+   box-shadow: 0px 0px 15px rgb(16, 223, 205);
+   font-weight: bold;
+ }
+  button[type="submit"]:hover{
+   box-shadow: 0px 0px 15px chartreuse;
+   font-weight: bold;
+ 
+ }
+ .table tfoot button, table .btn-block{
+   float: right;
+   color: white;
+   border-color: greenyellow;
+   background: linear-gradient(#acff2f57,rgba(172, 255, 47, 0.829));
+ }
+ .table tfoot button:hover, table .btn-block:hover{
+   text-shadow: 0px 0px 4px white;
+   box-shadow: 0px 0px 15px chartreuse;
+ 
+   }
+   .table tbody .btn-primary:hover {
+ 
+     text-shadow: 0px 0px 7px white;
+   }
+ 
+ .table tfoot {
+   background: rgba(0, 0, 0, 0.8);
+ }
