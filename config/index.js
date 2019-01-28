@@ -1,15 +1,17 @@
 var mysql      = require('mysql');
-var connection = mysql.createConnection({
+var mysqlconnection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '2413180s'
+  password : '2413180s',
+  insecureAuth :true
+
 });
 
-connection.connect();
 
-connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The solution is: ', rows[0].solution);
+mysqlconnection.connect((err)=>{
+
+    if (!err)
+    console.log('DB connection succeded');
+    else
+    console.log('DB connection failed\n'+ JSON.stringify);
 });
-
-connection.end();
