@@ -1,11 +1,12 @@
 var Sequelize = require('sequelize');
-var AirPlane = require('./models/airplane');
-var FlighModel = require('./models/flight');
-var ClientModel = require('./models/client');
+var AvionModel = require('./models/avion');
+var VueloModel = require('./models/vuelo');
+var ClienteModel = require('./models/cliente');
 
-var sequelize = new Sequelize('codementor', 'root', 'root', {
+var sequelize = new Sequelize('aereopuertoguacamaya', 'root', '2413180s', {
   host: 'localhost',
   dialect: 'mysql',
+  port:3306,
   pool: {
     max: 10,
     min: 0,
@@ -14,13 +15,13 @@ var sequelize = new Sequelize('codementor', 'root', 'root', {
   }
 }) ;
 
-var Airplane = AirPlane(sequelize, Sequelize);
-var Flight = FlighModel(sequelize, Sequelize);
-var Client = ClientModel(sequelize, Sequelize);
+var Avion = AvionModel(sequelize, Sequelize);
+var Vuelo = VueloModel(sequelize, Sequelize);
+var Cliente = ClienteModel(sequelize, Sequelize);
+///Preguntar
+Vuelo.belongsTo(Avion);
 
-//Flight.belongsToMany(Client, { through: FlightClient, unique: false });
-//Client.belongsToMany(Flight, { through: FlightClient, unique: false });
-//Flight.belongsTo(Airplane);
+Vuelo.belongsTo(Cliente);
 
 sequelize.sync({ force: true })
   .then(() => {
@@ -28,7 +29,14 @@ sequelize.sync({ force: true })
   });
 
 module.exports = {
-  Airplane:any,
-  Flight:any,
-  Client:any
+  Avion:any,
+  Vuelo:any,
+  cliente:any
 } ;
+sequelize.authenticate()
+  .then(() => {
+    console.log('Conectado')
+  })
+  .catch(err => {
+    console.log('No se conecto')
+  })

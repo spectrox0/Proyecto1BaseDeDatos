@@ -1,12 +1,21 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
+ 
+var routesIndex = function(app, controllers){
+ 
+  //Index
+  app.get("/", controllers.index.main);
+  //app.route('/').get(controllers.index.main);
+  app.get("/airplane", controllers.index.airplane);
+  app.get("/client", controllers.index.cliente);
 
- router.get('/' ,(req, res ) =>{
-  res.render('index');
- });
+app.get("/flight", controllers.index.buscarDatos);
 
- router.get('/airPlane', (req, resp ) => {
 
-    resp.render('airPlane');
- }) ;
-module.exports = router;
+app.get("/modelAirplane", controllers.index.modelAirplane);
+
+
+}
+
+
+
+module.exports = routesIndex;
