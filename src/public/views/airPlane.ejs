@@ -7,6 +7,7 @@
      <link rel="stylesheet" type="text/css" href="/styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Bungee+Shade|Butcherman|Ewert|Creepster|Lobster|Pacifico|Oleo+Script|Pinyon+Script|Acme|Timmana|Bree+Serif" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -25,6 +26,7 @@
                  <th>Modelo</th>
                  <th>Fabricante</th>
                  <th>Estado</th>
+                 <th>Itenerario</th>
                  <th>Internet</th>
                  <th>Television</th>
                  <th>Opciones</th>
@@ -36,6 +38,7 @@
                  <td> </td>
                  <td></td>
                  <td> </td>
+                 <td></td>
                  <td></td>
                  <td></td>
                  <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selpr"><i class="far fa-times-circle"></i> Eliminar</button>
@@ -80,7 +83,7 @@
                        <form >
                            <div class="form-row">
                                <div class="form-group col-md-6">
-                               <label for="avion">Avion</label>
+                               <label for="avion">Modelo</label>
                                <select  name="avion" class="custom-select" id="avion" required >
                                  <option>XXXXX</option>
                                  <option>yyyyy</option>
@@ -90,7 +93,7 @@
                              
                              </div>
                              <div class="form-group col-md-6">
-                               <label for="it">Tipo de vuelo</label>
+                               <label for="it">Fabricante</label>
                                <select  name="it" class="custom-select" id="it" required >
                                  <option>Directo</option>
                                  <option>Escalado</option>
@@ -103,17 +106,35 @@
        
                              <div class="form-row">
                                  <div class="form-group col-md-3">
-                                     <label for="date">Fecha</label>
-                                     <br>
-     
-                                   <input id="date" type="date">
+                                  <label for="it">Itenerario</label>
+                                  <select  name="it" class="custom-select" id="it" required >
+                                    <option>Directo</option>
+                                    <option>Escalado</option>
+                    
+                                  </select>
       </div>
-     
-                                                   <div class="form-group col-md-4">
-                                                       <label for="precios">Precio</label>
-                                                       <input name="precio" type="text" class="form-control" id="precios">
-                                                     </div>
-                                                    
+      <div class="form-group col-md-3">
+        <div class="custom-control custom-checkbox">
+            <label class="custom-control-label" for="Check1">Mantenimiento</label> <br>
+          <input name="disponibilidad"   type="checkbox" class="custom-control-input" id="Check1">
+         
+        </div>
+</div>    
+
+<div class="form-group col-md-3">
+  <div class="custom-control custom-checkbox">
+      <label class="custom-control-label" for="Check2">Internet</label> <br>
+    <input name="disponibilidad2"   type="checkbox" class="custom-control-input" id="Check2">
+  </div>
+</div>
+
+<div class="form-group col-md-3">
+  <div class="custom-control custom-checkbox">
+      <label class="custom-control-label" for="Check3">TV</label> <br>
+    <input name="disponibilidad3"   type="checkbox" class="custom-control-input" id="Check3">
+  
+  </div>
+</div>
                                      
                              
                                </div>
@@ -132,13 +153,13 @@
                </tbody>
                <tfoot>
                  <tr>
-                   <td colspan="7">
+                   <td colspan="8">
                  <button type="button" class="btn" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
                      <i class="fas fa-folder-plus"></i> Crear producto </button>
          
                </td>
              </tr>
-               <tr> <td colspan="7"> <div class="collapse" id="collapseExample1">
+               <tr> <td colspan="8"> <div class="collapse" id="collapseExample1">
                  <form >
                    <div class="form-row">
                        <div class="form-group col-md-6">
