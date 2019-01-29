@@ -1,5 +1,5 @@
  
- require("dotenv").config({ path: "variables.env" });
+ //require("dotenv").config({ path: "variables.env" });
  const path = require('path');
  const express = require('express'); 
  const morgan = require ('morgan');
@@ -12,14 +12,14 @@ const bodyParser = require("body-parser");
 const sequelize = require("./config/database");
 
    //IMPORTS 
-  var indexRoutes = require('./routes/index');
+   const routes = require("./routes/index");
  
 
    //SETTINGS 
-app.set('port' , process.env.PORT || 3000) ;
-const server = app.listen(app.get("port"), () => {
-  console.log(`Express running → PORT ${server.address().port} 🔥`);
-});
+   app.set("port", process.env.PORT || 3000);
+   const server = app.listen(app.get("port"), () => {
+     console.log(`Express running → PORT ${server.address().port} 🔥`);
+   });
 
 sequelize
   .authenticate()

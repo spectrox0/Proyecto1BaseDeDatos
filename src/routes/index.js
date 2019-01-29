@@ -18,7 +18,7 @@ const router = express.Router();
 const avionController = require("../controllers/avionController");
 
 router.get("/", (req, res) => {
-  aviontController.getAviones((aviones, err) => {
+  avionController.getAviones((aviones, err) => {
     if (err)
       res.json({
         success: false,
@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
 
 router.post("/delete/:id", (req, res) => {
   if (!!req.params.id) {
-    avionesController.deleteAvion(req.params.id, (err) => {
+    avionController.deleteAvion(req.params.id, (err) => {
       if (err)
         res.json({
           success: false,
