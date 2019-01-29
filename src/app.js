@@ -1,5 +1,5 @@
  
- //require("dotenv").config({ path: "variables.env" });
+ require("dotenv").config({ path: "variables.env" });
  const path = require('path');
  const express = require('express'); 
  const morgan = require ('morgan');
@@ -13,6 +13,7 @@ const sequelize = require("./config/database");
 
    //IMPORTS 
    const routes = require("./routes/index");
+   const errorHandlers = require("./handlers/errorHandlers");
  
 
    //SETTINGS 
@@ -36,6 +37,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", routes);
+
+
+// Middleware propio
+app.use((req, res, next) => {
+  res.locals.h = helpers; // Expondra el archivo helpers en la vistas
+  res.locals.user = req.user || null; // Expondra el usuario en la vistas o sera null
+  res.locals.currentPath = req.path; // Expondra la ruta
+  next(); // Vamos a la siguiente funcion
+});
+
+// promisify convertira las algunas API basadas en callback a Promesas
+app.use((req, res, next) => {
+  req.login = promisify(req.login, req);
+  next();
+});
+
+// Si no conseguimos el archivo le mandamos 404 al cliente
+app.use(errorHandlers.notFound);
+
+// Si el error es del cliente le advertimos con un flash
+app.use(errorHandlers.flashValidationErrors);
+
+// Si estamos desarrollando y la app falla veamos donde esta el error
+if (app.get("env") === "development") {
+  app.use(errorHandlers.developmentErrors);
+}
+
+// Si la app falla y estamos en produccion los errores cambian
+app.use(errorHandlers.productionErrors);
 /*
 
 

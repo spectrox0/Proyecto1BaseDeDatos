@@ -3,7 +3,7 @@ var router = express.Router();
 const avionController = require("../controllers/avionController");
 
  router.get('/' ,(req, res ) =>{
-  res.render('index');
+  res.render('index');mv 
  });
 
  router.get('/airPlane', (req, resp ) => {
