@@ -1,7 +1,5 @@
-const sequelize = require("sequelize");
-const database= require('../config/database');
-
-    const Avion = database.define("avion", {
+module.exports = (sequelize, Sequelize)=>{
+    const avion = sequelize.define("avion", {
 
         C_avion: {
 
@@ -34,6 +32,8 @@ const database= require('../config/database');
         
     }
 })
-module.exports = Avion;
+return avion;
+}
+
 
 //avion.sync();
