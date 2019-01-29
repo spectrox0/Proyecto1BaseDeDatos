@@ -33,10 +33,27 @@ controller.deleteAvion = async function (id, callback) {
         callback(error);
     }
 }
+controller.updateAvion = async function (data, callback) {
+    try {
+        let response = await Avion.update({
+        C_avion : data.C_avion,
+        C_modelo : data.C_modelo,
+        C_estado : data.C_estado
+
+        }, {
+            where: {
+                data
+            }
+        });
+        callback(null);
+    } catch (error) {
+        callback(error);
+    }
+}
 
 controller.createAvion = async function (data, callback) {
     try {
-        console.log(data.nombre, data.precio);
+        console.log(data.C_avion, data.C_estado,C_modelo);
         // code goes here
         callback(null);
     } catch (error) {
