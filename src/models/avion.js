@@ -1,10 +1,11 @@
-module.exports = function (sequelize, DataTypes) {
+const sequelize = require("sequelize");
+const database= require('../config/database');
 
-    return sequelize.define('avion', {
+    const Avion = database.define("avion", {
 
         C_avion: {
 
-            type: DataTypes.INTEGER,
+            type: sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
@@ -12,17 +13,27 @@ module.exports = function (sequelize, DataTypes) {
 
         C_modelo: {
 
-            type: DataTypes.INTEGER,
+            type: sequelize.INTEGER,
             allowNull: false
         },
         C_estado: {
-            C_modelo: {
+            
 
-                type: DataTypes.INTEGER,
+                type: sequelize.INTEGER,
                 allowNull: false
+            
+        },
+        Activo: {
+            type: sequelize.TINYINT,
+            allowNull: false,
+            defaultValue: 1,
+    
+            validate: {
+                notEmpty: true
             }
-        }
-    })
+        
+    }
+})
+module.exports = Avion;
 
-
-}
+//avion.sync();

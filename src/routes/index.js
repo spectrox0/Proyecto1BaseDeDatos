@@ -1,21 +1,64 @@
-'use strict';
- 
-var routesIndex = function(app, controllers){
- 
-  //Index
-  app.get("/", controllers.index.main);
-  //app.route('/').get(controllers.index.main);
-  app.get("/airplane", controllers.index.airplane);
-  app.get("/client", controllers.index.cliente);
+/*var express = require('express');
+var router = express.Router();
+const avionController = require("../controllers/avionController");
 
-app.get("/flight", controllers.index.buscarDatos);
+ router.get('/' ,(req, res ) =>{
+  res.render('index');
+ });
 
+ router.get('/airPlane', (req, resp ) => {
 
-app.get("/modelAirplane", controllers.index.modelAirplane);
+    resp.render('airPlane');
+ }) ;
+module.exports = router;
 
+*/
+const express = require("express");
+const router = express.Router();
+const avionController = require("../controllers/avionController");
 
-}
+router.get("/", (req, res) => {
+  aviontController.getAviones((aviones, err) => {
+    if (err)
+      res.json({
+        success: false,
+        msg: 'Failed to show aviones'
+      });
+    else
+      res.render("index", {aviones});
+  });
+});
 
+router.post("/delete/:id", (req, res) => {
+  if (!!req.params.id) {
+    avionesController.deleteAvion(req.params.id, (err) => {
+      if (err)
+        res.json({
+          success: false,
+          msg: 'Failed to delete avion'
+        });
+      else
+        res.redirect('/');
+    });
+  }
+});
 
+router.post("/create", (req, res) => {
+  console.log('Hello from routes!');
+  console.log(req.body);
+  if (!!req.body) {
+    avionController.createAvion(req.body, (err) => {
+      if (err)
+        res.json({
+          success: false,
+          msg: 'Failed to delete avion'
+        });
+      else
+        res.redirect('/');
+    });
+  }
+});
 
-module.exports = routesIndex;
+router.get("/:id");
+
+module.exports = router;

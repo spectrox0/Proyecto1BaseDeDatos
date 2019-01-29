@@ -1,19 +1,42 @@
  
- var path = require('path');
- var express = require('express'); 
- var morgan = require ('morgan');
- var app = express(); 
- var bodyParser = require('body-parser');
+ require("dotenv").config({ path: "variables.env" });
+ const path = require('path');
+ const express = require('express'); 
+ const morgan = require ('morgan');
+ const app = express(); 
+
+
+
+const bodyParser = require("body-parser");
+;
+const sequelize = require("./config/database");
+
    //IMPORTS 
   var indexRoutes = require('./routes/index');
  
 
    //SETTINGS 
 app.set('port' , process.env.PORT || 3000) ;
-app.set('views' , path.join(__dirname,'public/views'));
-app.set('view engine','ejs');
-app.use(express.static(path.join(__dirname, 'public')));
+const server = app.listen(app.get("port"), () => {
+  console.log(`Express running → PORT ${server.address().port} 🔥`);
+});
 
+sequelize
+  .authenticate()
+  .then(value => value)
+  .catch(err => {
+    console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+  });
+
+  sequelize.sync({logging: false});
+
+app.set('views' , path.join(__dirname,'public/views'));
+app.set('view engine','pug');
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/", routes);
+/*
 
 
  //middleware 
@@ -26,7 +49,7 @@ app.use(bodyParser.json({type:'aplication/vnd.api+json'}));
  app.use('/',indexRoutes);
 
 
-
+/*
   //DataBase
 
  
@@ -44,4 +67,4 @@ app.use(bodyParser.json({type:'aplication/vnd.api+json'}));
 
  } ) ;  
 
- module.exports = app;
+ module.exports = app;*/
