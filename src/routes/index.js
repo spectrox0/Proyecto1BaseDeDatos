@@ -1,34 +1,34 @@
-var express = require('express');
-var router = express.Router();
-const avionController = require("../controllers/avionController");
+//var express = require('express');
+//var router = express.Router();
+//const avionController = require("../controllers/avionController");
 
- router.get('/' ,(req, res ) =>{
-  res.render('index');
- });
+ //router.get('/' ,(req, res ) =>{
+ // res.render('index');
+ //});
 
- router.get('/airPlane', (req, resp ) => {
+ //router.get('/airPlane', (req, resp ) => {
 
-    resp.render('airPlane');
- }) ;
-module.exports = router;
+  //  resp.render('airPlane');
+// }) ;
+//module.exports = router;
 
-/*
+
 const express = require("express");
 const router = express.Router();
 const avionController = require("../controllers/avionController");
 
 router.get("/", (req, res) => {
- /* avionController.getAviones((aviones, err) => {
+  avionController.getAviones((aviones, err) => {
     if (err)
       res.json({
         success: false,
         msg: 'Failed to show aviones'
       });
     else
-      res.render("index", {aviones});
+      res.render("aviones", {aviones});
   });
 });
-/*
+
 router.post("/delete/:id", (req, res) => {
   if (!!req.params.id) {
     avionController.deleteAvion(req.params.id, (err) => {
@@ -41,7 +41,7 @@ router.post("/delete/:id", (req, res) => {
         res.redirect('/');
     });
   }
-});*//*
+});
 
 router.post("/create", (req, res) => {
   console.log('Hello from routes!');
@@ -59,6 +59,6 @@ router.post("/create", (req, res) => {
   }
 });
 
-router.get("/:id");*/
+router.get("/:id");
 
 module.exports = router;

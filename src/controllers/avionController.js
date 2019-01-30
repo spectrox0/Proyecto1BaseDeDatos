@@ -1,15 +1,16 @@
 const sequelize = require('sequelize');
 const database = require('../config/database');
-const Avion = require('../models/Avion');
+const Avion = require('../models/avion');
 
 const controller = {};
 
 controller.getAviones = async function (callback) {
+    console.log("sasad");
     try {
         let response = await Avion.findAll({
-            where: {
-                Activo: 1
-            }
+           where: {
+               Activo: 1
+           }
         });
         let aviones = response.map(result => result.dataValues);
         console.log(aviones);
@@ -17,7 +18,7 @@ controller.getAviones = async function (callback) {
     } catch (error) {
         callback(null, error);
     }
-}
+};
 
 controller.deleteAvion = async function (id, callback) {
     try {

@@ -1,5 +1,4 @@
 
-require("dotenv").config({ path: "variables.env" });
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
@@ -33,7 +32,7 @@ sequelize
 sequelize.sync({ logging: false });
 
 app.set('views', path.join(__dirname, 'public/views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -67,6 +66,8 @@ if (app.get("env") === "development") {
 
 // Si la app falla y estamos en produccion los errores cambian
 app.use(errorHandlers.productionErrors);
+
+module.exports = app;
 /*
 
 
