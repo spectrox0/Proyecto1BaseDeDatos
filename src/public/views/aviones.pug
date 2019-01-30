@@ -1,5 +1,5 @@
 doctype html
-html(lang='en')
+<!--html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -180,4 +180,40 @@ html(lang='en')
                     .form-group.col-md-4
                       label(for='precios') Precio
                       input#precios.form-control(name='precio', type='text')
-                  button.btn.btn-primary(type='submit', data-toggle='modal', data-target='#selproductoid') Guardar
+                  button.btn.btn-primary(type='submit', data-toggle='modal', data-target='#selproductoid') Guardar -->
+
+extends base
+block content
+  .container.pt-4
+    h2 Operaciones CRUD
+    .row.mt-5
+      .col-12
+        table.table.bg-white
+          thead
+            tr
+              th(scope='col') ID
+              th(scope='col') Modelo
+              th(scope='col') Estado
+              th(scope='col')
+              th(scope='col')
+          tbody
+          - for (var i = 0; i < aviones.length; i++)
+            tr
+              th(scope='row') #{aviones[i].C_avion}
+              td #{aviones[i].C_avion}
+              td #{aviones[i].C_modelo}
+              td #{aviones[i].C_estado}
+                form(action=`show/${aviones[i].C_avion}`,method="POST")
+                  button.btn.btn-outline-dark(type='submit') Detalle
+              td
+                form(action=`delete/${aviones[i].C_avion}`,method="POST")
+                  button.btn.btn-outline-danger(type='submit') Eliminar
+        h4.mt-5 Crear Productos
+        form(action='create' method="POST")
+          .form-group
+            label(for='C_avion') Código
+            input#nombre.form-control(type='text' aria-describedby='nombre' placeholder='Nombre' name='nombre')
+          .form-group
+            label(for='C_modelo') Modelo
+            input#precio.form-control(type='number' placeholder='Precio' name='precio')
+          button.btn.btn-primary(type='submit') Crear
