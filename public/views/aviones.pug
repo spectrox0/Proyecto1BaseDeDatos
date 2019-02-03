@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel='stylesheet', type='text/css', href='../styles/bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='../styles/main.css')
+    link(href='https://fonts.googleapis.com/css?family=Bungee+Inline|Bungee+Shade|Butcherman|Ewert|Creepster|Lobster|Pacifico|Oleo+Script|Pinyon+Script|Acme|Timmana|Bree+Serif', rel='stylesheet')
+    script(defer='', src='https://use.fontawesome.com/releases/v5.3.1/js/all.js', integrity='sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB', crossorigin='anonymous')
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', integrity='sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')
+    title Document
+  body
+    header
+      nav.navbar.navbar-.bg-dark.navbar-dark
+        // Brand
+        a.navbar-brand
+          img(src='', alt='')
+        // Toggler/collapsibe Button
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#collapsibleNavbar')
+          div
+            img(src='../../images/iconiAvion.gif')
+        // Navbar links
+        #collapsibleNavbar.collapse.navbar-collapse
+          ul.nav.nav-pills.nav-fill
+            li.nav-item
+              a.nav-link(href='/airPlane')
+                i.fas.fa-utensils
+                | Aviones
+            li.nav-item
+              a.nav-link(href='/')
+                i.fas.fa-user-cog
+                | Modelos
+            li.nav-item
+              a.nav-link(href='/')
+                i.fas.fa-user-cog
+                | Vuelos
+            li.nav-item
+              a.nav-link(href='/')
+                i.fas.fa-user-cog
+                | Pasajeros
+            li.nav-item
+              a.nav-link(href='#')
+                i.fas.fa-shopping-cart
+                | Trabajadores
+            li.nav-item
+              a.nav-link(href='#')
+                i.fas.fa-history
+                | Clientes
+            li.nav-item.active
+              a.nav-link(href='#')
+                i.fas.fa-user-tie
+                | Itenerarios
+            li.nav-item
+              a.nav-link(href='#')
+                i.fas.fa-sign-out-alt
+                |  Salir
+    .container
+      .row
+        h2.titulo
+          img(src='', alt='')
+      #selpr.modal.fade
+        .modal-dialog.modal-lg
+          .modal-content
+            .modal-header
+              h3.modal-title Confirmar
+              button.close(type='button', data-dismiss='modal') ×
+            .modal-body
+              p
+                | Desea eliminar el avion
+                br
+                |                        (NO SE PODRA RECUPERAR DESPUES DE ESTO)
+                br
+                |                        Se sugiere mantener deshabilitado el campo de disponibilidad con anterioridad
+                |                        durante un tiempo para prevenir posibles problemas con clientes
+            .modal-footer
+              button.btn.btn-primary(data-toggle='modal', data-target="'#'+'myModal'+producto.id")
+                i.far.fa-times-circle
+                |  Eliminar Producto
+      table.table.table-hover
+        thead
+          tr
+            th Codigo Avion
+            th Codigo Estado
+            th Codigo Modelo
+            th IATA
+            th Internet
+            th Television
+            th Opciones
+        tbody.collection
+        - for (var i = 0; i < aviones.length; i++)
+          tr
+            td   #{aviones[i].C_avion}
+            td   #{aviones[i].C_estado}
+            td   #{aviones[i].C_modelo}
+            td   #{aviones[i].IATA} 
+            td 
+              if aviones[i].Internet == 0
+                | No
+              else
+                | Si
+            td  
+              if aviones[i].TV == 0
+                | No
+              else
+                | Si
+            td
+              form(action=`delete/${aviones[i].C_avion}`,method="POST")
+                button.btn.btn-primary(type='submit')
+                  i.far.fa-times-circle
+                  |  Eliminar
+              
+              form
+                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#avionesC${aviones[i].C_avion}`)
+                  i.fas.fa-edit
+                  |  Editar
+          .modal.fade(id=`avionesC${aviones[i].C_avion}`)
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  h3.modal-title Edicion Avion
+                  button.close(type='button', (click)='clearState()', data-dismiss='modal') ×
+                .modal-body
+                  form(action=`update/${aviones[i].C_avion}`, method="POST")
+                    .form-row
+                      .form-group.col-md-6
+                        label(for=`estado${aviones[i].C_avion}`) Codigo Estado
+                        select(id=`estado${aviones[i].C_avion}`, name='estado', required='')
+                          option 1212
+                          option 41212
+                          option 4121
+                          option 4121
+                      .form-group.col-md-6
+                        label(for=`modelo${aviones[i].C_avion}`) CodigoModelo
+                        select(id= `modelo${aviones[i].C_avion}`, name='modelo', required='')
+                          option 1212
+                          option 412312
+                          option 56343
+                    .form-row
+                      .form-group.col-md-3
+                        label(for=`IATA${aviones[i].C_avion}`) CodigoIATA
+                        select(id=`IATA${aviones[i].C_avion}`, name='IATA', required='')
+                          option #{aviones[i].IATA}
+                          option 1212
+                          option 412312
+                          option 56343
+                      .form-group.col-md-4
+                        .custom-control.custom-checkbox
+                          input.custom-control-input(id=`TV${aviones[i].C_avion}`,name='TV', type='checkbox')
+                          br
+                          label.custom-control-label(for=`TV${aviones[i].C_avion}`) TV
+                      .form-group.col-md-4
+                        .custom-control.custom-checkbox
+                          input.custom-control-input(id=`Internet${aviones[i].C_avion}`,name='Internet', type='checkbox')
+                          br
+                          label.custom-control-label(for=`Internet${aviones[i].C_avion}`) Internet
+                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#avionesC${aviones[i].C_avion}`) Actualizar
+      
+        tfoot
+          tr
+            td(colspan='8')
+              button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+                i.fas.fa-folder-plus
+                |  Crear producto
+          tr
+            td(colspan='8')
+              #collapseExample1.collapse
+                form(action='create' method="POST")
+                  .form-row
+                    .form-group.col-md-6
+                      label(for='estado') Codigo Estado
+                      select#avion.custom-select(name='estado', required='')
+                        option 1212
+                        option 41212
+                        option 4121
+                        option 4121
+                    .form-group.col-md-6
+                      label(for='modelo') CodigoModelo
+                      select#it.custom-select(name='modelo', required='')
+                        option 1212
+                        option 412312
+                        option 56343
+                  .form-row
+                    .form-group.col-md-3
+                      label(for='IATA') CodigoIATA
+                      select#it.custom-select(name='IATA', required='')
+                        option 1212
+                        option 412312
+                        option 56343
+                    .form-group.col-md-4
+                      .custom-control.custom-checkbox
+                        input#TV122.custom-control-input(name='TV', type='checkbox')
+                        br
+                        label.custom-control-label(for='TV122') TV
+                    .form-group.col-md-4
+                      .custom-control.custom-checkbox
+                        input.custom-control-input(id="Internet12" ,name='Internet', type='checkbox')
+                        br
+                        label.custom-control-label(for='Internet12') Internet
+                  button.btn.btn-primary(type='submit') Guardar
