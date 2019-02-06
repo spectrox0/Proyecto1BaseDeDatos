@@ -57,7 +57,7 @@ html(lang='en')
               a.nav-link(href='#')
                 i.fas.fa-sign-out-alt
                 |  Salir
-    .container
+    .cuerpo
       .row
         h2.titulo
           img(src='', alt='')
@@ -127,6 +127,7 @@ html(lang='en')
                     .form-row
                       .form-group.col-md-6
                         label(for=`estado${aviones[i].C_avion}`) Codigo Estado
+                        br
                         select(id=`estado${aviones[i].C_avion}`, name='estado', required='')
                           option 1212
                           option 41212
@@ -134,6 +135,7 @@ html(lang='en')
                           option 4121
                       .form-group.col-md-6
                         label(for=`modelo${aviones[i].C_avion}`) CodigoModelo
+                        br
                         select(id= `modelo${aviones[i].C_avion}`, name='modelo', required='')
                           option 1212
                           option 412312
@@ -141,6 +143,7 @@ html(lang='en')
                     .form-row
                       .form-group.col-md-3
                         label(for=`IATA${aviones[i].C_avion}`) CodigoIATA
+                        br
                         select(id=`IATA${aviones[i].C_avion}`, name='IATA', required='')
                           option #{aviones[i].IATA}
                           option 1212
@@ -178,6 +181,7 @@ html(lang='en')
                         option 4121
                     .form-group.col-md-6
                       label(for='modelo') CodigoModelo
+                      br
                       select#it.custom-select(name='modelo', required='')
                         option 1212
                         option 412312
@@ -185,6 +189,7 @@ html(lang='en')
                   .form-row
                     .form-group.col-md-3
                       label(for='IATA') CodigoIATA
+                      br
                       select#it.custom-select(name='IATA', required='')
                         option 1212
                         option 412312

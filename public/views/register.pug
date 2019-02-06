@@ -1,0 +1,20 @@
+extends base
+block content
+    .contenedorF
+        .toggle
+            span
+                a(href="/login")
+                    | Login
+        .formular
+            .container.logo
+                
+            h2  Registro
+            form(action='register' method="POST")
+                input#name.form-control(type='text', name='name',placeholder='Ingrese su nombre', required='')
+                input#apellido.form-control(type='text', name='apellido',placeholder='Ingrese su nombre', required='')
+                input#cedula.form-control( name='Cedula',placeholder='Ingrese su cedula', type="number" required='')
+                input#cedula.form-control( name='Telefono',placeholder='Ingrese su telefono', type="text" required='')
+                input#email.form-control(type='email', name='Email', placeholder='Ingrese su correo', required='')
+                input#password.form-control(type='password',  name='password', placeholder='Ingrese su password', minlength='6', maxlength='20', required='')
+                input#password2.form-control(type='password' name='password2', placeholder='Ingrese su password de nuevo', minlength='6', maxlength='20', required='')
+                input(type='submit', value='Registrarse')
