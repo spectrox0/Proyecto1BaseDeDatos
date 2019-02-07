@@ -20,17 +20,18 @@ a{
 @media (min-width: 100px) {
   .cuerpo{
     font-family: 'Acme' , sans-serif;
+    padding:50px;
    padding-top: 54px;
    padding-bottom: 20px;
  margin-bottom: 0px;
  margin-top : 0px;
+ background: radial-gradient(rgba(0,0,0,0.03),rgba(0,0,0,0.3),rgba(0,0,0,1)) ,url(../images/fondo1.jpg);
  background-position: top left;
  background-repeat: no-repeat;
  background-attachment: fixed;
   background-size: cover;
   min-height: 100%;
   min-width: 100%;
-  background: radial-gradient(rgba(0,0,0,0.03),rgba(0,0,0,0.3),rgba(0,0,0,1)) ,url(../images/fondo1.jpg);
   }
 
  }

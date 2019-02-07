@@ -13,12 +13,55 @@ html(lang='en')
     script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')
     title Document
   body
+    header
+      nav.navbar.navbar-.bg-dark.navbar-dark
+        // Brand
+        a.navbar-brand
+          img(src='', alt='')
+        // Toggler/collapsibe Button
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#collapsibleNavbar')
+          div
+            img(src='../../images/iconiAvion.gif')
+        // Navbar links
+        #collapsibleNavbar.collapse.navbar-collapse
+          ul.nav.nav-pills.nav-fill
+            li.nav-item
+              a.nav-link(href='/airPlane')
+                i.fas.fa-utensils
+                | Aviones
+            li.nav-item
+              a.nav-link(href='/')
+                i.fas.fa-user-cog
+                | Modelos
+            li.nav-item
+              a.nav-link(href='/')
+                i.fas.fa-user-cog
+                | Vuelos
+            li.nav-item
+              a.nav-link(href='/')
+                i.fas.fa-user-cog
+                | Pasajeros
+            li.nav-item
+              a.nav-link(href='#')
+                i.fas.fa-shopping-cart
+                | Trabajadores
+            li.nav-item
+              a.nav-link(href='#')
+                i.fas.fa-history
+                | Clientes
+            li.nav-item.active
+              a.nav-link(href='#')
+                i.fas.fa-user-tie
+                | Itenerarios
+            li.nav-item
+              a.nav-link(href='#')
+                i.fas.fa-sign-out-alt
+                |  Salir
+    
     .cuerpo
       block content
-    
+  
 
     footer.page-footer.font-small.unique-color-dark.footer-copyright.text-center.py-3
         | © 2018 Copyright
     // Copyright
-
-       

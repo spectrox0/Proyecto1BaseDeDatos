@@ -1,9 +1,5 @@
-const sequelize = require('sequelize');
-const db = require('../config/db');
 const Avion = require('../models/Avion');
-
-const controller = {};
-
+/*
 controller.getAviones = async function (callback) {
     try {
         let response = await Avion.findAll({
@@ -17,8 +13,45 @@ controller.getAviones = async function (callback) {
     } catch (error) {
         callback(null, error);
     }
-}
+} */
 
+
+exports.getAviones = async (req, res) => {
+    let aviones = await Avion.findAll( {
+        where: {
+        Activo:1
+    }
+});
+    aviones = aviones.map(val => val.dataValues);
+    if (aviones) {
+      return res.render("aviones", {aviones});
+    }
+  };
+
+  exports.create = async (req, res) => {
+    const { estado, modelo, IATA,TV, Internet} = req.body;
+    var tv, internet ;
+        
+    if (TV=='on') {
+        tv=1;
+    } else tv=0;
+    if (Internet=='on') {
+        internet=1
+    } else internet=0;
+    const aviones = await Avion.build({
+        C_estado: req.body.estado,
+        C_modelo: req.body.modelo,
+        IATA: req.body.IATA,
+        TV: tv,
+        Internet : internet
+    });
+    await aviones.save();
+    if (!!aviones) {
+      return res.redirect("/aviones");
+    }
+    // req.flash({ 'error': 'No se creo' });
+  };
+ /*
 controller.deleteAvion= async function (C_avion, callback) {
     try {
         let response = await Avion.update({
@@ -58,11 +91,48 @@ controller.createAvion = async function (data, callback) {
         callback(error);
     }
 }
+  */
+exports.update = async (req, res) => {
+    const C_avion = req.params.id;
+    var tv, internet ;
+          if (req.body.TV=='on') {
+              tv=1;
+          } else tv=0;
+          if (req.body.Internet=='on') {
+              internet=1
+          } else internet=0;
+    const aviones = await Avion.update(
+      {  C_estado: req.body.estado,
+        C_modelo: req.body.modelo,
+        IATA: req.body.IATA,
+        TV: tv,
+        Internet : internet},
+      { where: {C_avion} }
+    );
+    // await aviones.save();
+    if (!!aviones) {
+      return res.redirect("/aviones");
+    }
+  };
 
+  exports.delete = async (req, res) => {
+    const C_avion=req.params.id;
+    const response = await Avion.update({
+        Activo: false
+    }, {
+        where: {
+            C_avion
+        }
+    });
+    if (!!response) {
+        return res.redirect("/aviones");
+      }
+
+  };
+  /*
 controller.updateAvion = async function (data,C_avion, callback) {
     try {
          var tv, internet ;
-         console.log('Llego aca');
           if (data.TV=='on') {
               tv=1;
           } else tv=0;
@@ -84,6 +154,4 @@ controller.updateAvion = async function (data,C_avion, callback) {
     } catch (error) {
         callback(error);
     }
-}
-
-module.exports = controller;
+}  */

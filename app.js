@@ -1,42 +1,32 @@
-require("dotenv").config({ path: "variables.env" });
-const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const path = require("path");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const passport = require("passport");
 const promisify = require("es6-promisify").promisify;
 const flash = require("connect-flash");
 const expressValidator = require("express-validator");
-const bodyParser = require("body-parser");
-const routes = require("./routes/index");
 const sequelize = require("./config/db");
-const app = express();
-const helpers = require('./helpers');
-require("./config/passport");
+const routes = require("./routes/index");
+const helpers = require("./helpers");
 const errorHandlers = require("./handlers/errorHandlers");
+require("./config/passport");
 
-app.set("views", path.join(__dirname, "public/views"));
-app.set("view engine", "pug");
+// Creamos La aplicacion en Express
+const app = express();
+
+// Configuramos el Template Engine
+app.set("views", path.join(__dirname, "public/views")); // En la carpeta views es donde todos los archivos .pug deben estar
+app.set("view engine", "pug"); // En este caso estamos usando pug, pero ejs o handler bar tambien puede funcionar
+
+// Esta linea nos permite servir los archivos estaticos que se encuentran en el servidor, como las fotos, js y css
 app.use(express.static(path.join(__dirname, "public")));
+
+// Este middleware va convertir las peticiones a json para facilitarnos la vida
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/", routes);
-
-sequelize
-  .authenticate()
-  .then(value => value)
-  .catch(err => {
-    console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
-  });
-
-  sequelize.sync({logging: false});
-
-app.set("port", process.env.PORT || 7777);
-const server = app.listen(app.get("port"), () => {
-  console.log(`Express running → PORT ${server.address().port} 🔥`);
-});
-
 
 // Con esto vamos a tener validaciones que viene por defecto
 app.use(expressValidator());
@@ -61,7 +51,6 @@ app.use(
   })
 );
 store.sync();
-
 // Passport JS es una libreria que nos va a permitir manejar nuestros logins
 app.use(passport.initialize());
 app.use(passport.session());
@@ -71,18 +60,21 @@ app.use(flash());
 
 // Middleware propio
 app.use((req, res, next) => {
-  res.locals.h = helpers; // Expondra el archivo helpers en las vistas
-  res.locals.flashes = req.flash(); // Expondra los flashes en las vistas
-  res.locals.user = req.user || null; // Expondra el usuario en las vistas o sera null
+  res.locals.h = helpers; // Expondra el archivo helpers en la vistas
+  res.locals.flashes = req.flash(); // Expondra los flashes en la vistas
+  res.locals.user = req.user || null; // Expondra el usuario en la vistas o sera null
   res.locals.currentPath = req.path; // Expondra la ruta
   next(); // Vamos a la siguiente funcion
 });
 
-// promisify convertira algunas API basadas en callback a Promesas
+// promisify convertira las algunas API basadas en callback a Promesas
 app.use((req, res, next) => {
   req.login = promisify(req.login, req);
   next();
 });
+
+// Configuracion de las rutas
+app.use("/", routes);
 
 // Si no conseguimos el archivo le mandamos 404 al cliente
 app.use(errorHandlers.notFound);
@@ -97,8 +89,6 @@ if (app.get("env") === "development") {
 
 // Si la app falla y estamos en produccion los errores cambian
 app.use(errorHandlers.productionErrors);
-
-sequelize.sync();
 
 // Listo muchachos hora de trabajar, vamos a start.js
 module.exports = app;

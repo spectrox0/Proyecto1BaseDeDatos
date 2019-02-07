@@ -5,13 +5,13 @@ const User = require("../models/cliente");
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "Nombre",
+      usernameField: "email",
       passwordField: "password",
       session: false
     },
-    async (name, password, done) => {
+    async (email, password, done) => {
       try {
-        const user = await User.findOne({ name });
+        const user = await User.findOne({ email });
         if (!user) {
           return done(null, false, { message: "Incorrect username." });
         }
