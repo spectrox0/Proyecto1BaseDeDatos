@@ -21,42 +21,20 @@ html(lang='en')
         // Toggler/collapsibe Button
         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#collapsibleNavbar')
           div
-            img(src='../../images/iconiAvion.gif') Ingresa
+            img(src='../../images/iconiAvion.gif')
+            | Ingresa
         // Navbar links
         #collapsibleNavbar.collapse.navbar-collapse
           ul.nav.nav-pills.nav-fill
             li.nav-item
               a.nav-link(href='/airPlane')
                 i.fas.fa-utensils
-                | Aviones
+                | Registro
             li.nav-item
               a.nav-link(href='/')
                 i.fas.fa-user-cog
-                | Modelos
-            li.nav-item
-              a.nav-link(href='/')
-                i.fas.fa-user-cog
-                | Vuelos
-            li.nav-item
-              a.nav-link(href='/')
-                i.fas.fa-user-cog
-                | Pasajeros
-            li.nav-item
-              a.nav-link(href='#')
-                i.fas.fa-shopping-cart
-                | Trabajadores
-            li.nav-item
-              a.nav-link(href='#')
-                i.fas.fa-history
-                | Clientes
-            li.nav-item.active
-              a.nav-link(href='#')
-                i.fas.fa-user-tie
-                | Itenerarios
-            li.nav-item
-              a.nav-link(href='#')
-                i.fas.fa-sign-out-alt
-                |  Salir
+                | Ingresar
+           
     
     .cuerpo
       block content

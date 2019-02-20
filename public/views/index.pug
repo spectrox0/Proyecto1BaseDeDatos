@@ -1,7 +1,41 @@
-extends base
+extends base3
 block content
-  .containerH
-    .row
-      .col-sm-4
-        h2
-        | Hola
+  .contenedorF
+  
+    h2
+      | Buscar Vuelo
+    hr
+    form 
+      .form-row 
+        .form-group.col-md-6
+          label(for='Origen') Origen
+          br
+          select(id='Origen', name='origen', required='')
+            option Miami
+            option New York
+            option Caracas
+            option Paris
+        .form-group.col-md-6
+          label(for='Destino') Destino
+          br
+          select(id='Destino', name='destino', required='')
+            option Miami
+            option New York
+            option Caracas
+            option Paris
+      .form-row
+        .form-group.col-md-6
+          label(for="Fecha") --Fecha de salida
+            br
+            input(type='date', name='fecha', required='')
+        .form-group.col-md-6 
+          .switch-field
+            .switch-title Tipo de Vuelo
+            input#escalado(type='radio', name='tipo', value='Escalado')
+            label(for='escalado') Escalado
+            input#directo(type='radio', name='tipo', value='Directo', checked='')
+            label(for='directo') Directo
+      .form-row
+        input(type='submit', value='Buscar')
+
+        
