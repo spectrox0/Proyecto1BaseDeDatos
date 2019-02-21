@@ -5,8 +5,8 @@ const bcrypt = require("bcryptjs");
 const sequelize = require("../config/db");
 const { SALT } = process.env;
 
-const Vuelo = db.define('vuelo', {
-    C_vuelo: {
+const Boleto = db.define('boleto', {
+    C_boleto: {
 
         type: sequelize.INTEGER,
         primaryKey: true,
@@ -14,32 +14,28 @@ const Vuelo = db.define('vuelo', {
         allowNull: false
     },
 
-    C_avion: {
+    C_vuelo: {
 
         type: sequelize.INTEGER,
         allowNull: false
     },
-    Fecha_salida: {
-        
-
-            type: sequelize.STRING,
-            allowNull: false
-        
-    },
-    Hora_salida: {
-        
-
-        type: sequelize.STRING,
-        allowNull: false
     
-},
- hora_llegada: {
-        
+    C_asiento: {
 
-    type: sequelize.STRING,
-    allowNull: false
+        type: sequelize.INTEGER,
+        allowNull: false
+    },
+    Pasaporte_P: {
 
-},
+        type: sequelize.INTEGER,
+        allowNull: false
+    },
+    C_equipaje: {
+
+        type: sequelize.INTEGER,
+        allowNull: false
+    },
+   
     Activo: {
         type: sequelize.TINYINT,
         allowNull: false,
@@ -55,4 +51,4 @@ const Vuelo = db.define('vuelo', {
     freezeTableName: true
 } );
 
-module.exports = Vuelo;
+module.exports = Boleto;

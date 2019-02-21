@@ -59,6 +59,15 @@ a{
      object-fit: fill;
      opacity:0.7;
    }
+    h2 img {
+     border-radius:none;
+    width: auto; 
+    height: auto;
+    max-height: 100px;
+    max-width: 300px;
+    object-fit: fill;
+    opacity:1;
+  }
    .navbar-toggler:hover div img{
     opacity:1;
     transition: all .5s ease;

@@ -30,20 +30,21 @@ exports.getAviones = async (req, res) => {
 
   exports.create = async (req, res) => {
     const { estado, modelo, IATA,TV, Internet} = req.body;
-    var tv, internet ;
+    /* var tv, internet ;
         
     if (TV=='on') {
         tv=1;
     } else tv=0;
     if (Internet=='on') {
         internet=1
-    } else internet=0;
+    } else internet=0; */
+
     const aviones = await Avion.build({
         C_estado: req.body.estado,
         C_modelo: req.body.modelo,
-        IATA: req.body.IATA,
-        TV: tv,
-        Internet : internet
+        //IATA: req.body.IATA,
+       // TV: tv,
+       // Internet : internet
     });
     await aviones.save();
     if (!!aviones) {
@@ -94,19 +95,19 @@ controller.createAvion = async function (data, callback) {
   */
 exports.update = async (req, res) => {
     const C_avion = req.params.id;
-    var tv, internet ;
+     /*var tv, internet ;
           if (req.body.TV=='on') {
               tv=1;
           } else tv=0;
           if (req.body.Internet=='on') {
               internet=1
-          } else internet=0;
+          } else internet=0; */
     const aviones = await Avion.update(
       {  C_estado: req.body.estado,
-        C_modelo: req.body.modelo,
-        IATA: req.body.IATA,
-        TV: tv,
-        Internet : internet},
+        C_modelo: req.body.modelo},
+       // IATA: req.body.IATA,
+       // TV: tv,
+        //Internet : internet},
       { where: {C_avion} }
     );
     // await aviones.save();

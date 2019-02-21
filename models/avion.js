@@ -31,33 +31,7 @@ const Avion = db.define('avion', {
         validate: {
             notEmpty: true
         }
-    } ,
-    Internet: {
-        type: sequelize.TINYINT,
-        allowNull: false,
-        defaultValue: 0,
-
-        validate: {
-            notEmpty: true
-        }
-    } ,
-    TV: {
-        type: sequelize.TINYINT,
-        allowNull: false,
-        defaultValue: 0,
-
-        validate: {
-            notEmpty: true
-        }
-    } ,
-    IATA: {
-        
-
-        type: sequelize.INTEGER,
-        allowNull: true
-    
-}
-
+    } 
 }, {
     timestamps: false,
     freezeTableName: true
