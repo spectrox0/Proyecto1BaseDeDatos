@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const avionController = require("../controllers/avionController");
+const vueloController = require("../controllers/vuelosController");
 const passport = require("passport");
 const bcrypt = require("bcryptjs")
 const User = require('../models/cliente');
@@ -10,7 +11,7 @@ const userController = require("../controllers/userController");
 const { catchErrors } = require("../handlers/errorHandlers");
 
 router.get("/", (req, res) => {
-  res.redirect('/aviones');
+  res.redirect('/index');
 });
 
 router.get("/login", (req, res) => {
@@ -42,9 +43,15 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.get("/findVuelo", (req, res) => {
-  res.render("findVuelo");
-});
+ //router.get("/findVuelo", (req, res) => {
+
+
+
+//res.render("findVuelo");
+//});
+ 
+ router.post("/findVuelo", catchErrors(vueloController.getVuelos));
+
 router.get("/index", (req, res) => {
   res.render("index");
 });

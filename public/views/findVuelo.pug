@@ -13,15 +13,16 @@ block content
         table.table-responsive-sm
           thead
             tr
-              th Fecha
-              th Hora
+              th Hora Salida
+              th Hora Entrada
               th Escalas
               th Precio
               th
           tbody
+          - for (var i = 0; i < vuelos.length; i++)
             tr
-              td Kate
-              td Moss
+              td #{vuelos[i].Hora_salida}
+              td #{vuelos[i].hora_llegada}
               td USA
               td New York City
               td 

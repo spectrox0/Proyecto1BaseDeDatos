@@ -9,16 +9,16 @@ block content
     h2
       | Buscar vuelo
     hr
-    form 
+    form(action='/findVuelo',method="POST") 
       .form-row 
         .form-group.col-md-6
           label(for='Origen') Origen
           br
           select(id='Origen', name='origen', required='')
-            option Miami
-            option New York
-            option Caracas
-            option Paris
+            option(value='Miami') Miami
+            option(value='sasa') New York
+            option(value='caca') Caracas
+            option(value='shit') Paris
         .form-group.col-md-6
           label(for='Destino') Destino
           br

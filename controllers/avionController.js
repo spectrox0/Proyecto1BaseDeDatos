@@ -1,4 +1,4 @@
-const Avion = require('../models/Avion');
+const Avion = require('../models/avion');
 /*
 controller.getAviones = async function (callback) {
     try {
