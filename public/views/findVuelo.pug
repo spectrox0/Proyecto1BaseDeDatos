@@ -1,29 +1,33 @@
 extends base3
 block content
-  .row 
-    h2 
-      | Vuelos Disponibles
-  .row 
+  .contenedor2
     .row 
-      table.table.table-striped.w-auto
-        thead
-          tr
-            th #
-            th Name
-            th Surname
-            th Country
-            th City
-            th Position
-            th Age
-        tbody
-          tr.table-info
-            th(scope='row') 1
-            td Kate
-            td Moss
-            td USA
-            td New York City
-            td Web Designer
-            td 23
-         
-    // Table body
-  // Table
+      a(href="#")
+        img(src="../images/Back.png")
+
+      h2 
+        | Vuelos Disponibles
+    .row 
+    form
+      .form-row 
+        table.table-responsive-sm
+          thead
+            tr
+              th Fecha
+              th Hora
+              th Escalas
+              th Precio
+              th
+          tbody
+            tr
+              td Kate
+              td Moss
+              td USA
+              td New York City
+              td 
+                input(type="radio", name="vueloSel", id="a" )
+      hr          
+      .form-row
+        input(type="submit" , value ="Comprar")
+      // Table body
+    // Table

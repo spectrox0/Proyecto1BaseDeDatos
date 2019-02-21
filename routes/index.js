@@ -36,12 +36,15 @@ router.get("signup", (req, res) => {
 });
 router.post("signup", userController.signup, authController.signin);
 
-module.exports = router;
- /*
+
+ 
 router.get("/register", (req, res) => {
   res.render("register");
-}); */
+});
 
+router.get("/findVuelo", (req, res) => {
+  res.render("findVuelo");
+});
 router.get("/index", (req, res) => {
   res.render("index");
 });

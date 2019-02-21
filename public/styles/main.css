@@ -17,6 +17,7 @@ a{
 }
 
 
+
 @media (min-width: 100px) {
   .cuerpo{
     font-family: 'Acme' , sans-serif;
@@ -372,7 +373,7 @@ text-shadow: 0px 0px 4px whitesmoke;
   background: radial-gradient(rgba(116, 7, 49, 0.4),rgba(0, 0, 0, 0.5),rgba(0, 0, 0,1));
     border: 1px ridge black;
     box-shadow: 5px 5px 10px  rgba(0,0,0,0.7);
-    max-width: 500px;
+    max-width: 1000px;
     width: 100%;
     margin: 20px auto;
     border-radius: 3px;
@@ -519,9 +520,7 @@ text-shadow: 0px 0px 4px whitesmoke;
 	overflow: hidden;
 }
 
-.switch-title {
 
-}
 
 .switch-field input {
     position: absolute !important;
@@ -561,7 +560,7 @@ text-shadow: 0px 0px 4px whitesmoke;
 }
 
 .switch-field input:checked + label {
-  background-color: rgb(0, 110, 236);
+  background-color: rgb(16, 223, 205,0.5);
   -webkit-box-shadow: none;
   box-shadow: 0px 0px 6px rgb(0, 110, 236);
 }
@@ -574,3 +573,54 @@ text-shadow: 0px 0px 4px whitesmoke;
   border-radius: 0 4px 4px 0;
 }
 
+.contenedor2{
+  background: radial-gradient(rgba(24, 23, 23, 0.1),rgba(34, 34, 34, 0.2),rgba(0, 0, 0, 0.3));
+    border: 0.3px ridge rgb(5, 5, 5) ;
+    box-shadow: 5px 5px 10px  rgba(0, 0, 0, 0.8);
+    max-width: 1800px;
+    width: 100%;
+    margin: 20px auto;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    position: relative;
+    
+    padding: 40px;
+}
+.contenedor2 h2 {text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+font-size:30px; 
+text-shadow: 0px 0px 10px white;}
+  
+.contenedor2 table {
+  width:100%;
+  margin-left: auto;
+  font-size:25px;
+  margin-right: auto;
+  max-width: 900px;
+}
+.contenedor2 thead {
+  border-bottom: solid 0.5px whitesmoke;
+}
+.contenedor2 a img{
+  border:solid blue 1px;
+}
+
+.contenedor2 input[type="submit"]{
+  margin-top:25px;
+ width: 100%;
+ margin-left: auto;
+ margin-right: auto;
+ background: linear-gradient(rgba(21, 255, 0, 0.4),rgb(21, 255, 0));
+
+ border-radius: 10px;
+ border: 1px ridge rgb(127, 255, 0);
+ padding: 5px 0;
+ font-size: 1.2em;
+ font-weight: bold;
+ font-family: 'Acme', sans-serif;
+ letter-spacing: 0.5px;
+ cursor: pointer;
+ transition: all .5s ease;
+max-width: 600px;
+}
