@@ -1,27 +1,64 @@
 const Vuelo = require('../models/vuelo');
 const Itinerario = require('../models/itinerario');
 const Aeropuerto = require('../models/aeropuerto')
+const Avion = require("../models/avion") ;
 
-Vuelo.hasOne(Itinerario ,  {foreignKey: 'C_itinerario'});
+Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
+Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
+
+Avion.hasMany(Itinerario ,  {foreignKey: 'C_itinerario', sourceKey:'C_itinerario'}); 
+Itinerario.belongsTo(Avion, {foreignKey: 'C_itinerario' ,targetKey:'C_itinerario'}) ;
 
 exports.getVuelos = async (req, res) => {
+  
     let vuelos = await Vuelo.findAll({
-        where: {
-        Activo:1, 
-        Fecha_Salida: req.body.fecha,
-    } , 
-    include:[{
-      model: Itinerario,
-      where: {
-        IATA_origen: req.body.origen, 
-        IATA_destino: req.body.destino
-      }
-    } ]
+  
+        include:[{
+        model: Avion,
+        required:true,
+        include: [{
+          model:Itinerario,
+           where: {
+            IATA_origen: req.body.origen,
+            IATA_destino: req.body.destino
+           },
+          
+           
+         }
+        ] ,
+  }] ,
+   where : { 
+     Activo:1, 
+     Fecha_salida: req.body.fecha
+   }
+        
+ 
+    
+  
      
 });    
     vuelos = vuelos.map(val => val.dataValues);
-
+    let Origen, Destino ; 
+       Origen = await Aeropuerto.findAll( {
+         where: {
+           IATA: req.body.origen
+         } }
+       )
+       Destino = await Aeropuerto.findAll( {
+        where: {
+          IATA: req.body.destino
+        } }
+      ) 
+      Origen = Origen.map(val => val.dataValues);
+      Destino = Destino.map(val => val.dataValues);
+   
+     
+    
+     
+  
+  
     if (vuelos) {
-      return res.render("findVuelo", {vuelos});
+     
+      return res.render("findVuelo", {vuelos,Origen,Destino} );
     }
   };

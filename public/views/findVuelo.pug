@@ -6,7 +6,9 @@ block content
         img(src="../images/Back.png")
 
       h2 
-        | Vuelos Disponibles
+        | Vuelos
+        br
+        | #{Origen[0].Ciudad} -- #{Destino[0].Ciudad}
     .row 
     form
       .form-row 
@@ -14,17 +16,13 @@ block content
           thead
             tr
               th Hora Salida
-              th Hora Entrada
-              th Escalas
-              th Precio
+              th Hora llegada
               th
           tbody
           - for (var i = 0; i < vuelos.length; i++)
             tr
               td #{vuelos[i].Hora_salida}
               td #{vuelos[i].hora_llegada}
-              td USA
-              td New York City
               td 
                 input(type="radio", name="vueloSel", id="a" )
       hr          

@@ -35,11 +35,6 @@ const Vuelo = db.define('vuelo', {
     allowNull: false
 
 },
-C_itinerario: {
-
-    type: sequelize.INTEGER,
-    allowNull: false
-},
     Activo: {
         type: sequelize.TINYINT,
         allowNull: false,

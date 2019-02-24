@@ -23,6 +23,11 @@ const Avion = db.define('avion', {
             allowNull: false
         
     },
+    C_itinerario: {
+
+        type: sequelize.INTEGER,
+        allowNull: false
+    },
     Activo: {
         type: sequelize.TINYINT,
         allowNull: false,
