@@ -51,7 +51,9 @@ router.get("/register", (req, res) => {
 //});
  
  router.post("/findVuelo", catchErrors(vueloController.getVuelos));
-
+ router.get("/formularioCompra", (req,res) => {
+   res.render("formularioCompra");
+ }) 
 router.get("/index", (req, res) => {
   res.render("index");
 });

@@ -309,6 +309,7 @@ a{
  .form-group {
   text-align: center;
 }
+
 .form-group input, .form-group select,.form-group textarea{
   background: rgba(0, 0, 0, 0.5);
   border: rgb(16, 223, 205) 0.8px ridge;
@@ -414,7 +415,7 @@ text-shadow: 0px 0px 4px whitesmoke;
   line-height: 1;
   text-align: center;
   font-family: 'Oleo Script',cursive;
-  text-shadow: 0px 0px 10px crimson;
+  text-shadow: 0px 0px 10px rgb(20, 220, 203);
   font-size: 45px;
 
 }
@@ -457,16 +458,19 @@ text-shadow: 0px 0px 4px whitesmoke;
    outline: none;
    display: block;
    width: 100%;
+   max-width: 400px;
    padding: 10px 15px;
-   margin: 0 0 20px 0;
+   margin-bottom: 20px;
+   margin-left: auto;
+   margin-right: auto;
    background: rgba(0,0,0,.5);
    text-align: center;
    color: white;
-   border: ridge 2px #cf0520;
+   border: ridge 0.5px rgb(16, 223, 205);
    border-radius: 2px;
    border-bottom-left-radius: 10px;
    border-bottom-right-radius: 10px;
-   box-shadow: 0px 4px 5px #cf0520;
+   box-shadow: 0px 4px 5px rgb(16, 223, 205);
    box-sizing: border-box;
    font-size: 16px;
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -484,10 +488,13 @@ text-shadow: 0px 0px 4px whitesmoke;
 .contenedorF input[type="submit"] {
   background: linear-gradient(rgba(21, 255, 0, 0.4),rgb(21, 255, 0));
   color: #FFF;
+ 
   width: 100%;
   border-radius: 10px;
   border: 1px ridge rgb(127, 255, 0);
   padding: 5px 0;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 1.2em;
   font-weight: bold;
   font-family: 'Acme', sans-serif;
