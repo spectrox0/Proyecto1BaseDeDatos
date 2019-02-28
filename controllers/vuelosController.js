@@ -2,7 +2,7 @@ const Vuelo = require('../models/vuelo');
 const Itinerario = require('../models/itinerario');
 const Aeropuerto = require('../models/aeropuerto')
 const Avion = require("../models/avion") ;
-
+const modeloAsiento = require("../models/modeloAsiento");
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
 Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 
@@ -21,23 +21,26 @@ exports.getVuelos = async (req, res) => {
            where: {
             IATA_origen: req.body.origen,
             IATA_destino: req.body.destino
-           },
-          
-           
-         }
-        ] ,
+           }, } ] 
   }] ,
    where : { 
      Activo:1, 
      Fecha_salida: req.body.fecha
    }
+
         
  
     
   
      
-});    
+});
+
     vuelos = vuelos.map(val => val.dataValues);
+    asientos = {}; 
+    vuelos.forEach( res=> {
+      
+
+    } )
     let Origen, Destino ; 
        Origen = await Aeropuerto.findAll( {
          where: {

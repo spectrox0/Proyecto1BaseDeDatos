@@ -19,6 +19,8 @@ block content
             option(value="UN") New York
             option(value="VC") Caracas
             option(value="FP") Paris
+            option(value="AUD") Dubai
+            option(value="UA") Atlanta
         .form-group.col-md-6
           label(for='Destino') Destino
           br
@@ -27,18 +29,15 @@ block content
             option(value="UN") New York
             option(value="VC") Caracas
             option(value="FP") Paris
+            option(value="AUD") Dubai
+            option(value="UA") Atlanta
       .form-row
         .form-group.col-md-6
           label(for="Fecha") --Fecha de salida
             br
             input(type='date', name='fecha', required='')
-        .form-group.col-md-6 
-          .switch-field
-            .switch-title Tipo de Vuelo
-            input#escalado(type='radio', name='tipo', value='Escalado')
-            label(for='escalado') Escalado
-            input#directo(type='radio', name='tipo', value='Directo', checked='')
-            label(for='directo') Directo
+        
+          
       .form-row
         input(type='submit', value='Buscar')
 

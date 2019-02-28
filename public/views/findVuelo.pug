@@ -10,21 +10,30 @@ block content
         br
         | #{Origen[0].Ciudad} -- #{Destino[0].Ciudad}
     .row 
-    form
+    form(action=`/formularioCompra`, method="POST")
       .form-row 
         table.table-responsive-sm
           thead
             tr
               th Hora Salida
               th Hora llegada
+              th Asientos Empresariales
+              th Asientos asdasd
+              th Asientos Ejecutivo
+              th Asientos Ejecutivo
               th
           tbody
           - for (var i = 0; i < vuelos.length; i++)
             tr
               td #{vuelos[i].Hora_salida}
               td #{vuelos[i].hora_llegada}
+              td #{vuelos[i].hora_llegada}
+              td #{vuelos[i].hora_llegada}
+              td #{vuelos[i].hora_llegada}
+              td #{vuelos[i].hora_llegada}
+              
               td 
-                input(type="radio", name="vueloSel", id="a" )
+                input(type="radio", value =`${vuelos[i].C_vuelo}`, name="vueloSel", id=`idVuelo${vuelos[i].C_vuelo}` )
       hr          
       .form-row
         input(type="submit" , value ="Comprar")

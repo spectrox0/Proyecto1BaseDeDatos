@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
+ // Controladores 
 const avionController = require("../controllers/avionController");
 const vueloController = require("../controllers/vuelosController");
+const boletoController = require("../controllers/boletoController");
+
 const passport = require("passport");
 const bcrypt = require("bcryptjs")
 const User = require('../models/cliente');
@@ -51,9 +54,13 @@ router.get("/register", (req, res) => {
 //});
  
  router.post("/findVuelo", catchErrors(vueloController.getVuelos));
- router.get("/formularioCompra", (req,res) => {
-   res.render("formularioCompra");
- }) 
+
+ //router.get("/formularioCompra", (req,res) => {
+  // res.render("formularioCompra");
+ //}) 
+
+ router.post("/formularioCompra", catchErrors(boletoController.sendForm)) ;
+
 router.get("/index", (req, res) => {
   res.render("index");
 });

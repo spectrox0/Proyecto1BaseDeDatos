@@ -316,6 +316,7 @@ a{
   box-shadow: 0px 0px 5px rgb(16, 223, 205);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  margin-bottom:10px;
   color:  chartreuse;
 }
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
@@ -544,11 +545,13 @@ text-shadow: 0px 0px 4px whitesmoke;
     height: 1px;
     width: 1px;
     border: 0;
+    margin-bottom:0px;
     overflow: hidden;
 }
 
 .switch-field label {
   float: left;
+  margin-bottom:0px;
 }
 
 .switch-field label {
@@ -569,6 +572,7 @@ text-shadow: 0px 0px 4px whitesmoke;
   -ms-transition:     all 0.1s ease-in-out;
   -o-transition:      all 0.1s ease-in-out;
   transition:         all 0.1s ease-in-out;
+  margin-bottom:0px;
 }
 
 .switch-field label:hover {

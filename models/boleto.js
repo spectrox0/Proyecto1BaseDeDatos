@@ -21,12 +21,12 @@ const Boleto = db.define('boleto', {
         type: sequelize.INTEGER,
         allowNull: false
     },
-    Pasaporte_P: {
+    Cantidad_Equipaje: {
 
         type: sequelize.INTEGER,
         allowNull: false
     },
-    C_equipaje: {
+    Pasaporte_P: {
 
         type: sequelize.INTEGER,
         allowNull: false
