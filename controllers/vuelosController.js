@@ -27,6 +27,7 @@ exports.getVuelos = async (req, res) => {
      Activo:1, 
      Fecha_salida: req.body.fecha
    }
+   
 
         
  
@@ -36,11 +37,7 @@ exports.getVuelos = async (req, res) => {
 });
 
     vuelos = vuelos.map(val => val.dataValues);
-    asientos = {}; 
-    vuelos.forEach( res=> {
-      
-
-    } )
+  
     let Origen, Destino ; 
        Origen = await Aeropuerto.findAll( {
          where: {
@@ -65,3 +62,21 @@ exports.getVuelos = async (req, res) => {
       return res.render("findVuelo", {vuelos,Origen,Destino} );
     }
   };
+
+
+  exports.getVuelo = async (req,res) => {
+   var vuelo  = Vuelo.findOne ( {
+    where: {
+      C_vuelo: req.body.selVuelo
+    }
+
+  })
+
+  vuelo = vuelo.map(val => val.dataValues);
+
+}
+ 
+ 
+ 
+ 
+ 

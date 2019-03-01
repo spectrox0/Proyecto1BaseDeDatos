@@ -14,16 +14,6 @@ const pasajeros = sequelize.define("pasajero", {
     type: Sequelize.STRING,
     allowNull: false
   },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
-  },
-  cedula: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    unique: true
-  },
   edad: {
     type: Sequelize.INTEGER,
     allowNull: false
@@ -51,4 +41,4 @@ Genero: {
 
 
 
-module.exports = usuario;
+module.exports = pasajeros;

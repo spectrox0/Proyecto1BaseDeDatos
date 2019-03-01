@@ -6,7 +6,7 @@ const sequelize = require("../config/db");
 
 const VueloAsiento = sequelize.define("vueloasientosvendidos", {
  
-  Cant_vendidos: {
+  disponibles: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },

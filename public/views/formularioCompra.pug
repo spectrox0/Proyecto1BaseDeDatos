@@ -1,11 +1,30 @@
 extends base
 block content
     .contenedorF
+        table.table-responsive-sm
+          thead
+            tr 
+            - for (var i = 0; i < asientos.length; i++)
+                -if (asientos[i].C_asiento==1)
+                th  Primera Clase
+                -if (asientos[i].C_asiento==2)
+                th Ejecutiva
+                -if (asientos[i].C_asiento==3)
+                th Economica Premium
+                -if (asientos[i].C_asiento==4)
+                th Economica
+               
+          tbody
+            tr
+            - for (var i = 0; i < asientos.length; i++)
+              td #{asientos[i].disponibles}
+             
+               
         .formular
             .container.logo
                 
            
-            form(action='', method="POST")
+            form(action=`/confirmCompra/${vuelo.C_vuelo}`, method="POST")
                 h1 Comprar Vuelo
                 hr
                 .form-row

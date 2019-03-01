@@ -1,0 +1,39 @@
+extends base
+block content
+  .contenedor2
+    .row 
+      a(href="/index")
+        img(src="../images/Back.png")
+
+      h2 
+        |  Confirmacion de compra
+        
+    .row 
+    form(action=`Comprar`, method="POST")
+      .form-row 
+        table.table-responsive-sm
+          thead
+            tr 
+              th Fecha
+              th Hora Salida
+              th Hora llegada
+              th Origen 
+              th Destino
+              th Tipo de asiento
+              th Precio Total
+          tbody
+          
+            tr
+              td #{vuelo.Fecha_Salida}
+              td #{vuelo.Hora_salida}
+              td #{vuelo.Hora_llegada}
+              td #{}
+              td
+              td #{asiento}
+              td
+                
+      hr          
+      .form-row
+        input(type="submit" , value ="Comprar")
+      // Table body
+    // Table
