@@ -4,13 +4,14 @@ Sequelize.Promise = global.Promise;
 const sequelize = require("../config/db");
 
 
-const VueloAsiento = sequelize.define("vueloasientosvendidos", {
+const VueloAsiento = sequelize.define("vueloasientos", {
  
-  disponibles: {
+  Cant_vendidos: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: 1
   },
-  C_vuelo: {
+  C_Vuelo: {
       type: Sequelize.INTEGER, 
       primaryKey: true, 
       allowNull:false, 
@@ -19,10 +20,19 @@ const VueloAsiento = sequelize.define("vueloasientosvendidos", {
     type: Sequelize.INTEGER, 
     primaryKey: true, 
     allowNull:false, 
-} 
+} ,
+ Disponibles: {
+    type: Sequelize.TINYINT, 
+    allowNull:false, 
+    defaultValue: 1
+ }
 
 
-});
+}
+, {
+  timestamps: false,
+  freezeTableName: true
+} );
 
 
 

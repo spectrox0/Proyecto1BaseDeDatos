@@ -6,16 +6,13 @@ const Asiento = db.define('asiento', {
 
         allowNull: false
     },
-    Nombre: {
+    tipo: {
         type: sequelize.STRING,
         allowNull: false
 
     } 
     ,
-    Dist_pista: { 
-        type: sequelize.STRING,
-        allowNull:false 
-    }
+   
    }, {
     timestamps: false,
     freezeTableName: true

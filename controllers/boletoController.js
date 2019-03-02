@@ -23,21 +23,20 @@ exports.createBoleto = async (req, res) => {
 exports.sendForm = async (req, res) => {
   var vuelo  = await Vuelo.findOne ( {
     where: {
-      C_vuelo: req.body.selVuelo
+      C_Vuelo: req.body.vueloSel
     }
-
   }) ; 
 
-  vuelo = vuelo.map(val => val.dataValues);
-  
-  let asientos = await asientoVuelo.FindAll({
+  let asientos = await asientoVuelo.findAll({
    
      where: {
        C_Vuelo: vuelo.C_Vuelo
      }
 
   }); 
+  
   asientos=asientos.map(val => val.dataValues);
+
   if (vuelo,asientos)
   return res.render("formularioCompra", {vuelo,asientos});
 

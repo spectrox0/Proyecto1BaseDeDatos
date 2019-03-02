@@ -22,7 +22,11 @@ const ModeloAsiento = sequelize.define("modeloasientos", {
 } 
 
 
-});
+}
+, {
+  timestamps: false,
+  freezeTableName: true
+} );
 
 
 
