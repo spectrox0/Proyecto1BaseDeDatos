@@ -53,7 +53,6 @@ a{
    div img {
      width: 40px;
      height: 40px;
-     border-radius: 50%;
      max-height: 40px;
      max-width: 40px;
      object-fit: fill;
@@ -63,8 +62,8 @@ a{
      border-radius:none;
     width: auto; 
     height: auto;
-    max-height: 100px;
-    max-width: 300px;
+    max-height: 120px;
+    max-width: 700px;
     object-fit: fill;
     opacity:1;
   }
@@ -309,12 +308,14 @@ a{
  .form-group {
   text-align: center;
 }
+
 .form-group input, .form-group select,.form-group textarea{
   background: rgba(0, 0, 0, 0.5);
   border: rgb(16, 223, 205) 0.8px ridge;
   box-shadow: 0px 0px 5px rgb(16, 223, 205);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  margin-bottom:10px;
   color:  chartreuse;
 }
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
@@ -414,7 +415,7 @@ text-shadow: 0px 0px 4px whitesmoke;
   line-height: 1;
   text-align: center;
   font-family: 'Oleo Script',cursive;
-  text-shadow: 0px 0px 10px crimson;
+  text-shadow: 0px 0px 10px rgb(20, 220, 203);
   font-size: 45px;
 
 }
@@ -457,16 +458,19 @@ text-shadow: 0px 0px 4px whitesmoke;
    outline: none;
    display: block;
    width: 100%;
+   max-width: 400px;
    padding: 10px 15px;
-   margin: 0 0 20px 0;
+   margin-bottom: 20px;
+   margin-left: auto;
+   margin-right: auto;
    background: rgba(0,0,0,.5);
    text-align: center;
    color: white;
-   border: ridge 2px #cf0520;
+   border: ridge 0.5px rgb(16, 223, 205);
    border-radius: 2px;
    border-bottom-left-radius: 10px;
    border-bottom-right-radius: 10px;
-   box-shadow: 0px 4px 5px #cf0520;
+   box-shadow: 0px 4px 5px rgb(16, 223, 205);
    box-sizing: border-box;
    font-size: 16px;
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -484,10 +488,13 @@ text-shadow: 0px 0px 4px whitesmoke;
 .contenedorF input[type="submit"] {
   background: linear-gradient(rgba(21, 255, 0, 0.4),rgb(21, 255, 0));
   color: #FFF;
+ 
   width: 100%;
   border-radius: 10px;
   border: 1px ridge rgb(127, 255, 0);
   padding: 5px 0;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 1.2em;
   font-weight: bold;
   font-family: 'Acme', sans-serif;
@@ -537,11 +544,13 @@ text-shadow: 0px 0px 4px whitesmoke;
     height: 1px;
     width: 1px;
     border: 0;
+    margin-bottom:0px;
     overflow: hidden;
 }
 
 .switch-field label {
   float: left;
+  margin-bottom:0px;
 }
 
 .switch-field label {
@@ -562,6 +571,7 @@ text-shadow: 0px 0px 4px whitesmoke;
   -ms-transition:     all 0.1s ease-in-out;
   -o-transition:      all 0.1s ease-in-out;
   transition:         all 0.1s ease-in-out;
+  margin-bottom:0px;
 }
 
 .switch-field label:hover {
@@ -601,21 +611,23 @@ text-shadow: 0px 0px 4px whitesmoke;
 font-size:30px; 
 text-shadow: 0px 0px 10px white;}
   
-.contenedor2 table {
+.contenedor2 table, .contenedorF table {
   width:100%;
   margin-left: auto;
   font-size:25px;
   margin-right: auto;
   max-width: 900px;
+  text-align: center;
 }
-.contenedor2 thead {
+.contenedor2 thead ,.contenedorF thead {
   border-bottom: solid 0.5px whitesmoke;
+  
 }
 .contenedor2 a img{
   border:solid blue 1px;
 }
 
-.contenedor2 input[type="submit"]{
+.contenedor2 input[type="submit"] ,.contenedorF input[type="submit"]{
   margin-top:25px;
  width: 100%;
  margin-left: auto;

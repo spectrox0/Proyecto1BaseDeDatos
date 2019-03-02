@@ -1,0 +1,44 @@
+extends base3
+block content
+  .contenedor2
+    .row 
+      a(href="/index")
+        img(src="../images/Back.png")
+
+      h2 
+        | Vuelos Escalas
+        br
+        | #{Origen.Ciudad} -- #{Destino.Ciudad}
+    .row 
+    form(action=`/compra `, method="POST")
+      .form-row 
+        - for (var i = 0; i < escalas.length; i++)
+          table.table-responsive-sm
+            thead
+              tr
+                th Hora Salida
+                th Hora llegada
+                th Origen 
+                th Destino
+                th
+                  input(type="radio", value =`${escalas[i]}`, name="vueloSel", id=`idVuelo`)
+            tbody
+              tr
+                td #{escalas[i][0].Hora_salida}
+                td #{escalas[i][0].hora_llegada}
+                td #{Origen.Ciudad}
+                td #{Intermedio[i].Ciudad}
+                td
+              tr
+                td #{escalas[i][1].Hora_salida}
+                td #{escalas[i][1].hora_llegada}
+                td #{Intermedio[i].Ciudad}
+                td #{Destino.Ciudad}
+                td
+            br  
+                
+      hr          
+      .form-row
+        input(type="submit" , value ="Comprar")
+      // Table body      
+    // Table     

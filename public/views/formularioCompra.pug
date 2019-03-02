@@ -1,0 +1,66 @@
+extends base3
+block content
+    .contenedorF
+        h2 
+        table.table-responsive-sm
+            thead
+                tr 
+                - for (var i = 0; i < asientos.length; i++)
+                    -if (asientos[i].C_asiento==1)
+                        th  Primera Clase
+                    -if (asientos[i].C_asiento==2)
+                        th Ejecutiva
+                    -if (asientos[i].C_asiento==3)
+                        th Economica Premium
+                    -if (asientos[i].C_asiento==4)
+                         th Economica
+                        
+                th Precio
+               
+            tbody
+                tr
+                - for (var i = 0; i < asientos.length; i++)
+                    -if (asientos[i].Disponibles==1)
+                        td Disponible
+                    - else 
+                        td Agotado
+        hr        
+        .formular
+            .container.logo
+                
+           
+            form(action=`/confirmCompra/${vuelo.C_vuelo}`, method="POST")
+                h1 Comprar Vuelo
+                hr
+                .form-row
+                    .form-group.col-sm
+                        h2  Datos Comprador
+                        hr
+                        input#nameC.form-control(type='text', name='nameC',placeholder='Ingrese su nombre', required='')
+                        input#apellidoC.form-control(type='text', name='apellidoC',placeholder='Ingrese su nombre', required='')
+                        input#cedulaC.form-control( name='cedula',placeholder='Ingrese su cedula', type="number" required='')
+                        input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="text" required='')
+                        input#emailC.form-control(type='text', name='emailC', placeholder='Ingrese su correo', required='')
+                    .form-group.col-sm
+                        h2  Datos pasajero 
+                        hr
+                        input#nameP.form-control(type='text', name='nameP',placeholder='Ingrese su nombre', required='')
+                        input#apellidoP.form-control(type='text', name='apellidoP',placeholder='Ingrese su apellido', required='')
+                        input#pasaporte.form-control( name='pasaporte',placeholder='Ingrese su pasaporte', type="number" required='')
+                        label(for='Genero') Genero
+                        select(id='Genero', name='genero', required='')
+                            option(value="Masculino") Masculino
+                            option(value="Femenino") Femenino
+                        input#edadP.form-control( name="edadP",placeholder='Ingrese su edad', type="number" required='')
+                        input#nacionalidadP.form-control(type='text', name='nacionalidadP',placeholder='Ingrese su nacionalidad', required='')
+                .switch-field
+                    .switch-title Tipo de Asiento
+                    input#Primera_Clase(type='radio', name='tipo', value='1')
+                    label(for='Primera_Clase') Primera Clase
+                    input#Ejecutiva(type='radio', name='tipo', value='2', checked='')
+                    label(for='Ejecutiva') Ejecutiva
+                    input#Economica_Premium(type='radio', name='tipo', value='3')
+                    label(for='Economica_Premium') Economica Premium
+                    input#Economica(type='radio', name='tipo', value='4')
+                    label(for='Economica') Economica
+                input(type='submit', value='Comprar Boleto')

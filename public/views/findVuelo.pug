@@ -6,26 +6,26 @@ block content
         img(src="../images/Back.png")
 
       h2 
-        | Vuelos Disponibles
+        | Vuelos
+        br
+        | #{Origen.Ciudad} -- #{Destino.Ciudad}
     .row 
-    form
+    form(action=`/formularioCompra`, method="POST")
       .form-row 
         table.table-responsive-sm
           thead
             tr
-              th Fecha
-              th Hora
-              th Escalas
-              th Precio
+              th Hora Salida
+              th Hora llegada
               th
           tbody
+          - for (var i = 0; i < vuelos.length; i++)
             tr
-              td Kate
-              td Moss
-              td USA
-              td New York City
+              td #{vuelos[i].Hora_salida}
+              td #{vuelos[i].hora_llegada}
+             
               td 
-                input(type="radio", name="vueloSel", id="a" )
+                input(type="radio", value =`${vuelos[i].C_vuelo}` , name="vueloSel", id=`idVuelo${vuelos[i].C_vuelo}` )
       hr          
       .form-row
         input(type="submit" , value ="Comprar")

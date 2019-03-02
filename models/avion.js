@@ -23,6 +23,11 @@ const Avion = db.define('avion', {
             allowNull: false
         
     },
+    C_itinerario: {
+
+        type: sequelize.INTEGER,
+        allowNull: false
+    },
     Activo: {
         type: sequelize.TINYINT,
         allowNull: false,
@@ -33,7 +38,10 @@ const Avion = db.define('avion', {
         }
     } 
 }, {
+     // don't add the timestamp attributes (updatedAt, createdAt)
     timestamps: false,
+    // disable the modification of tablenames; By default, sequelize will automatically
+  // transform all passed model names (first parameter of define) into plural.
     freezeTableName: true
 });
 
