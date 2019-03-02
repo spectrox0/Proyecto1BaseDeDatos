@@ -1,25 +1,30 @@
-extends base
+extends base3
 block content
     .contenedorF
+        h2 
         table.table-responsive-sm
-          thead
-            tr 
-            - for (var i = 0; i < asientos.length; i++)
-                -if (asientos[i].C_asiento==1)
-                th  Primera Clase
-                -if (asientos[i].C_asiento==2)
-                th Ejecutiva
-                -if (asientos[i].C_asiento==3)
-                th Economica Premium
-                -if (asientos[i].C_asiento==4)
-                th Economica
+            thead
+                tr 
+                - for (var i = 0; i < asientos.length; i++)
+                    -if (asientos[i].C_asiento==1)
+                        th  Primera Clase
+                    -if (asientos[i].C_asiento==2)
+                        th Ejecutiva
+                    -if (asientos[i].C_asiento==3)
+                        th Economica Premium
+                    -if (asientos[i].C_asiento==4)
+                         th Economica
+                        
+                th Precio
                
-          tbody
-            tr
-            - for (var i = 0; i < asientos.length; i++)
-              td #{asientos[i].disponibles}
-             
-               
+            tbody
+                tr
+                - for (var i = 0; i < asientos.length; i++)
+                    -if (asientos[i].Disponibles==1)
+                        td Disponible
+                    - else 
+                        td Agotado
+        hr        
         .formular
             .container.logo
                 

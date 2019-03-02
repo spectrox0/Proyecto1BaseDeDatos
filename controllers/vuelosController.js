@@ -41,9 +41,10 @@ exports.getVuelos = async (req, res) => {
    
 });
 
-    escalas= []; 
-    Intermedio = [] ;
+    var escalas= []; 
+    var Intermedio = [] ;
     vuelos = vuelos.map(val => val.dataValues);
+
       for (var i = 0 ; i<vuelos.length ; i++) { 
 
 
@@ -56,7 +57,8 @@ exports.getVuelos = async (req, res) => {
            }, 
          }]
 
-      }) ;      
+      }) ;   
+
       var vuelo2 = await Vuelo.findOne({
         include:[{
         model: Avion,
@@ -76,6 +78,7 @@ exports.getVuelos = async (req, res) => {
 
   if(vuelo2!=null) {
     const vuelox =[] ;
+    
      await vuelox.push(vuelos[i]);
      await vuelox.push(vuelo2) ;
      await escalas.push(vuelox);

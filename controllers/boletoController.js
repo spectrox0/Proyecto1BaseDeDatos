@@ -21,16 +21,16 @@ exports.createBoleto = async (req, res) => {
 }
 
 exports.sendForm = async (req, res) => {
+
   var vuelo  = await Vuelo.findOne ( {
     where: {
-      C_Vuelo: req.body.vueloSel
+      C_vuelo: req.body.vueloSel
     }
   }) ; 
-
   let asientos = await asientoVuelo.findAll({
    
      where: {
-       C_Vuelo: vuelo.C_Vuelo
+       C_Vuelo: vuelo.C_vuelo
      }
 
   }); 

@@ -611,21 +611,23 @@ text-shadow: 0px 0px 4px whitesmoke;
 font-size:30px; 
 text-shadow: 0px 0px 10px white;}
   
-.contenedor2 table {
+.contenedor2 table, .contenedorF table {
   width:100%;
   margin-left: auto;
   font-size:25px;
   margin-right: auto;
   max-width: 900px;
+  text-align: center;
 }
-.contenedor2 thead {
+.contenedor2 thead ,.contenedorF thead {
   border-bottom: solid 0.5px whitesmoke;
+  
 }
 .contenedor2 a img{
   border:solid blue 1px;
 }
 
-.contenedor2 input[type="submit"]{
+.contenedor2 input[type="submit"] ,.contenedorF input[type="submit"]{
   margin-top:25px;
  width: 100%;
  margin-left: auto;
