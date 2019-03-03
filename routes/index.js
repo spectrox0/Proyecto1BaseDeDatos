@@ -68,6 +68,9 @@ router.get("/register", (req, res) => {
 router.get("/index", (req, res) => {
   res.render("index");
 });
+router.get("/check_in", (req, res) => {
+  res.render("check_in");
+});
   /*
 router.get('/logout', function (req, res) {
   req.logout();
