@@ -63,7 +63,7 @@ router.get("/register", (req, res) => {
 
  router.post("/confirmCompra/:id", catchErrors(boletoController.confirmCompra)) ; 
 
-// router.post("Comprar" , boletoController.Comprar) ; 
+router.post("/formularioCompra2" , boletoController) ; 
 
 router.get("/index", (req, res) => {
   res.render("index");
