@@ -2,6 +2,7 @@ extends base3
 block content
     .contenedorF
         h2 
+       
         table.table-responsive-sm
             thead
                 tr 
@@ -14,8 +15,10 @@ block content
                         th Economica Premium
                     -if (asientos[i].C_asiento==4)
                          th Economica
-                        
-                th Precio #{precio}
+
+                th Origen 
+                th Destino        
+                th Precio
                
             tbody
                 tr
@@ -24,7 +27,16 @@ block content
                         td Disponible
                     - else 
                         td Agotado
-        hr        
+                td precio1 
+            tfooter
+                tr 
+                tr 
+                tr 
+                tr
+                tr 
+                tr 
+                tr precio2     
+        hr      
         .formular
             .container.logo
                 
