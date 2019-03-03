@@ -44,14 +44,30 @@ exports.sendForm = async (req, res) => {
   sql.query('SELECT i.precio_base FROM itinerario i, avion a WHERE a.C_avion = :avion and a.C_itinerario = i.C_itinerario',
     {replacements:{avion:vuelo.C_avion}, type: sql.QueryTypes.SELECT})
     .then(data => {
-      precio = data[0].precio_base;
+      if(data) {
+        precio = data[0].precio_base;
+      }
       console.log(precio);
 
       if (vuelo,asientos)
       return res.render("formularioCompra", {vuelo,asientos,precio});
     });
-
 }
+
+
+// No llega nada al req.body
+exports.compraEscala = async (req, res) => {
+  // escalas,Origen,Destino,Intermedio
+  console.log('nnnnn');
+  console.log(req.body);
+  console.log(req.body.Intermedio);
+  console.log(req.body.Origen);
+  console.log(req.body.escalas);
+  // var escala = [...req.body.escalas];
+  // select sum(i.precio_base) from itinerario i, avion a where a.C_avion in (1,6) and a.C_itinerario = i.C_itinerario;
+  // return res.render("formularioCompra2", {asientos});
+  return res.send('hhhhh');
+};
 
 exports.confirmCompra = async (req,res) => {
   
