@@ -10,7 +10,7 @@ block content
         br
         | #{Origen.Ciudad} -- #{Destino.Ciudad}
     .row 
-    form(action=`/formularioCompra2 `, method="POST")
+    form(action=`/formularioCompra2`, method="POST")
       .form-row 
         - for (var i = 0; i < escalas.length; i++)
           table.table-responsive-sm
@@ -39,6 +39,6 @@ block content
                 
       hr          
       .form-row
-        input(type="submit" , value ="/formularioCompra2")
+        input(type="submit" , value ="Comprar")
       // Table body      
     // Table     
