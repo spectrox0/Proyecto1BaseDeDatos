@@ -6,6 +6,7 @@ const asientoModelo = require ("../models/modeloAsiento");
 const asientoVuelo = require("../models/vueloAsiento");
 const Pasajero = require ("../models/pasajero") ;
 const Cliente = require ("../models/cliente");
+const sql = require('../config/db');
 exports.createBoleto = async (req, res) => {
   
     let Boleto= await Boleto.build({
@@ -37,8 +38,18 @@ exports.sendForm = async (req, res) => {
   
   asientos=asientos.map(val => val.dataValues);
 
-  if (vuelo,asientos)
-  return res.render("formularioCompra", {vuelo,asientos});
+  console.log(vuelo.C_avion);
+  let precio;
+  // Aqui el precio de un vuelo directo
+  sql.query('SELECT i.precio_base FROM itinerario i, avion a WHERE a.C_avion = :avion and a.C_itinerario = i.C_itinerario',
+    {replacements:{avion:vuelo.C_avion}, type: sql.QueryTypes.SELECT})
+    .then(data => {
+      precio = data[0].precio_base;
+      console.log(precio);
+
+      if (vuelo,asientos)
+      return res.render("formularioCompra", {vuelo,asientos,precio});
+    });
 
 }
 
@@ -75,7 +86,8 @@ exports.confirmCompra = async (req,res) => {
     }
    })
    asiento = asiento.map(val => val.dataValues);
-
+   console.log("jjjaksjdkasjkdjkas");
+   console.log(vuelo,cliente,pasaporte,asiento);
    res.render("confirmCompra", {vuelo,cliente,pasaporte,asiento});
 
 }
