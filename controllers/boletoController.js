@@ -59,7 +59,11 @@ exports.sendForm = async (req, res) => {
 exports.compraEscala = async (req, res) => {
   // escalas,Origen,Destino,Intermedio
   console.log('nnnnn');
-  console.log(req.body);
+  console.log(req.body.vueloSel);
+  console.log(req.body.vueloSel);
+  let array = req.body.vueloSel; 
+   console.log(array[1]);
+   console.log(array[0]);
   console.log(req.body.Intermedio);
   console.log(req.body.Origen);
   console.log(req.body.escalas);
