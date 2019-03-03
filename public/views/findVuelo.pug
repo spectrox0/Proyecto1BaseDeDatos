@@ -1,0 +1,33 @@
+extends base3
+block content
+  .contenedor2
+    .row 
+      a(href="/index")
+        img(src="../images/Back.png")
+
+      h2 
+        | Vuelos
+        br
+        | #{Origen.Ciudad} -- #{Destino.Ciudad}
+    .row 
+    form(action=`/formularioCompra`, method="POST")
+      .form-row 
+        table.table-responsive-sm
+          thead
+            tr
+              th Hora Salida
+              th Hora llegada
+              th
+          tbody
+          - for (var i = 0; i < vuelos.length; i++)
+            tr
+              td #{vuelos[i].Hora_salida}
+              td #{vuelos[i].hora_llegada}
+             
+              td 
+                input(type="radio", value =`${vuelos[i].C_vuelo}` , name="vueloSel", id=`idVuelo${vuelos[i].C_vuelo}` )
+      hr          
+      .form-row
+        input(type="submit" , value ="Comprar")
+      // Table body
+    // Table
