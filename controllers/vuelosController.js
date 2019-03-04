@@ -172,14 +172,13 @@ exports.getVuelos = async (req, res) => {
 
 
   exports.getVuelo = async (req,res) => {
-   var vuelo  = Vuelo.findAll ( {
+   var vuelo  = Vuelo.findOne ( {
     where: {
       C_vuelo: req.body.selVuelo
     }
 
   })
 
-  vuelo = vuelo.map(val => val.dataValues);
 
 }
  

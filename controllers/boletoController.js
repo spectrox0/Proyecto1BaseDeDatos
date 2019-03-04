@@ -60,9 +60,23 @@ exports.compraEscala = async (req, res) => {
   // escalas,Origen,Destino,Intermedio
   var datos = JSON.parse(req.body.vueloSel);
   let precioTotal = datos[0].avions[0].itinerarios[0].precio_base + datos[1].avions[0].itinerarios[0].precio_base;
-  let asientos = await sql.query('SELECT C_asiento FROM asiento', {type: sql.QueryTypes.SELECT});
+  // let asientos = await sql.query('SELECT C_asiento FROM asiento', {type: sql.QueryTypes.SELECT});
+  
+  let asientos1 = await asientoVuelo.findAll({
+    where: {
+      C_Vuelo: datos[0].C_vuelo
+    }
+
+ }); 
+ let asientos2 = await asientoVuelo.findAll({
+  where: {
+    C_Vuelo: datos[1].C_vuelo
+  }
+
+}); 
+
   // select sum(i.precio_base) from itinerario i, avion a where a.C_avion in (1,6) and a.C_itinerario = i.C_itinerario;
-  return res.render("formularioCompra2", {asientos});
+  return res.render("formularioCompra2", {asientos1,asientos2,datos,precioTotal});
 };
 
 exports.confirmCompra = async (req,res) => {
@@ -88,6 +102,7 @@ exports.confirmCompra = async (req,res) => {
     nacionalidad: req.body.nacionalidadP
   }, type: sql.QueryTypes.INSERT});
 
+
   sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
   {replacements: {
     vuelo: req.params.id,
@@ -106,5 +121,7 @@ exports.confirmCompra = async (req,res) => {
 
   res.send("hola");
 
-}
+  };
+   
+   
 
