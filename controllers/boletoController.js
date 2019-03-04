@@ -66,41 +66,45 @@ exports.compraEscala = async (req, res) => {
 };
 
 exports.confirmCompra = async (req,res) => {
-  
-  var vuelo  = await Vuelo.findOne ( {
-    where: {
-      C_vuelo: req.params.id
-    }
 
-  }) ; 
-
-  vuelo = vuelo.map(val => val.dataValues);
-  var cliente = await Cliente.build({
-    cedula: req.body.cedulaC,
-    name: req.body.nameC , 
+  console.log(req.body);
+  console.log(req.params);
+  let cl = await sql.query('INSERT INTO cliente (Nombre, Apellido, email, telefono, cedula) values (:nombre, :apellido, :email, :telf, :cedula)',
+  {replacements: {
+    nombre: req.body.nameC,
     apellido: req.body.apellidoC,
-    telefono: req.body.telefonoC ,
-    email: req.body.emailC 
-  }) ; 
-  var pasaporte = await Pasajero.build({
-    name: req.body.nameP, 
+    email:req.body.emailC,
+    telf:req.body.telefonoC,
+    cedula: req.body.cedula
+  }, type: sql.QueryTypes.INSERT});
+  
+  let ps = await sql.query('INSERT INTO pasajero (Nombre, Apellido, Pasaporte_P, Genero, edad, nacionalidad) values (:nombre, :apellido, :pasap, :gen, :edad, :nacionalidad)',
+  {replacements: {
+    nombre: req.body.nameP,
     apellido: req.body.apellidoP,
-    Pasaporte_P: req.body.pasaporte,
-    Genero: req.body.genero,
-    nacionalidad: req.body.nacionalidadP,
-    edad: req.body.edadP
+    pasap:req.body.pasaporte,
+    gen:req.body.genero,
+    edad: req.body.edadP,
+    nacionalidad: req.body.nacionalidadP
+  }, type: sql.QueryTypes.INSERT});
 
-  });
-   
-   var asiento = await Asiento.findOne ( {
-    where: {
-     C_asiento : req.body.tipo
-    }
-   })
-   asiento = asiento.map(val => val.dataValues);
-   console.log("jjjaksjdkasjkdjkas");
-   console.log(vuelo,cliente,pasaporte,asiento);
-   res.render("confirmCompra", {vuelo,cliente,pasaporte,asiento});
+  sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
+  {replacements: {
+    vuelo: req.params.id,
+    asiento: req.body.tipo,
+    pasap:req.body.pasaporte
+  }, type: sql.QueryTypes.INSERT});
+
+  //insert into boleto (C_vuelo,C_asiento,Pasaporte_P,Activo) values (1,1,1111111,false)
+
+  // let vuelo = undefined;
+  // let cliente = undefined;
+  // let pasaporte = undefined;
+  // let asiento = undefined;
+
+  // res.render("confirmCompra", {vuelo,cliente,pasaporte,asiento});
+
+  res.send("hola");
 
 }
 
