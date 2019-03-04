@@ -111,7 +111,6 @@ exports.getVuelos = async (req, res) => {
       } }
     ) 
     
-     
       return res.render('findVueloEscalas', {escalas,Origen,Destino,Intermedio});
     
     }

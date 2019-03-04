@@ -58,15 +58,11 @@ exports.sendForm = async (req, res) => {
 // No llega nada al req.body
 exports.compraEscala = async (req, res) => {
   // escalas,Origen,Destino,Intermedio
-  console.log('nnnnn');
-  console.log(req.body);
-  console.log(req.body.Intermedio);
-  console.log(req.body.Origen);
-  console.log(req.body.escalas);
-  // var escala = [...req.body.escalas];
+  var datos = JSON.parse(req.body.vueloSel);
+  let precioTotal = datos[0].avions[0].itinerarios[0].precio_base + datos[1].avions[0].itinerarios[0].precio_base;
+  let asientos = await sql.query('SELECT C_asiento FROM asiento', {type: sql.QueryTypes.SELECT});
   // select sum(i.precio_base) from itinerario i, avion a where a.C_avion in (1,6) and a.C_itinerario = i.C_itinerario;
-  // return res.render("formularioCompra2", {asientos});
-  return res.send('hhhhh');
+  return res.render("formularioCompra2", {asientos});
 };
 
 exports.confirmCompra = async (req,res) => {
