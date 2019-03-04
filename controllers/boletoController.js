@@ -82,7 +82,7 @@ exports.compraEscala = async (req, res) => {
 exports.confirmCompra = async (req,res) => {
 
   console.log(req.body);
-  console.log(req.params);
+  console.log(req.params.id.length);
   let cl = await sql.query('INSERT INTO cliente (Nombre, Apellido, email, telefono, cedula) values (:nombre, :apellido, :email, :telf, :cedula)',
   {replacements: {
     nombre: req.body.nameC,
@@ -102,22 +102,42 @@ exports.confirmCompra = async (req,res) => {
     nacionalidad: req.body.nacionalidadP
   }, type: sql.QueryTypes.INSERT});
 
+  if (req.params.id.length > 8) {
+    let vuelos = JSON.parse(req.params.id);
 
-  sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
-  {replacements: {
-    vuelo: req.params.id,
-    asiento: req.body.tipo,
-    pasap:req.body.pasaporte
-  }, type: sql.QueryTypes.INSERT});
+    sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
+    {replacements: {
+      vuelo: vuelos.id1,
+      asiento: req.body.tipo1,
+      pasap:req.body.pasaporte,
+      vuelo2: vuelos.id2,
+      asiento2: req.body.tipo2,
+    }, type: sql.QueryTypes.INSERT});
 
-  //insert into boleto (C_vuelo,C_asiento,Pasaporte_P,Activo) values (1,1,1111111,false)
+    // sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
+    // {replacements: {
+    //   vuelo: vuelos.id2,
+    //   asiento: req.body.tipo2,
+    //   pasap:req.body.pasaporte
+    // }, type: sql.QueryTypes.INSERT});
 
-  // let vuelo = undefined;
-  // let cliente = undefined;
-  // let pasaporte = undefined;
-  // let asiento = undefined;
+  } else {
+    sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
+    {replacements: {
+      vuelo: req.params.id,
+      asiento: req.body.tipo,
+      pasap:req.body.pasaporte
+    }, type: sql.QueryTypes.INSERT});
+  }
 
-  // res.render("confirmCompra", {vuelo,cliente,pasaporte,asiento});
+  // //insert into boleto (C_vuelo,C_asiento,Pasaporte_P,Activo) values (1,1,1111111,false)
+
+  // // let vuelo = undefined;
+  // // let cliente = undefined;
+  // // let pasaporte = undefined;
+  // // let asiento = undefined;
+
+  // // res.render("confirmCompra", {vuelo,cliente,pasaporte,asiento});
 
   res.send("hola");
 

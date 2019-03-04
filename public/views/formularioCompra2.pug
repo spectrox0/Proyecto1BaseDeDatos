@@ -43,7 +43,7 @@ block content
             .container.logo
                 
            
-            form(action=`/confirmCompra/`, method="POST")
+            form(action=`/confirmCompra/${JSON.stringify({id1: datos[0].C_vuelo, id2: datos[1].C_vuelo})}`, method="POST")
                 h1 Comprar Vuelo
                 hr
                 .form-row
