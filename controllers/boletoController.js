@@ -88,7 +88,7 @@ exports.confirmCompra = async (req,res) => {
        cedula:req.body.cedula
      }
   }) ; 
-  if (cliente=null) {
+  if (cliente==null) {
   let cl = await sql.query('INSERT INTO cliente (Nombre, Apellido, email, telefono, cedula) values (:nombre, :apellido, :email, :telf, :cedula)',
   {replacements: {
     nombre: req.body.nameC,
