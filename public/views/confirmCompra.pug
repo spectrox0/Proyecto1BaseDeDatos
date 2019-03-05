@@ -9,27 +9,27 @@ block content
         | Gracias por su compra #{nombre} #{apellido}
     -if(asientos.length > 1)
       -for(var i= 0; i<asientos.length ; i++)
-      h2
-        | Vuelo #{i}
-      br
-      .row 
-        .col
-          p
-            |Codigo Vuelo: #{vuelos[i].C_vuelo}
-  
-      .row 
-        .col
-          p
-            | Tipo de Asiento : 
-            -if (asientos[i]==1)
-              | Primera Clase
-            -if (asientos[i]==2)
-              |  Ejecutiva
-            -if (asientos[i]==3)
-              | Economica Premium
-            -if (asientos[i]==4)
-              | Economica
-      hr      
+        h2
+          | Vuelo #{i}
+        br
+        .row 
+          .col
+            p
+              |Codigo Vuelo: #{vuelos[i].C_vuelo}
+    
+        .row 
+          .col
+            p
+              | Tipo de Asiento : 
+              -if (asientos[i]==1)
+                | Primera Clase
+              -if (asientos[i]==2)
+                |  Ejecutiva
+              -if (asientos[i]==3)
+                | Economica Premium
+              -if (asientos[i]==4)
+                | Economica
+        hr      
     -else 
       .row 
         .col

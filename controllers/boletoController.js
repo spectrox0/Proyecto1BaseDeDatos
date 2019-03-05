@@ -119,14 +119,14 @@ exports.confirmCompra = async (req,res) => {
   
   
   if (req.params.id.length > 8) {
-    let vuelos = JSON.parse(req.params.id);
+    let vuelos = await JSON.parse(req.params.id);
 
     let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
     {replacements: {
-      vuelo: vuelos[0].C_Vuelo,
+      vuelo: vuelos[0].C_vuelo,
       asiento: req.body.tipo1,
       pasap:req.body.pasaporte,
-      vuelo2: vuelos[1].C_Vuelo,
+      vuelo2: vuelos[1].C_vuelo,
       asiento2: req.body.tipo2,
     }, type: sql.QueryTypes.INSERT});  
 

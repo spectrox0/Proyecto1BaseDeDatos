@@ -35,7 +35,9 @@ Genero: {
     type: Sequelize.STRING,
     allowNull: false
   },
-
+}, {
+  timestamps: false,
+  freezeTableName: true
 
 });
 
