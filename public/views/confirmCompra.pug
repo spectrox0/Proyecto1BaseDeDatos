@@ -6,23 +6,21 @@ block content
         img(src="../images/Back.png")
 
       h2 
-        | Gracias por su compra #{} #{}
+        | Gracias por su compra #{nombre} #{apellido}
     -if(asientos.length > 1)
       -for(var i= 0; i<asientos.length ; i++)
+      h2
+        | Vuelo #{i}
+      br
       .row 
         .col
           p
-            |Codigo Vuelo:
-        .col
-          p
-          |  #{vuelos[i].C_vuelo}
+            |Codigo Vuelo: #{vuelos[i].C_vuelo}
   
       .row 
         .col
           p
             | Tipo de Asiento : 
-        .col
-          p  
             -if (asientos[i]==1)
               | Primera Clase
             -if (asientos[i]==2)
@@ -31,21 +29,17 @@ block content
               | Economica Premium
             -if (asientos[i]==4)
               | Economica
+      hr      
     -else 
       .row 
         .col
           p
-            |Codigo Vuelo:
-        .col
-          p
-          |  #{vuelos}
+            |Codigo Vuelo: #{vuelos}
   
       .row 
         .col
           p
             | Tipo de Asiento : 
-        .col
-          p  
             -if (asientos[0]==1)
               | Primera Clase
             -if (asientos[0]==2)

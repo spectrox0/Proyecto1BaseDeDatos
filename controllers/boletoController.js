@@ -83,6 +83,12 @@ exports.confirmCompra = async (req,res) => {
 
   console.log(req.body);
   console.log(req.params.id.length);
+  let cliente = await Cliente.findOne( { 
+     where: { 
+       cedula:req.body.cedula
+     }
+  }) ; 
+  if (cliente=null) {
   let cl = await sql.query('INSERT INTO cliente (Nombre, Apellido, email, telefono, cedula) values (:nombre, :apellido, :email, :telf, :cedula)',
   {replacements: {
     nombre: req.body.nameC,
@@ -90,22 +96,32 @@ exports.confirmCompra = async (req,res) => {
     email:req.body.emailC,
     telf:req.body.telefonoC,
     cedula: req.body.cedula
-  }, type: sql.QueryTypes.INSERT});
-  
-  let ps = await sql.query('INSERT INTO pasajero (Nombre, Apellido, Pasaporte_P, Genero, edad, nacionalidad) values (:nombre, :apellido, :pasap, :gen, :edad, :nacionalidad)',
-  {replacements: {
-    nombre: req.body.nameP,
-    apellido: req.body.apellidoP,
-    pasap:req.body.pasaporte,
-    gen:req.body.genero,
-    edad: req.body.edadP,
-    nacionalidad: req.body.nacionalidadP
-  }, type: sql.QueryTypes.INSERT});
+  }, type: sql.QueryTypes.INSERT}); } 
 
+  let pasajero = await Pasajero.findOne({ 
+ where: { 
+   Pasaporte_P: req.body.pasaporte
+ }
+  })
+   if (pasajero==null)
+   { 
+    let ps = await sql.query('INSERT INTO pasajero (Nombre, Apellido, Pasaporte_P, Genero, edad, nacionalidad) values (:nombre, :apellido, :pasap, :gen, :edad, :nacionalidad)',
+    {replacements: {
+      nombre: req.body.nameP,
+      apellido: req.body.apellidoP,
+      pasap:req.body.pasaporte,
+      gen:req.body.genero,
+      edad: req.body.edadP,
+      nacionalidad: req.body.nacionalidadP
+    }, type: sql.QueryTypes.INSERT});
+  
+   }
+  
+  
   if (req.params.id.length > 8) {
     let vuelos = JSON.parse(req.params.id);
 
-    sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
+    let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
     {replacements: {
       vuelo: vuelos[0].C_Vuelo,
       asiento: req.body.tipo1,
@@ -113,10 +129,12 @@ exports.confirmCompra = async (req,res) => {
       vuelo2: vuelos[1].C_Vuelo,
       asiento2: req.body.tipo2,
     }, type: sql.QueryTypes.INSERT});  
+
     const nombre = req.body.nameC;
     const apellido = req.body.apellidoC;
-    let asientos = [req.body.tipo1,req.body.tipo2]       
-    return res.render("confirmCompra", {vuelos,asientos});
+    let asientos = [req.body.tipo1,req.body.tipo2]   
+
+    return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
     // sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
     // {replacements: {
     //   vuelo: vuelos.id2,
@@ -125,7 +143,7 @@ exports.confirmCompra = async (req,res) => {
     // }, type: sql.QueryTypes.INSERT});
 
   } else {
-    sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
+    let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
     {replacements: {
       vuelo: req.params.id,
       asiento: req.body.tipo,
@@ -133,11 +151,11 @@ exports.confirmCompra = async (req,res) => {
     }, type: sql.QueryTypes.INSERT});
     
     const vuelos = req.params.id;
-    const asientos = req.body.tipo;
+    const asientos = [req.body.tipo];
     const nombre = req.body.nameC;
     const apellido = req.body.apellidoC;
   
-    return res.render("confirmCompra", {vuelos,asientos});
+    return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
   }
 
   // //insert into boleto (C_vuelo,C_asiento,Pasaporte_P,Activo) values (1,1,1111111,false)
