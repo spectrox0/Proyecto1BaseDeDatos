@@ -63,6 +63,7 @@ router.get("/register", (req, res) => {
 
  router.post("/confirmCompra/:id", catchErrors(boletoController.confirmCompra)) ; 
 
+
 router.post("/formularioCompra2" , boletoController.compraEscala) ; 
 
 router.get("/index", (req, res) => {

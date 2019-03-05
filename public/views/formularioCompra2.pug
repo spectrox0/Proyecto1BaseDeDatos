@@ -43,7 +43,7 @@ block content
             .container.logo
                 
            
-            form(action=`/confirmCompra/${JSON.stringify({id1: datos[0].C_vuelo, id2: datos[1].C_vuelo})}`, method="POST")
+            form(action=`/confirmCompra/${JSON.stringify(datos)}`, method="POST")
                 h1 Comprar Vuelo
                 hr
                 .form-row
@@ -53,7 +53,7 @@ block content
                         input#nameC.form-control(type='text', name='nameC',placeholder='Ingrese su nombre', required='')
                         input#apellidoC.form-control(type='text', name='apellidoC',placeholder='Ingrese su nombre', required='')
                         input#cedulaC.form-control( name='cedula',placeholder='Ingrese su cedula', type="number" required='')
-                        input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="text" required='')
+                        input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="number" required='')
                         input#emailC.form-control(type='text', name='emailC', placeholder='Ingrese su correo', required='')
                     .form-group.col-sm
                         h2  Datos pasajero 

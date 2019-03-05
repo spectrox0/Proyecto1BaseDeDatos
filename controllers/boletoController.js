@@ -107,13 +107,16 @@ exports.confirmCompra = async (req,res) => {
 
     sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
     {replacements: {
-      vuelo: vuelos.id1,
+      vuelo: vuelos[0].C_Vuelo,
       asiento: req.body.tipo1,
       pasap:req.body.pasaporte,
-      vuelo2: vuelos.id2,
+      vuelo2: vuelos[1].C_Vuelo,
       asiento2: req.body.tipo2,
-    }, type: sql.QueryTypes.INSERT});
-
+    }, type: sql.QueryTypes.INSERT});  
+    const nombre = req.body.nameC;
+    const apellido = req.body.apellidoC;
+    let asientos = [req.body.tipo1,req.body.tipo2]       
+    return res.render("confirmCompra", {vuelos,asientos});
     // sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
     // {replacements: {
     //   vuelo: vuelos.id2,
@@ -128,6 +131,13 @@ exports.confirmCompra = async (req,res) => {
       asiento: req.body.tipo,
       pasap:req.body.pasaporte
     }, type: sql.QueryTypes.INSERT});
+    
+    const vuelos = req.params.id;
+    const asientos = req.body.tipo;
+    const nombre = req.body.nameC;
+    const apellido = req.body.apellidoC;
+  
+    return res.render("confirmCompra", {vuelos,asientos});
   }
 
   // //insert into boleto (C_vuelo,C_asiento,Pasaporte_P,Activo) values (1,1,1111111,false)

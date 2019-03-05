@@ -15,7 +15,7 @@ block content
                     -if (asientos[i].C_asiento==4)
                          th Economica
                         
-                th Precio #{precio}
+                th Precio 
                
             tbody
                 tr
@@ -24,6 +24,7 @@ block content
                         td Disponible
                     - else 
                         td Agotado
+                td #{precio}        
         hr        
         .formular
             .container.logo
@@ -39,7 +40,7 @@ block content
                         input#nameC.form-control(type='text', name='nameC',placeholder='Ingrese su nombre', required='')
                         input#apellidoC.form-control(type='text', name='apellidoC',placeholder='Ingrese su nombre', required='')
                         input#cedulaC.form-control( name='cedula',placeholder='Ingrese su cedula', type="number" required='')
-                        input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="text" required='')
+                        input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="number" required='')
                         input#emailC.form-control(type='text', name='emailC', placeholder='Ingrese su correo', required='')
                     .form-group.col-sm
                         h2  Datos pasajero 

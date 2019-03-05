@@ -1,39 +1,59 @@
 extends base3
 block content
-  .contenedor2
+  .contenedorF
     .row 
       a(href="/index")
         img(src="../images/Back.png")
 
       h2 
-        |  Confirmacion de compra
-        
-    .row 
-    form(action=`Comprar`, method="POST")
-      .form-row 
-        table.table-responsive-sm
-          thead
-            tr 
-              th Fecha
-              th Hora Salida
-              th Hora llegada
-              th Origen 
-              th Destino
-              th Tipo de asiento
-              th Precio Total
-          tbody
-          
-            tr
-              td #{vuelo.Fecha_Salida}
-              td #{vuelo.Hora_salida}
-              td #{vuelo.Hora_llegada}
-              td #{}
-              td
-              td #{asiento}
-              td
-                
-      hr          
-      .form-row
-        input(type="submit" , value ="Comprar")
+        | Gracias por su compra #{} #{}
+    -if(asientos.length > 1)
+      -for(var i= 0; i<asientos.length ; i++)
+      .row 
+        .col
+          p
+            |Codigo Vuelo:
+        .col
+          p
+          |  #{vuelos[i].C_vuelo}
+  
+      .row 
+        .col
+          p
+            | Tipo de Asiento : 
+        .col
+          p  
+            -if (asientos[i]==1)
+              | Primera Clase
+            -if (asientos[i]==2)
+              |  Ejecutiva
+            -if (asientos[i]==3)
+              | Economica Premium
+            -if (asientos[i]==4)
+              | Economica
+    -else 
+      .row 
+        .col
+          p
+            |Codigo Vuelo:
+        .col
+          p
+          |  #{vuelos}
+  
+      .row 
+        .col
+          p
+            | Tipo de Asiento : 
+        .col
+          p  
+            -if (asientos[0]==1)
+              | Primera Clase
+            -if (asientos[0]==2)
+              |  Ejecutiva
+            -if (asientos[0]==3)
+              | Economica Premium
+            -if (asientos[0]==4)
+              | Economica
+
       // Table body
     // Table
