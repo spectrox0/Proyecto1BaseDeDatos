@@ -370,6 +370,10 @@ a{
 }
 p {
   text-align: center;
+  background: rgba(0,0,0,0.45);
+  margin-bottom:2px;
+  box-shadow: 10px 0px 20px rgba(0,0,0,0.6);
+  border-radius: 25px;
 }
 
 .contenedorF h2{
