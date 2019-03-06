@@ -73,11 +73,9 @@ router.get("/index", (req, res) => {
 router.get("/check_in", (req, res) => {
   res.render("check_in");
 });
-router.get("/check_in", (req, res) => {
-  res.render("check_in");
-});
 
 router.post("/checkinON", checkinController.checkInOn);
+router.post("/checkFinal/:p/:nv", checkinController.checkFinal);
 
 router.get("/checkinON/:p/:nv", checkinController.checkInOn_Get);
 
