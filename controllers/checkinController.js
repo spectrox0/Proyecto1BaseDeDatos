@@ -24,10 +24,9 @@ exports.checkInOn = async (req, res) => {
 	let pasaporte = req.body.Pasaporte;
 	let nvuelo = req.body.NroVuelo;
 
-	res.redirect(`/checkInOn/${pasaporte}/${nvuelo}`);
+	// return res.redirect(`/checkInOn/${pasaporte}/${nvuelo}`);
+	return res.render('checkinOn',{pasaporte , nvuelo } );
 };
-
 exports.checkInOn_Get = async (req, res) => {
-	console.log(req.body);
-	res.render('checkinOn');
+	return await res.render('checkinOn');
 };

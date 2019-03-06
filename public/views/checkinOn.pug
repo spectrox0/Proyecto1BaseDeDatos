@@ -3,8 +3,8 @@ block content
   .contenedorF
   
     h2
-      img(src='../images/Vuelos Guacamaya nombre-02.png')
-     table.table-responsive-sm
+        img(src='../images/Vuelos Guacamaya nombre-02.png')
+        table.table-responsive-sm
             thead
                 tr
                     th Hora Salida
@@ -26,14 +26,10 @@ block content
     hr
     form(action='/checkInOn',method="POST") 
       .form-row 
-        .form-group.col-md-6
-        
-        .form-group.col-md-6
-            label(for='Nroequipaje') Nro equipaje 
-            br
+        .form-group.col
             select(id='Nroequipaje', name='nroEquipaje', required='')
-            -for(var i=0 ; i<=10 ; i++)
-                option #{i}
+                -for(var i=0 ; i<=10 ; i++)
+                    option #{i}
                 
       .form-row
         .form-group.col-md-6
