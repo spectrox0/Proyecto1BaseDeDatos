@@ -24,7 +24,7 @@ block content
     h2
       | Vuelo Check In 
     hr
-    form(action='/checkInOn',method="POST") 
+    form(action=`/checkFinal/${pasaporte}/${nvuelo}`,method="POST") 
       .form-row 
         .form-group.col
             select(id='Nroequipaje', name='nroEquipaje', required='')
@@ -38,5 +38,3 @@ block content
           
       .form-row
         input(type='submit', value='Confirmar CheckInOn')
-
-        
