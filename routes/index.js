@@ -11,6 +11,7 @@ const User = require('../models/cliente');
 
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
+const checkinController = require('../controllers/checkinController');
 const { catchErrors } = require("../handlers/errorHandlers");
 
 router.get("/", (req, res) => {
@@ -72,6 +73,11 @@ router.get("/index", (req, res) => {
 router.get("/check_in", (req, res) => {
   res.render("check_in");
 });
+
+router.post("/checkinON", checkinController.checkInOn);
+
+router.get("/checkinON/:p/:nv", checkinController.checkInOn_Get);
+
   /*
 router.get('/logout', function (req, res) {
   req.logout();
