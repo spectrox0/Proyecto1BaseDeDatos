@@ -42,9 +42,6 @@ exports.getAviones = async (req, res) => {
     const aviones = await Avion.build({
         C_estado: req.body.estado,
         C_modelo: req.body.modelo,
-        //IATA: req.body.IATA,
-       // TV: tv,
-       // Internet : internet
     });
     await aviones.save();
     if (!!aviones) {

@@ -27,7 +27,7 @@ exports.checkInOn = async (req, res) => {
 	// res.redirect(`/checkInOn/${pasaporte}/${nvuelo}`);
 	res.render('checkinOn', {pasaporte, nvuelo});
 };
-
+   abordados = await Cliente.findAndCount()
 exports.checkInOn_Get = (req, res) => {
 	console.log(req.body);
 	res.render('checkinOn');
