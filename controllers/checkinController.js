@@ -141,7 +141,7 @@ exports.checkFinal = async (req, res) => {
 	console.log(req.body) ; 
 	console.log(req.params);
 
-	sql.query('INSERT INTO abordados VALUES (:pasap,:vuelo,:cant,:nroAsiento)',
+	let abordados = await sql.query('INSERT INTO abordados VALUES (:pasap,:vuelo,:cant,:nroAsiento)',
 	{replacements: {
 		nroAsiento: req.params.ca,
 		cant: req.body.nroEquipaje,
@@ -160,20 +160,20 @@ exports.checkFinal = async (req, res) => {
 	let nvuelo = req.params.nv;
 	console.log(pasaporte);
 
-	abordados = await Abordados.findAndCount( {
+	abordados1 = await Abordados.findAndCountAll( {
+		required:true,
 		 where: {
 		  C_vuelo: nvuelo,
-		  nroAsiento: C_asientox,
+		  nro_Asiento: C_asientox,
 		 }
 
 	});
-	console.log(abordados);
 
 	let modelo = await Modelo.findOne(
     {
      include: [ {
-	  model: Avion,
 	  required:true,
+	  model: Avion,
 	  include: [ {
 	  model: Vuelo,
 	  where: {
@@ -184,8 +184,9 @@ exports.checkFinal = async (req, res) => {
 	 ]	
 	}
 	); 
+	console.log(modelo.C_modelo);
 	
-	modeloAsientos = await modeloAsientos.findOne({
+	let modeloAsientos = await asientoModelo.findOne({
     where: { 
 	C_asiento: C_asientox,
 	C_modelo: modelo.C_modelo 
@@ -194,7 +195,7 @@ exports.checkFinal = async (req, res) => {
 
 	}) ;
 
-	if(abordados>=modeloAsientos.Cantidad) {
+	if(abordados1.count>=modeloAsientos.Cantidad) {
      const vueloAsientos = asientoVuelo.update({
 	   Disponibilidad: 0 ,
 	   where: { 
@@ -204,8 +205,13 @@ exports.checkFinal = async (req, res) => {
 
 
 	 }); } 
+	 let pasajero = await Pasajero.findOne ({ 
+		 where: {
+			 Pasaporte_P:pasaporte
+		 }
+	 })
 	
-	 return res.render('index');	
+	 return res.render("checkinsucces", {message:`Ha confirmado su vuelo ${pasajero.Nombre} ${pasajero.Apellido}`});	
 	};
 
 	/*sql.query('UPDATE abordados SET cant_Equipaje=:cant WHERE Pasaporte_P=:pasap AND C_vuelo=:vuelo',

@@ -3,7 +3,7 @@ const Itinerario = require('../models/itinerario');
 const Aeropuerto = require('../models/aeropuerto')
 const Avion = require("../models/avion") ;
 const modeloAsiento = require("../models/modeloAsiento");
-const VueloDesviado = require("../models/vuelo")
+const VueloDesviado = require("../models/vueloDesviado")
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
 Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 
@@ -171,15 +171,22 @@ exports.getVuelos = async (req, res) => {
  
 
 exports.getAllVuelos = async (req, res) => {
-  let Vuelo = await Vuelo.findAll( {
-  }
-)
-  Vuelo= Vuelo.map(val => val.dataValues);
-  let Vuelodesviado = await VueloDesviado.findAll();
-  Vuelodesviado = Vuelodesviado.map(val => val.dataValues);
 
-  if (Vuelo,Vuelodesviado) {
-    return res.render("vuelos", {Vuelo,Vuelodesviado});
+  let vuelos = await Vuelo.findAll();
+
+  vuelos= vuelos.map(val => val.dataValues);
+
+  let Vuelodesviado = await VueloDesviado.findAll();
+  let aeropuertos = await Aeropuerto.findAll();
+  let aviones = await Avion.findAll();
+
+  Vuelodesviado = Vuelodesviado.map(val => val.dataValues);
+  aeropuertos = aeropuertos.map(val => val.dataValues);
+  aviones = aviones.map( val => val.dataValues);
+
+
+  if (vuelos,Vuelodesviado) {
+    return res.render("vuelos", {vuelos,Vuelodesviado,aeropuertos,aviones});
   }
 };
 

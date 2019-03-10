@@ -11,7 +11,7 @@ const VueloDesviado = db.define('vuelodesviado', {
     },
 
  
-        IATA: {
+        nuevoDestino: {
             type: sequelize.STRING,
     
             allowNull: false

@@ -22,7 +22,7 @@ Pasaporte_P: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  Nro_Asiento: {
+  nro_Asiento: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
