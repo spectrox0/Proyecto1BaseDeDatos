@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Boleto = db.define('boleto', {
-    C_boleto: {
+const ServiciosAdicionales = db.define('serviciosadicionales', {
+    C_avion: {
 
         type: sequelize.INTEGER,
         primaryKey: true,
@@ -10,24 +10,8 @@ const Boleto = db.define('boleto', {
         allowNull: false
     },
 
-    C_vuelo: {
-
-        type: sequelize.INTEGER,
-        allowNull: false
-    },
-    
-    C_asiento: {
-
-        type: sequelize.INTEGER,
-        allowNull: false
-    },
-    Pasaporte_P: {
-
-        type: sequelize.INTEGER,
-        allowNull: false
-    },
-   
-    Activo: {
+  
+    internet: {
         type: sequelize.TINYINT,
         allowNull: false,
         defaultValue: 1,
@@ -35,6 +19,12 @@ const Boleto = db.define('boleto', {
         validate: {
             notEmpty: true
         }
+    ,
+    cant_tv: {
+        type: sequelize.INTEGER,
+        allowNull: false,
+
+    }
     
 
 } }, {
@@ -42,4 +32,4 @@ const Boleto = db.define('boleto', {
     freezeTableName: true
 } );
 
-module.exports = Boleto;
+module.exports = ServiciosAdicionales;

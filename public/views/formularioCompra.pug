@@ -30,30 +30,30 @@ block content
             .container.logo
                 
            
-            form(action=`/confirmCompra/${vuelo.C_vuelo}`, method="POST")
+            form(action=`/confirmCompra/${vuelo.C_vuelo}/${precio}`, method="POST")
                 h1 Comprar Vuelo
                 hr
                 .form-row
                     .form-group.col-sm
                         h2  Datos Comprador
                         hr
-                        input#nameC.form-control(type='text', name='nameC',placeholder='Ingrese su nombre', required='')
-                        input#apellidoC.form-control(type='text', name='apellidoC',placeholder='Ingrese su nombre', required='')
-                        input#cedulaC.form-control( name='cedula',placeholder='Ingrese su cedula', type="number" required='')
+                        input#nameC.form-control(type='text', name='nameC',placeholder='Ingrese su nombre', maxlength="10" ,required='')
+                        input#apellidoC.form-control(type='text', name='apellidoC',placeholder='Ingrese su Apellido',maxlength="10" , required='')
+                        input#cedulaC.form-control( name='cedula',placeholder='Ingrese su cedula', type="number" ,maxlength="10" , required='')
                         input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="number" required='')
                         input#emailC.form-control(type='text', name='emailC', placeholder='Ingrese su correo', required='')
                     .form-group.col-sm
                         h2  Datos pasajero 
                         hr
-                        input#nameP.form-control(type='text', name='nameP',placeholder='Ingrese su nombre', required='')
-                        input#apellidoP.form-control(type='text', name='apellidoP',placeholder='Ingrese su apellido', required='')
-                        input#pasaporte.form-control( name='pasaporte',placeholder='Ingrese su pasaporte', type="number" required='')
+                        input#nameP.form-control(type='text', name='nameP',placeholder='Ingrese su nombre',maxlength="10" ,='')
+                        input#apellidoP.form-control(type='text', name='apellidoP',placeholder='Ingrese su apellido', maxlength="10" ,required='')
+                        input#pasaporte.form-control( name='pasaporte',placeholder='Ingrese su pasaporte', maxlength="10" ,type="number" required='')
                         label(for='Genero') Genero
                         select(id='Genero', name='genero', required='')
                             option(value="Masculino") Masculino
                             option(value="Femenino") Femenino
-                        input#edadP.form-control( name="edadP",placeholder='Ingrese su edad', type="number" required='')
-                        input#nacionalidadP.form-control(type='text', name='nacionalidadP',placeholder='Ingrese su nacionalidad', required='')
+                        input#edadP.form-control( name="edadP",placeholder='Ingrese su edad',maxlength="2" , type="number" required='')
+                        input#nacionalidadP.form-control(type='text', name='nacionalidadP', maxlength="10" ,placeholder='Ingrese su nacionalidad', required='')
                 .switch-field
                     .switch-title Tipo de Asiento
                     input#Primera_Clase(type='radio', name='tipo', value='1')
@@ -64,4 +64,5 @@ block content
                     label(for='Economica_Premium') Economica Premium
                     input#Economica(type='radio', name='tipo', value='4')
                     label(for='Economica') Economica
+            .form-row
                 input(type='submit', value='Comprar Boleto')

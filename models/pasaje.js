@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Boleto = db.define('boleto', {
+const Pasaje = db.define('pasaje', {
     C_pasaje: {
 
         type: sequelize.INTEGER,
@@ -10,14 +10,24 @@ const Boleto = db.define('boleto', {
         allowNull: false
     },
 
-    Precio_Total: {
+    Precio_total: {
 
-        type: sequelize.INTEGER,
+        type: sequelize.FLOAT,
         allowNull: false
     } , 
+     fechaCompra: {
+
+        type: sequelize.STRING,
+        allowNull: false
+    } ,   
+
+    C_cliente: {
+        type: sequelize.INTEGER,
+        allowNull: false
+    },
    }, {
     timestamps: false,
     freezeTableName: true
 } );
 
-module.exports = Boleto;
+module.exports = Pasaje;

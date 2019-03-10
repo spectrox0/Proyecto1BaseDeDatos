@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const sequelize = require("../config/db");
 const { SALT } = process.env;
 
-const pasajeros = sequelize.define("pasajero", {
+const abordados = sequelize.define("abordados", {
 Pasaporte_P: {
     
     type: Sequelize.INTEGER,
@@ -34,4 +34,4 @@ Pasaporte_P: {
 
 
 
-module.exports = pasajeros;
+module.exports = abordados;

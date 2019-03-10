@@ -1,0 +1,133 @@
+extends base2
+block content
+      .row
+        h2.titulo
+        img(src='', alt='')
+    
+      table.table.table-hover
+        thead
+          tr
+            th ID
+            th Avion
+            th Fecha
+            th Hora_Salida
+            th Hora_Llegada
+            th Opciones
+        tbody.collection
+        - for (var i = 0; i < vuelos.length; i++)
+          tr
+            td   #{vuelos[i].C_vuelo}
+            td   #{vuelos[i].C_avion}
+            td   #{vuelos[i].fecha_Salida}
+            td   #{vuelos[i].Hora_salida}
+            td   #{vuelos[i].hora_llegada}
+            td
+              form(action=`delete/${vuelos[i].C_vuelo}`,method="POST")
+                button.btn.btn-primary(type='submit')
+                  i.far.fa-times-circle
+                  |  Eliminar
+              
+              form
+                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#avionesC${tripulacion[i].C_avion}`)
+                  i.fas.fa-edit
+                  |  Editar
+          .modal.fade(id=`avionesC${vuelos[i].C_vuelo}`)
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  h3.modal-title Edicion Tripulacion
+                  button.close(type='button', data-dismiss='modal') ×
+                .modal-body
+                  form(action=`update/vuelos/${vuelos[i].C_vuelo}`, method="POST")
+                    .form-row
+              
+                         
+                      .form-group.col-md-6
+                        label(for=`Avion${vuelos[i].C_vuelo}`) Avion
+                        br
+                        select(id= `Avion${vuelos[i].C_vuelo}`, name='avion', required='')
+                          option Piloto
+                          option Copiloto
+                          option Ayudante Cabina
+                          option Mantemiento
+                       .form-group.col-md-6
+                        label(for=`fecha${vuelos[i].C_vuelo}`) Fecha
+                        br
+                        input(type="date" id=`fecha${vuelos[i].C_vuelo}`, name='fecha', required='')
+                    .form-row
+                      .form-group.col-md-6
+          
+                        label(for=`horaS${vuelos[i].C_vuelo}`) Hora Salida
+                        br
+                        input(type="text" id=`HoraS${vuelos[i].C_vuelo}`, name='horaS', required='')
+                      
+                      .form-group.col-md-6
+    
+                        label(for=`minS${vuelos[i].C_vuelo}`) Minutos
+                        br
+                        input(type="text" id=`HoraS${vuelos[i].C_vuelo}`, name='minS', required='')
+                    .form-row
+                  
+                      .form-group.col-md-6
+  
+                        label(for=`horaL${vuelos[i].C_vuelo}`) Hora llegada
+                        br
+                        input(type="text" id=`HoraL${vuelos[i].C_vuelo}`, name='horaL', required='')
+                      
+                      .form-group.col-md-6
+                        label(for=`minL${vuelos[i].C_vuelo}`) Minutos
+                        br
+                        input(type="text" id=`HoraL${vuelos[i].C_vuelo}`, name='minL', required='')
+        
+                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#tripulacinC${vuelos[i].C_vuelo}`) Actualizar
+      
+        tfoot
+          tr
+            td(colspan='8')
+              button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+                i.fas.fa-folder-plus
+                |  Crear producto
+          tr
+            td(colspan='8')
+              #collapseExample1.collapse
+                form(action='create' method="POST")
+                   .form-row
+              
+                         
+                      .form-group.col-md-6
+                        label(for=`Avion`) Avion
+                        br
+                        select(id= `Avion`, name='avion', required='')
+                          option Piloto
+                          option Copiloto
+                          option Ayudante Cabina
+                          option Mantemiento
+                       .form-group.col-md-6
+                        label(for=`fecha`) Fecha
+                        br
+                        input(type="date" id=`fecha`, name='fecha', required='')
+                    .form-row
+                      .form-group.col-md-6
+          
+                        label(for=`horaS`) Hora Salida
+                        br
+                        input(type="text" id=`HoraS`, name='horaS', required='')
+                      
+                      .form-group.col-md-6
+    
+                        label(for=`minS`) Minutos
+                        br
+                        input(type="text" id=`HoraS`, name='minS', required='')
+                    .form-row
+                  
+                      .form-group.col-md-6
+  
+                        label(for=`horaL`) Hora llegada
+                        br
+                        input(type="text" id=`HoraL`, name='horaL', required='')
+                      
+                      .form-group.col-md-6
+                        label(for=`minL`) Minutos
+                        br
+                        input(type="text" id=`HoraL`, name='minL', required='')
+                  button.btn.btn-primary(type='submit') Guardar

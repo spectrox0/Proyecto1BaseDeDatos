@@ -26,7 +26,6 @@ exports.sendForm = async (req, res) => {
   
   asientos=asientos.map(val => val.dataValues);
 
-  console.log(vuelo.C_avion);
   let precio;
   // Aqui el precio de un vuelo directo
   sql.query('SELECT i.precio_base FROM itinerario i, avion a WHERE a.C_avion = :avion and a.C_itinerario = i.C_itinerario',
@@ -35,7 +34,6 @@ exports.sendForm = async (req, res) => {
       if(data) {
         precio = data[0].precio_base;
       }
-      console.log(precio);
 
       if (vuelo,asientos)
       return res.render("formularioCompra", {vuelo,asientos,precio});
@@ -68,9 +66,8 @@ exports.compraEscala = async (req, res) => {
 };
 
 exports.confirmCompra = async (req,res) => {
-
-  console.log(req.body);
-  console.log(req.params.id.length);
+  
+    
   let cliente = await Cliente.findOne( { 
      where: { 
        cedula:req.body.cedula
@@ -84,7 +81,16 @@ exports.confirmCompra = async (req,res) => {
     email:req.body.emailC,
     telf:req.body.telefonoC,
     cedula: req.body.cedula
-  }, type: sql.QueryTypes.INSERT}); } 
+  }, type: sql.QueryTypes.INSERT}); }  
+  
+  else if (cliente.Nombre!=req.body.nameC || cliente.Apellido!=req.body.apellidoC
+    || cliente.email!=req.body.emailC || cliente.telefono!= req.body.telefonoC ){
+     
+     let message = "Error los datos del cliente comprador no concuerdan con lo guardado";
+     let dir = "index" ;
+     return res.render('mensajeError', { dir,message});
+       
+    }
 
   let pasajero = await Pasajero.findOne({ 
  where: { 
@@ -103,12 +109,48 @@ exports.confirmCompra = async (req,res) => {
       nacionalidad: req.body.nacionalidadP
     }, type: sql.QueryTypes.INSERT});
   
-   }
+   } else if (pasajero.Nombre!=req.body.nameP || pasajero.Apellido!=req.body.apellidoP
+               || pasajero.Genero!=req.body.genero || pasajero.edad!= req.body.edadP
+               || pasajero.nacionalidad!= req.body.nacionalidadP  ){
+                
+                let message = "Error los datos del pasajero no concuerdan con lo guardado";
+                let dir = "index" ;
+                return res.render('mensajeError', { dir,message});
+                  
+               }
   
   
   if (req.params.id.length > 8) {
     let vuelos = await JSON.parse(req.params.id);
+   
+   let boleto1 = await Boleto.findOne(
+     {
+       where: {
+        C_vuelo: vuelos[0].C_vuelo,
+        Pasaporte_P : req.body.pasaporte,
 
+
+       }
+     }
+   ) ; 
+   
+   let boleto2 = await Boleto.findOne(
+    {
+      where: {
+       C_vuelo: vuelos[1].C_vuelo,
+       Pasaporte_P : req.body.pasaporte,
+
+
+      }
+    }
+  )
+    if(boleto1!=null || boleto2!=null) {
+      let message = "Error el pasajero ya dispone de algun boleto para el destino vuelo indicado";
+      let dir = "index" ;
+      return res.render('mensajeError', { dir,message});
+
+    }
+ 
     let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
     {replacements: {
       vuelo: vuelos[0].C_vuelo,
@@ -121,28 +163,98 @@ exports.confirmCompra = async (req,res) => {
     const nombre = req.body.nameC;
     const apellido = req.body.apellidoC;
     let asientos = [req.body.tipo1,req.body.tipo2]   
+      
+    let asienAux1 = await asientoVuelo.findOne( {
+      where: {
+      C_vuelo: vuelos[0].C_vuelo,
+       C_asiento: req.body.tipo1,
+      }
+     }) ;
+   
+      var actual=  asienAux1.Cant_vendidos+1;
+
+     let asientoVuelox1 = await asientoVuelo.update({
+       Cant_vendidos: actual } ,{
+       where: {
+         C_vuelo: vuelos[0].C_vuelo,
+         C_asiento: req.body.tipo1,
+       } }
+     ) ;
+
+     let asienAux2 = await asientoVuelo.findOne( {
+      where: {
+      C_vuelo: vuelos[1].C_vuelo,
+      C_asiento: req.body.tipo2,
+      }
+     }) ;
+    
+     let asientoVuelox2 = await asientoVuelo.update({
+       Cant_vendidos: asienAux2.Cant_vendidos+1 }, {
+       where: {
+         C_vuelo: vuelos[1].C_vuelo,
+         C_asiento: req.body.tipo2,
+       } }
+     ) ;
+
+     let pasaje = await Pasaje.build({
+      Precio_total: req.params.precio,
+      fechaCompra: Date.now(),
+      C_cliente: req.body.cedula,
+  
+      }) ; 
+      await pasaje.save();
 
     return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
-    // sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
-    // {replacements: {
-    //   vuelo: vuelos.id2,
-    //   asiento: req.body.tipo2,
-    //   pasap:req.body.pasaporte
-    // }, type: sql.QueryTypes.INSERT});
-
+   
   } else {
+   
+    let boleto = await Boleto.findOne(
+      {
+        where: {
+         C_vuelo: req.params.id,
+         Pasaporte_P : req.body.pasaporte,
+ 
+        }
+      }
+    ) ; 
+    if(boleto!=null) {
+      let message = "Error el pasajero ya dispone de algun boleto para el destino vuelo indicado";
+      let dir = "index" ;
+      return res.render('mensajeError', { dir,message});
+
+    }
     let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
     {replacements: {
       vuelo: req.params.id,
       asiento: req.body.tipo,
       pasap:req.body.pasaporte
     }, type: sql.QueryTypes.INSERT});
+   
     
-    const vuelos = req.params.id;
-    const asientos = [req.body.tipo];
-    const nombre = req.body.nameC;
-    const apellido = req.body.apellidoC;
-  
+    let asienAux = await asientoVuelo.findOne( {
+     where: {
+     C_vuelo: req.params.id,
+      C_asiento: req.body.tipo
+    }
+    }) ;
+     
+    let asientoVuelox = await asientoVuelo.update({ 
+      Cant_vendidos: parseInt(asienAux.Cant_vendidos)+1 } ,
+       {where: {
+        C_vuelo: req.params.id,
+        C_asiento: req.body.tipo
+      }
+    }) ;
+    
+    let pasaje = await Pasaje.build({
+    Precio_total: req.params.precio,
+    fechaCompra: Date.now(),
+    C_cliente: req.body.cedula,
+
+    }) ; 
+    await pasaje.save();
+
+    
     return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
   }
 

@@ -3,6 +3,7 @@ const Itinerario = require('../models/itinerario');
 const Aeropuerto = require('../models/aeropuerto')
 const Avion = require("../models/avion") ;
 const modeloAsiento = require("../models/modeloAsiento");
+const VueloDesviado = require("../models/vuelo")
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
 Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 
@@ -92,11 +93,7 @@ exports.getVuelos = async (req, res) => {
       
      Intermedio.push(intermedio);
 
-  } 
-   
-    
-
-
+  }
      };
 
      let Origen, Destino ; 
@@ -171,16 +168,74 @@ exports.getVuelos = async (req, res) => {
   };
 
 
-  exports.getVuelo = async (req,res) => {
-   var vuelo  = Vuelo.findOne ( {
-    where: {
-      C_vuelo: req.body.selVuelo
+ 
+
+exports.getAllVuelos = async (req, res) => {
+  let Vuelo = await Vuelo.findAll( {
+  }
+)
+  Vuelo= Vuelo.map(val => val.dataValues);
+  let Vuelodesviado = await VueloDesviado.findAll();
+  Vuelodesviado = Vuelodesviado.map(val => val.dataValues);
+
+  if (Vuelo,Vuelodesviado) {
+    return res.render("vuelos", {Vuelo,Vuelodesviado});
+  }
+};
+
+exports.createVuelo = async (req, res) => {
+ try{
+  const Vuelo = await Vuelo.build({
+      C_vuelo: req.body.pasaporte,
+      cargo: req.body.cargo,
+      Nombre: req.body.nombre,
+      Apellido: req.body.apellido,
+  });
+  await Vuelo.save();
+  if (!!Vuelo) {
+    return res.redirect("Vuelo");
+  } else {
+      return req.flash({ 'error': 'No se creo' }); }
+} catch(callback) {
+  return  req.flash({ 'error': 'No se creo' });
+} }
+ 
+
+exports.updateVuelo = async (req, res) => {
+  const C_vuelo = req.params.id;
+ 
+  const Vuelo = await Vuelo.update(
+    { 
+      c_avion: req.body.idAvion,
+      Fecha_salida: req.body.nombre,
+      Hora_salida: req.body.hora_salida,
+      Hora_llegada:  req.body.hora_llegada,
+    },
+      
+    { where: {C_vuelo} }
+  );
+  // await aviones.save();
+  if (!!Vuelo) {
+    return res.redirect("/vuelos");
+  }
+};
+
+exports.deleteVuelo = async (req, res) => {
+  const C_vuelo=req.params.id;
+  const response = await Vuelo.update({
+      Activo: false
+  }, {
+      where: {
+          C_vuelo
+      }
+  });
+  if (!!response) {
+      return res.redirect("/Vuelo");
     }
 
-  })
+};
 
-
-}
+ 
  
  
  

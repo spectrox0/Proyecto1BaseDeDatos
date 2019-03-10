@@ -43,7 +43,7 @@ block content
             .container.logo
                 
            
-            form(action=`/confirmCompra/${JSON.stringify(datos)}`, method="POST")
+            form(action=`/confirmCompra/${JSON.stringify(datos)}/${precioTotal}`, method="POST")
                 h1 Comprar Vuelo
                 hr
                 .form-row
@@ -54,7 +54,7 @@ block content
                         input#apellidoC.form-control(type='text', name='apellidoC',placeholder='Ingrese su nombre', required='')
                         input#cedulaC.form-control( name='cedula',placeholder='Ingrese su cedula', type="number" required='')
                         input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="number" required='')
-                        input#emailC.form-control(type='text', name='emailC', placeholder='Ingrese su correo', required='')
+                        input#emailC.form-control(type='email', name='emailC', placeholder='Ingrese su correo', required='')
                     .form-group.col-sm
                         h2  Datos pasajero 
                         hr
@@ -87,4 +87,5 @@ block content
                     label(for='Economica_Premium2') Economica Premium
                     input#Economica2(type='radio', name='tipo2', value='4')
                     label(for='Economica2') Economica
+            .form-row
                 input(type='submit', value='Comprar Boletos')
