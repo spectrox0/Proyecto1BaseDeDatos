@@ -17,7 +17,7 @@ const ServiciosAdicionales = db.define('serviciosadicionales', {
         defaultValue: 1,
 
         validate: {
-            notEmpty: true
+        notEmpty: true
         }
     ,
     cant_tv: {
