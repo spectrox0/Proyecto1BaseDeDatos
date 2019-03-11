@@ -91,6 +91,12 @@ router.post("/update/Vuelodesviado/:id", catchErrors(vueloController.updateVuelo
 router.post("/delete/Vuelodesviado/:id", catchErrors(vueloController.deleteVuelodesviado));
 
 
+//statistics
+router.get("/statistics", (req, res) => {
+  res.render("statistics");
+});
+
+
 
  
 

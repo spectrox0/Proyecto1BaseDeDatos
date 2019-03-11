@@ -656,3 +656,17 @@ text-shadow: 0px 0px 10px white;}
  transition: all .5s ease;
 max-width: 600px;
 }
+
+.results tr[visible='false'],
+.no-result{
+  display:none;
+}
+
+.results tr[visible='true']{
+  display:table-row;
+}
+
+.counter{
+  padding:8px; 
+  color:#ccc;
+}
