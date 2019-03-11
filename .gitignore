@@ -2,4 +2,8 @@
 node_modules
 =======
 node_modules/
+<<<<<<< HEAD
 >>>>>>> 72c97c3d0d4eb5570047d5c4fd4b5a8e9f0ef375
+=======
+node_modules
+>>>>>>> e1583224db8a5aff3dc9d5939337b5287858a17d

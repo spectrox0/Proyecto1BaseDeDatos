@@ -90,6 +90,8 @@ app.use(errorHandlers.flashValidationErrors);
 if (app.get("env") === "development") {
   app.use(errorHandlers.developmentErrors);
 }
+// para mostrar estadisticas
+app.use(express.static(path.join(__dirname, 'public/assets/scripts')));
 
 // Si la app falla y estamos en produccion los errores cambian
 app.use(errorHandlers.productionErrors);
