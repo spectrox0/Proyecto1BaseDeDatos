@@ -87,10 +87,9 @@ router.post("/create/vuelo", catchErrors(vueloController.createVuelo));
 router.post("/update/vuelo/:id", catchErrors(vueloController.updateVuelo));
 router.post("/delete/vuelo/:id", catchErrors(vueloController.deleteVuelo));
 
-router.get("/vuelos", catchErrors(vueloController.getAllVuelos));
-router.post("/create/vuelo", catchErrors(vueloController.createVuelo));
-router.post("/update/Vuelodesviado/:id", catchErrors(vueloController.updateVuelo));
-router.post("/delete/Vuelodesviado/:id", catchErrors(vueloController.deleteVuelo));
+router.post("/create/Vuelodesviado", catchErrors(vueloController.createVuelodesviado));
+router.post("/update/Vuelodesviado/:id", catchErrors(vueloController.updateVuelodesviado));
+router.post("/delete/Vuelodesviado/:id", catchErrors(vueloController.deleteVuelodesviado));
 
 
 

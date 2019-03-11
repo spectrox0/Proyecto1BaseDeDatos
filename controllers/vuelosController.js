@@ -192,31 +192,60 @@ exports.getAllVuelos = async (req, res) => {
 
 exports.createVuelo = async (req, res) => {
  try{
-  const Vuelo = await Vuelo.build({
-      C_vuelo: req.body.pasaporte,
-      cargo: req.body.cargo,
-      Nombre: req.body.nombre,
-      Apellido: req.body.apellido,
+  const vuelo = await Vuelo.build({
+      C_avion: req.body.C_avion,
+      Fecha_salida: req.body.fecha,
+      Hora_salida:req.body.horaS , 
+      hora_llegada: req.body.horaL 
   });
-  await Vuelo.save();
-  if (!!Vuelo) {
-    return res.redirect("Vuelo");
+  await vuelo.save();
+  if (!!vuelo) {
+    return res.redirect("vuelos");
   } else {
       return req.flash({ 'error': 'No se creo' }); }
 } catch(callback) {
   return  req.flash({ 'error': 'No se creo' });
 } }
+
+exports.createVuelodesviado = async (req, res) => {
+  try{
+   
+   const vuelosDesviado = await VueloDesviado.build({
+       C_vuelo: req.body.idVuelotoDesviado,
+       nuevoDestino: req.body.nuevoDestino,
+   });
+   await vuelosDesviado.save();
+   if (!!vuelosDesviado) {
+     return res.redirect("/vuelos");
+   } else {
+       return res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;}
+ } catch(error) {
+   return  res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;
+ } }
+
+ exports.updateVuelodesviado = async (req, res) => {
+  const C_vuelo = req.params.id;
  
+  const vueloDesviado = await VueloDesviado.update(
+    { 
+       nuevoDestino: req.body.nuevoDestino`${C_vuelo}`,
+    }, { where: {C_vuelo} }
+    );
+    if (!!vueloDesviado) {
+      return res.redirect("/vuelos");
+    }
+  
+  }
 
 exports.updateVuelo = async (req, res) => {
   const C_vuelo = req.params.id;
  
   const Vuelo = await Vuelo.update(
     { 
-      c_avion: req.body.idAvion,
-      Fecha_salida: req.body.nombre,
-      Hora_salida: req.body.hora_salida,
-      Hora_llegada:  req.body.hora_llegada,
+      C_avion: req.body.C_avion`${C_vuelo}`,
+      Fecha_salida: req.body.fecha`${C_vuelo}`,
+      Hora_salida:req.body.horaS`${C_vuelo}`, 
+      hora_llegada: req.body.horaL`${C_vuelo}`
     },
       
     { where: {C_vuelo} }
@@ -229,15 +258,35 @@ exports.updateVuelo = async (req, res) => {
 
 exports.deleteVuelo = async (req, res) => {
   const C_vuelo=req.params.id;
+  try{
   const response = await Vuelo.update({
       Activo: false
   }, {
       where: {
-          C_vuelo
+          C_vuelo:C_vuelo
       }
   });
   if (!!response) {
-      return res.redirect("/Vuelo");
+      return res.redirect("/vuelos");
+    }
+  else {
+    return res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;
+  }}catch(error) {
+      return res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;
+    }
+
+};
+
+exports.deleteVuelodesviado = async (req, res) => {
+  const C_vuelo=req.params.id;
+
+  const response = await VueloDesviado.destroy( {
+      where: {
+          C_vuelo: C_vuelo
+      }
+  });
+  if (!!response) {
+      return res.redirect("/vuelos");
     }
 
 };
