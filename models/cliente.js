@@ -5,12 +5,12 @@ const bcrypt = require("bcryptjs");
 const sequelize = require("../config/db");
 const { SALT } = process.env;
 
-const usuario = sequelize.define("cliente", {
-  name: {
+const cliente = sequelize.define("cliente", {
+  Nombre: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  apellido: {
+  Apellido: {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -32,10 +32,12 @@ telefono: {
     allowNull: false
     
 },
-
+}, {
+  timestamps: false,
+  freezeTableName: true
 
 });
 
 
 
-module.exports = usuario;
+module.exports = cliente;

@@ -3,6 +3,7 @@ const Itinerario = require('../models/itinerario');
 const Aeropuerto = require('../models/aeropuerto')
 const Avion = require("../models/avion") ;
 const modeloAsiento = require("../models/modeloAsiento");
+const VueloDesviado = require("../models/vueloDesviado")
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
 Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 
@@ -41,9 +42,10 @@ exports.getVuelos = async (req, res) => {
    
 });
 
-    escalas= []; 
-    Intermedio = [] ;
+    var escalas= []; 
+    var Intermedio = [] ;
     vuelos = vuelos.map(val => val.dataValues);
+
       for (var i = 0 ; i<vuelos.length ; i++) { 
 
 
@@ -56,7 +58,8 @@ exports.getVuelos = async (req, res) => {
            }, 
          }]
 
-      }) ;      
+      }) ;   
+
       var vuelo2 = await Vuelo.findOne({
         include:[{
         model: Avion,
@@ -76,6 +79,7 @@ exports.getVuelos = async (req, res) => {
 
   if(vuelo2!=null) {
     const vuelox =[] ;
+    
      await vuelox.push(vuelos[i]);
      await vuelox.push(vuelo2) ;
      await escalas.push(vuelox);
@@ -89,11 +93,7 @@ exports.getVuelos = async (req, res) => {
       
      Intermedio.push(intermedio);
 
-  } 
-   
-    
-
-
+  }
      };
 
      let Origen, Destino ; 
@@ -108,7 +108,6 @@ exports.getVuelos = async (req, res) => {
       } }
     ) 
     
-     
       return res.render('findVueloEscalas', {escalas,Origen,Destino,Intermedio});
     
     }
@@ -169,17 +168,130 @@ exports.getVuelos = async (req, res) => {
   };
 
 
-  exports.getVuelo = async (req,res) => {
-   var vuelo  = Vuelo.findAll ( {
-    where: {
-      C_vuelo: req.body.selVuelo
+ 
+
+exports.getAllVuelos = async (req, res) => {
+
+  let vuelos = await Vuelo.findAll();
+
+  vuelos= vuelos.map(val => val.dataValues);
+
+  let Vuelodesviado = await VueloDesviado.findAll();
+  let aeropuertos = await Aeropuerto.findAll();
+  let aviones = await Avion.findAll();
+
+  Vuelodesviado = Vuelodesviado.map(val => val.dataValues);
+  aeropuertos = aeropuertos.map(val => val.dataValues);
+  aviones = aviones.map( val => val.dataValues);
+
+
+  if (vuelos,Vuelodesviado) {
+    return res.render("vuelos", {vuelos,Vuelodesviado,aeropuertos,aviones});
+  }
+};
+
+exports.createVuelo = async (req, res) => {
+ try{
+  const vuelo = await Vuelo.build({
+      C_avion: req.body.C_avion,
+      Fecha_salida: req.body.fecha,
+      Hora_salida:req.body.horaS , 
+      hora_llegada: req.body.horaL 
+  });
+  await vuelo.save();
+  if (!!vuelo) {
+    return res.redirect("vuelos");
+  } else {
+      return req.flash({ 'error': 'No se creo' }); }
+} catch(callback) {
+  return  req.flash({ 'error': 'No se creo' });
+} }
+
+exports.createVuelodesviado = async (req, res) => {
+  try{
+   
+   const vuelosDesviado = await VueloDesviado.build({
+       C_vuelo: req.body.idVuelotoDesviado,
+       nuevoDestino: req.body.nuevoDestino,
+   });
+   await vuelosDesviado.save();
+   if (!!vuelosDesviado) {
+     return res.redirect("/vuelos");
+   } else {
+       return res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;}
+ } catch(error) {
+   return  res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;
+ } }
+
+ exports.updateVuelodesviado = async (req, res) => {
+  const C_vuelo = req.params.id;
+ 
+  const vueloDesviado = await VueloDesviado.update(
+    { 
+       nuevoDestino: req.body.nuevoDestino`${C_vuelo}`,
+    }, { where: {C_vuelo} }
+    );
+    if (!!vueloDesviado) {
+      return res.redirect("/vuelos");
+    }
+  
+  }
+
+exports.updateVuelo = async (req, res) => {
+  const C_vuelo = req.params.id;
+ 
+  const Vuelo = await Vuelo.update(
+    { 
+      C_avion: req.body.C_avion`${C_vuelo}`,
+      Fecha_salida: req.body.fecha`${C_vuelo}`,
+      Hora_salida:req.body.horaS`${C_vuelo}`, 
+      hora_llegada: req.body.horaL`${C_vuelo}`
+    },
+      
+    { where: {C_vuelo} }
+  );
+  // await aviones.save();
+  if (!!Vuelo) {
+    return res.redirect("/vuelos");
+  }
+};
+
+exports.deleteVuelo = async (req, res) => {
+  const C_vuelo=req.params.id;
+  try{
+  const response = await Vuelo.update({
+      Activo: false
+  }, {
+      where: {
+          C_vuelo:C_vuelo
+      }
+  });
+  if (!!response) {
+      return res.redirect("/vuelos");
+    }
+  else {
+    return res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;
+  }}catch(error) {
+      return res.render("mensajeError",{message:"El desvio del vuelo no se pudo crear", dir:"vuelos"}) ;
     }
 
-  })
+};
 
-  vuelo = vuelo.map(val => val.dataValues);
+exports.deleteVuelodesviado = async (req, res) => {
+  const C_vuelo=req.params.id;
 
-}
+  const response = await VueloDesviado.destroy( {
+      where: {
+          C_vuelo: C_vuelo
+      }
+  });
+  if (!!response) {
+      return res.redirect("/vuelos");
+    }
+
+};
+
+ 
  
  
  

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 doctype html
 html(lang='en')
   head
@@ -91,10 +92,168 @@ html(lang='en')
         tfoot
           tr
             td(colspan='6')
+=======
+extends base2
+block content
+  .row
+    .col-md-3
+      table.table.table-hover.table-responsive
+        thead
+          tr
+            th ID Vuelo
+            th Nuevo Destino
+            th Vuelo Charter         
+            th Opciones
+        tbody.collection
+        -for (var i = 0; i < Vuelodesviado.length; i++)
+          tr
+            td   #{Vuelodesviado[i].C_vuelo}
+            td 
+              -if(Vuelodesviado[i].nuevoDestino=="UA")
+                | Atlanta
+              -if(Vuelodesviado[i].nuevoDestino=="AUD")
+                | Dubai
+              -if(Vuelodesviado[i].nuevoDestino=="FP")
+                | Paris
+              -if(Vuelodesviado[i].nuevoDestino=="UN")
+                | New York
+              -if(Vuelodesviado[i].nuevoDestino=="UM")
+                | Miami
+            td   
+            
+            td
+              form(action=`delete/Vuelodesviado/${Vuelodesviado[i].C_vuelo}`,method="POST")
+                button.btn.btn-primary(type='submit')
+                  i.far.fa-times-circle
+                  |  Eliminar
+              
+              form
+                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#avionesServicios${Vuelodesviado[i].C_vuelo}`)
+                  i.fas.fa-edit
+                  |  Editar
+          .modal.fade(id=`avionesServicios${Vuelodesviado[i].C_vuelo}`)
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  h3.modal-title Edicion Vuelo desviado
+                  button.close(type='button', data-dismiss='modal') ×
+                .modal-body
+                  form(action=`update/Vuelodesviado/${Vuelodesviado[i].C_vuelo}`, method="POST")
+                    .form-row
+                      .form-group.col-md-6
+                        label(for=`newDestino${Vuelodesviado[i].C_vuelo}`) Nuevo Destino
+                        br
+                        select(id= `newDestino${Vuelodesviado[i].C_vuelo}`, name=`nuevoDestino${Vuelodesviado[i].C_vuelo}`, required='')
+                          -for(var j = 0; j<aeropuertos.length ; j++)
+                            option(value=`${aeropuertos[j].IATA}`) #{aeropuertos[j].Ciudad}}        
+                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#Vuelodesviado${Vuelodesviado[i].C_vuelo}`) Actualizar
+      
+        tfoot
+          tr
+            td(colspan='8')
+              button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+                i.fas.fa-folder-plus
+                |  Desviar Vuelo
+          tr
+            td(colspan='8')
+              #collapseExample1.collapse
+                form(action="/create/Vuelodesviado" method="POST")
+                  .form-row
+                    .form-group.col-md-6
+                      label(for=`Cvuelo`) Codigo Vuelo
+                      br
+                      select(id=`Cvuelo`, name='idVuelotoDesviado', required='')
+                        -for(var j = 0; j<vuelos.length ; j++)
+                          option #{vuelos[j].C_vuelo}
+                    .form-group.col-md-6
+                      label(for=`newDestino`) Nuevo Destino
+                      br
+                      select(id= `newDestino`, name='nuevoDestino', required='')
+                       -for(var j = 0; j<aeropuertos.length ; j++)
+                          option(value=`${aeropuertos[j].IATA}`) #{aeropuertos[j].Ciudad}
+                  
+                  button.btn.btn-primary(type='submit') Guardar
+
+    .col-md-9
+    
+      table.table.table-hover.table-responsive-sm
+        thead
+          tr
+            th ID
+            th Avion
+            th Fecha
+            th Hora_Salida
+            th Hora_Llegada
+            th Opciones
+        tbody.collection
+        -for(var i = 0; i < vuelos.length; i++)
+          tr
+            td   #{vuelos[i].C_vuelo}
+            td   #{vuelos[i].C_avion}
+            td   #{vuelos[i].Fecha_salida}
+            td   #{vuelos[i].Hora_salida}
+            td   #{vuelos[i].hora_llegada}
+            td
+              form(action=`delete/${vuelos[i].C_vuelo}`,method="POST")
+                button.btn.btn-primary(type='submit')
+                  i.far.fa-times-circle
+                  |  Eliminar
+              
+              form
+                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#vuelosE${vuelos[i].C_vuelo}`)
+                  i.fas.fa-edit
+                  |  Editar
+          .modal.fade(id=`vuelosE${vuelos[i].C_vuelo}`)
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  h3.modal-title Edicion Vuelo
+                  button.close(type='button', data-dismiss='modal') ×
+                .modal-body
+                  form(action=`update/vuelos/${vuelos[i].C_vuelo}`, method="POST")
+                    .form-row
+              
+                         
+                      .form-group.col-md-6
+                        label(for=`Avion${vuelos[i].C_vuelo}`) ID Avion
+                        br
+                        select(id= `Avion${vuelos[i].C_vuelo}`, name=`C_avion${vuelos[i].C_vuelo}`, required='')
+                          -for(var j = 0; j<aviones.length ; j++)
+                            -if(vuelos[i].C_avion==aviones[j].C_avion)
+                              option(selected="selected") #{aviones[j].C_avion}
+                            -else 
+                              option #{aviones[j].C_avion}
+                      .form-group.col-md-6
+                        label(for=`fecha${vuelos[i].C_vuelo}`) Fecha
+                        br
+                        input(type="date" ,id=`fecha${vuelos[i].C_vuelo}`, value=`${vuelos[i].Fecha_salida}`, name=`fecha${vuelos[i].C_vuelo}`, required='')
+                    .form-row
+                      .form-group.col-md-6
+          
+                        label(for=`horaS${vuelos[i].C_vuelo}`) Hora Salida
+                        br
+                        input(type="time" , id=`HoraS${vuelos[i].C_vuelo}`,value=`${vuelos[i].Hora_salida}`, name=`horaS${vuelos[i].C_vuelo}`, required='')
+
+                  
+                      .form-group.col-md-6
+  
+                        label(for=`horaL${vuelos[i].C_vuelo}`) Hora llegada
+                        br
+                        input(type="time" id=`HoraL${vuelos[i].C_vuelo}`, value=`${vuelos[i].hora_llegada}`, name=`horaL${vuelos[i].C_vuelo}`, required='')
+                      
+            
+        
+                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#vuelosE${vuelos[i].C_vuelo}`) Actualizar
+      
+        tfoot
+          tr
+            td(colspan='8')
+>>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d
               button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
                 i.fas.fa-folder-plus
                 |  Crear producto
           tr
+<<<<<<< HEAD
             td(colspan='6')
               #collapseExample1.collapse
                 form
@@ -120,3 +279,38 @@ html(lang='en')
                       label(for='precios') Precio
                       input#precios.form-control(name='precio', type='text')
                   button.btn.btn-primary(type='submit', data-toggle='modal', data-target='#selproductoid') Guardar
+=======
+            td(colspan='8')
+              #collapseExample1.collapse
+                form(action='create' method="POST")
+                  .form-row
+              
+                         
+                    .form-group.col-md-6
+                      label(for=`Avion`) ID Avion
+                        br
+                        select(id= `Avion`, name='C_avion', required='')
+                          -for(var j = 0; j<aviones.length ; j++)
+                            option #{aviones[j].C_avion}
+
+                    .form-group.col-md-6
+                      label(for=`fechaS`) Fecha
+                      br
+                      input(type="date" ,id=`fechaS`, name='fecha', required='')
+                  .form-row
+                    .form-group.col-md-6
+          
+                      label(for=`horaS`) Hora Salida
+                      br
+                      input(type="time" id=`HoraS`, name='horaS', required='')
+                      
+                  
+                    .form-group.col-md-6
+  
+                      label(for=`horaL`) Hora llegada
+                      br
+                      input(type="time" id=`HoraL`, name='horaL', required='')
+                      
+                   
+                button.btn.btn-primary(type='submit') Guardar
+>>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d

@@ -1,0 +1,49 @@
+extends base3
+block content
+  .contenedorF
+  
+    h2
+        img(src='/Vuelos Guacamaya nombre-02.png')
+        table.table-responsive-sm
+            thead
+                tr
+                    th Hora Salida
+                    th Hora llegada
+                    th Origen
+                    th Destino
+                    th Tipo Asiento
+            tbody
+                tr 
+                    td #{vuelo.Hora_salida}
+                    td #{vuelo.hora_llegada}
+                    td #{Origen.Ciudad}
+                    td #{Destino.Ciudad}
+                    td 
+                      -if (C_asientox==1)
+                        | Primera Clase
+                      -if (C_asientox==2)
+                        |  Ejecutiva
+                      -if (C_asientox==3)
+                        | Economica Premium
+                      -if (C_asientox==4)
+                        | Economica
+          
+    h2
+      | Vuelo Check In 
+    hr
+    form(action=`/checkFinal/${pasaporte}/${vuelo.C_vuelo}/${C_asientox}`,method="POST") 
+      .form-row 
+        .form-group.col
+            label(for="Nroequipaje") Cantidad de equipaje
+            br
+            select(id='Nroequipaje', name='nroEquipaje', required='', style="max-width:300px")
+                -for(var i=0 ; i<=5 ; i++)
+                    option #{i}
+                
+      .form-row
+        .form-group.col-md-6
+         
+        
+          
+      .form-row
+        input(type='submit', value='Confirmar CheckInOn')

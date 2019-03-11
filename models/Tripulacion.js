@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const sequelize = require("../config/db");
 const { SALT } = process.env;
 
-const pasajeros = sequelize.define("pasajero", {
+const Tripulacion = sequelize.define("tripulacion", {
   Nombre: {
     type: Sequelize.STRING,
     allowNull: false
@@ -14,27 +14,17 @@ const pasajeros = sequelize.define("pasajero", {
     type: Sequelize.STRING,
     allowNull: false
   },
-  edad: {
+  Pasaporte_T: {
     type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  Pasaporte_P: {
-
-    type: Sequelize.INTEGER,
+    allowNull: false,
     primaryKey: true,
-    allowNull: false ,
     unique: true
+  },
+  cargo: {
+    type: Sequelize.STRING,
+    allowNull: false
     
 },
-Genero: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-
-  nacionalidad: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
 }, {
   timestamps: false,
   freezeTableName: true
@@ -43,4 +33,4 @@ Genero: {
 
 
 
-module.exports = pasajeros;
+module.exports = Tripulacion;

@@ -1,0 +1,26 @@
+extends base3
+block content
+  .contenedorF
+  
+    h2
+      img(src='/Vuelos Guacamaya nombre-02.png')
+      
+    
+    h2
+      | CHECK-IN
+    hr
+    form(action='/checkinON',method="POST") 
+      .form-row 
+        .form-group.col-md-6
+          label(for='Pasaporte') Nro Pasaporte
+          br
+          input#Pasaporte.form-control(name="Pasaporte",placeholder='Ingrese su Pasaporte', type="number", maxlenght="10", required='')
+        
+        .form-group.col-md-6
+          label(for='NroVuelo') Nro Vuelo
+          br
+          input#NroVuelo.form-control( name="NroVuelo",placeholder='Ingrese su codigoVuelo', maxlenght="3" ,type="number" required='')
+      .form-row 
+        input(type='submit', value='Buscar')
+
+        

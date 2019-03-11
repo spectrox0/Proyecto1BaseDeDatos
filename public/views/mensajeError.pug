@@ -1,0 +1,10 @@
+extends base3
+block content
+  .contenedor2(style="box-shadow: 2px 3px 10px #dc143c7c")
+    .row 
+      a(href=`/${dir}`)
+        img(src="/Back.png")
+      h2(style="color:red ; text-shadow: 0 0 10px black") 
+        | ERROR
+        hr
+        | #{message} 

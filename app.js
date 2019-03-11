@@ -22,7 +22,11 @@ app.set("views", path.join(__dirname, "public/views")); // En la carpeta views e
 app.set("view engine", "pug"); // En este caso estamos usando pug, pero ejs o handler bar tambien puede funcionar
 
 // Esta linea nos permite servir los archivos estaticos que se encuentran en el servidor, como las fotos, js y css
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/assets/css')));
+app.use(express.static(path.join(__dirname, 'public/assets/images')));
+
+
 
 // Este middleware va convertir las peticiones a json para facilitarnos la vida
 app.use(bodyParser.json());

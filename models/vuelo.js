@@ -7,6 +7,7 @@ const Vuelo = db.define('vuelo', {
         type: sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        unique: true,
         allowNull: false
     },
     C_avion: {

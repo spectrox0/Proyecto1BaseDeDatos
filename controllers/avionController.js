@@ -1,4 +1,5 @@
 const Avion = require('../models/avion');
+const ServiciosAdicionales = require('../models/serviciosAdicionales');
 /*
 controller.getAviones = async function (callback) {
     try {
@@ -23,8 +24,10 @@ exports.getAviones = async (req, res) => {
     }
 });
     aviones = aviones.map(val => val.dataValues);
+    let serviciosAdicionales = await ServiciosAdicionales.findAll();
+    serviciosAdicionales = serviciosAdicionales.map( val => val.dataValues);
     if (aviones) {
-      return res.render("aviones", {aviones});
+      return res.render("aviones", {aviones,serviciosAdicionales});
     }
   };
 
@@ -42,9 +45,6 @@ exports.getAviones = async (req, res) => {
     const aviones = await Avion.build({
         C_estado: req.body.estado,
         C_modelo: req.body.modelo,
-        //IATA: req.body.IATA,
-       // TV: tv,
-       // Internet : internet
     });
     await aviones.save();
     if (!!aviones) {
@@ -130,6 +130,14 @@ exports.update = async (req, res) => {
       }
 
   };
+  
+  exports.updateServiciosAdicionales = async (req,res) => {
+   
+
+  }
+
+
+
   /*
 controller.updateAvion = async function (data,C_avion, callback) {
     try {

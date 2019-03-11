@@ -1,0 +1,91 @@
+extends base3
+block content
+    .contenedorF
+        h2 
+       
+        table.table-responsive-sm
+            thead
+                tr 
+                - for (var i = 0; i < asientos1.length; i++)
+                    -if (asientos1[i].C_asiento==1)
+                        th  Primera Clase
+                    -if (asientos1[i].C_asiento==2)
+                        th Ejecutiva
+                    -if (asientos1[i].C_asiento==3)
+                        th Economica Premium
+                    -if (asientos1[i].C_asiento==4)
+                         th Economica
+
+                    
+                th Precio
+               
+            tbody
+                tr
+                - for (var i = 0; i < asientos1.length; i++)
+                    -if (asientos1[i].Disponibles==1)
+                        td Disponible
+                    - else 
+                        td Agotado
+                td #{datos[0].avions[0].itinerarios[0].precio_base}
+                tr
+                - for (var i = 0; i < asientos2.length; i++)
+                    -if (asientos2[i].Disponibles==1)
+                        td Disponible
+                    - else 
+                        td Agotado
+                
+                td #{ datos[1].avions[0].itinerarios[0].precio_base}
+                tfoot
+                    tr 
+                        td(colspan="4" align='center' style='font-size:35px; text-shadow: 3px 2px 10px black') Precio Final: #{precioTotal}
+        hr      
+        .formular
+            .container.logo
+                
+           
+            form(action=`/confirmCompra/${JSON.stringify(datos)}/${precioTotal}`, method="POST")
+                h1 Comprar Vuelo
+                hr
+                .form-row
+                    .form-group.col-sm
+                        h2  Datos Comprador
+                        hr
+                        input#nameC.form-control(type='text', name='nameC',placeholder='Ingrese su nombre', required='')
+                        input#apellidoC.form-control(type='text', name='apellidoC',placeholder='Ingrese su nombre', required='')
+                        input#cedulaC.form-control( name='cedula',placeholder='Ingrese su cedula', type="number" required='')
+                        input#telefonoC.form-control( name='telefonoC',placeholder='Ingrese su telefono', type="number" required='')
+                        input#emailC.form-control(type='email', name='emailC', placeholder='Ingrese su correo', required='')
+                    .form-group.col-sm
+                        h2  Datos pasajero 
+                        hr
+                        input#nameP.form-control(type='text', name='nameP',placeholder='Ingrese su nombre', required='')
+                        input#apellidoP.form-control(type='text', name='apellidoP',placeholder='Ingrese su apellido', required='')
+                        input#pasaporte.form-control( name='pasaporte',placeholder='Ingrese su pasaporte', type="number" required='')
+                        label(for='Genero') Genero
+                        select(id='Genero', name='genero', required='')
+                            option(value="Masculino") Masculino
+                            option(value="Femenino") Femenino
+                        input#edadP.form-control( name="edadP",placeholder='Ingrese su edad', type="number" required='')
+                        input#nacionalidadP.form-control(type='text', name='nacionalidadP',placeholder='Ingrese su nacionalidad', required='')
+                .switch-field
+                    .switch-title(align="center") Tipo de Asiento Vuelo 1
+                    input#Primera_Clase(type='radio', name='tipo1', value='1')
+                    label(for='Primera_Clase') Primera Clase
+                    input#Ejecutiva(type='radio', name='tipo1', value='2', checked='')
+                    label(for='Ejecutiva') Ejecutiva
+                    input#Economica_Premium(type='radio', name='tipo1', value='3')
+                    label(for='Economica_Premium') Economica Premium
+                    input#Economica(type='radio', name='tipo1', value='4')
+                    label(for='Economica') Economica
+                .switch-field
+                    .switch-title(align="center") Tipo de Asiento Vuelo 2
+                    input#Primera_Clase2(type='radio', name='tipo2', value='1' background='red')
+                    label(for='Primera_Clase2') Primera Clase
+                    input#Ejecutiva2(type='radio', name='tipo2', value='2', checked='')
+                    label(for='Ejecutiva2') Ejecutiva
+                    input#Economica_Premium2(type='radio', name='tipo2', value='3')
+                    label(for='Economica_Premium2') Economica Premium
+                    input#Economica2(type='radio', name='tipo2', value='4')
+                    label(for='Economica2') Economica
+            .form-row
+                input(type='submit', value='Comprar Boletos')

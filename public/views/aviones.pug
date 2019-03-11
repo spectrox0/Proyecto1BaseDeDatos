@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 doctype html
 <!--html(lang='en')
   head
@@ -122,19 +123,124 @@ doctype html
                     br
                     input#Check3.custom-control-input(name='disponibilidad3', type='checkbox')
               button.btn.btn-primary(type='submit', data-toggle='modal', data-target='#selproductoid') Actualizar
+=======
+extends base2
+block content
+  .row
+    .col-sm-3
+      table.table.table-hover
+        thead
+          tr
+            th ID Avion
+            th Internet
+            th cantTv         
+            th Opciones
+        tbody.collection
+        - for (var i = 0; i < serviciosAdicionales.length; i++)
+          tr
+            td   #{serviciosAdicionales[i].C_avion}
+            td 
+              -if(serviciosAdicionales[i].internet==1)
+                | Si
+              -else 
+                | No
+            td   #{serviciosAdicionales[i].cant_TV} 
+            
+            td
+              form(action=`delete/serviciosAdicionales/${serviciosAdicionales[i].C_avion}`,method="POST")
+                button.btn.btn-primary(type='submit')
+                  i.far.fa-times-circle
+                  |  Eliminar
+              
+              form
+                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#avionesServicios${serviciosAdicionales[i].C_avion}`)
+                  i.fas.fa-edit
+                  |  Editar
+          .modal.fade(id=`avionesServicios${serviciosAdicionales[i].C_avion}`)
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  h3.modal-title Edicion Avion
+                  button.close(type='button', data-dismiss='modal') ×
+                .modal-body
+                  form(action=`update/serviciosAdicionales/${serviciosAdicionales[i].C_avion}`, method="POST")
+                    .form-row
+                      .form-group.col-md-6
+                        label(for=`CantTV${serviciosAdicionales[i].C_avion}`) Cantidad TV
+                        br
+                        select(id= `CantTV${serviciosAdicionales[i].C_avion}`, name='modelo', required='')
+                          option 1
+                          option 2
+                          option 3
+                    .form-row
+                     
+                      .form-group.col-md-4
+                        .custom-control.custom-checkbox
+                          input.custom-control-input(id=`Internet${serviciosAdicionales[i].C_avion}`,name='Internet', type='checkbox')
+                          br
+                          label.custom-control-label(for=`Internet${serviciosAdicionales[i].C_avion}`) Internet
+                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#serviciosAdicionales${serviciosAdicionales[i].C_avion}`) Actualizar
+      
+        tfoot
+          tr
+            td(colspan='8')
+              button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+                i.fas.fa-folder-plus
+                |  Crear Servicio
+          tr
+            td(colspan='8')
+              #collapseExample1.collapse
+                form(action="/create/serviciosAdicionales" method="POST")
+                  .form-row
+                    .form-group.col-md-6
+                      label(for=`Cavion`) Codigo Avion
+                      br
+                      select(id=`Cavion`, name='estado', required='')
+                        -for(var j = 0; j<aviones.length ; j++)
+                          option #{aviones[j].C_avion}
+                    .form-group.col-md-6
+                      label(for=`CantT`) Cantidad TV
+                      br
+                      select(id= `CantTV`, name='modelo', required='')
+                        option 1
+                        option 2
+                        option 3
+                  .form-row
+                     
+                    .form-group.col-md-4
+                      .custom-control.custom-checkbox
+                        input.custom-control-input(id=`Internet`,name='Internet', type='checkbox')
+                        br
+                        label.custom-control-label(for=`Internet`) Internet
+                   
+                  button.btn.btn-primary(type='submit') Guardar
+
+
+
+    .col-sm
+      .row
+    
+>>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d
       table.table.table-hover
         thead
           tr
             th Codigo Avion
+<<<<<<< HEAD
             th Modelo
             th Fabricante
             th Estado
             th Itenerario
             th Internet
             th Television
+=======
+            th Estado
+            th Modelo
+            th Itinerario
+>>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d
             th Opciones
         tbody.collection
           tr
+<<<<<<< HEAD
             td  
             td  
             td
@@ -149,6 +255,68 @@ doctype html
               button.btn.btn-secondary(type='button', data-toggle='modal', data-target='#selproductoxid')
                 i.fas.fa-edit
                 |  Editar
+=======
+            td   #{aviones[i].C_avion}
+            td   #{aviones[i].C_estado}
+            td   #{aviones[i].C_modelo}
+            td   #{aviones[i].itinerario} 
+            
+            td
+              form(action=`delete/avion/${aviones[i].C_avion}`,method="POST")
+                button.btn.btn-primary(type='submit')
+                  i.far.fa-times-circle
+                  |  Eliminar
+              
+              form
+                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#avionesC${aviones[i].C_avion}`)
+                  i.fas.fa-edit
+                  |  Editar
+          .modal.fade(id=`avionesC${aviones[i].C_avion}`)
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  h3.modal-title Edicion Avion
+                  button.close(type='button', data-dismiss='modal') ×
+                .modal-body
+                  form(action=`update/avion/${aviones[i].C_avion}`, method="POST")
+                    .form-row
+                      .form-group.col-md-6
+                        label(for=`estado${aviones[i].C_avion}`) Codigo Estado
+                        br
+                        select(id=`estado${aviones[i].C_avion}`, name='estado', required='')
+                          option 1212
+                          option 41212
+                          option 4121
+                          option 4121
+                      .form-group.col-md-6
+                        label(for=`modelo${aviones[i].C_avion}`) CodigoModelo
+                        br
+                        select(id= `modelo${aviones[i].C_avion}`, name='modelo', required='')
+                          option 1212
+                          option 412312
+                          option 56343
+                    .form-row
+                      .form-group.col-md-3
+                        label(for=`itinerario${aviones[i].C_avion}`) C_Itinerario
+                        br
+                        select(id=`itinerario${aviones[i].C_avion}`, name='IATA', required='')
+                          option #{aviones[i].itinerario}
+                          option 1212
+                          option 412312
+                          option 56343
+                      .form-group.col-md-4
+                        .custom-control.custom-checkbox
+                          input.custom-control-input(id=`TV${aviones[i].C_avion}`,name='TV', type='checkbox')
+                          br
+                          label.custom-control-label(for=`TV${aviones[i].C_avion}`) TV
+                      .form-group.col-md-4
+                        .custom-control.custom-checkbox
+                          input.custom-control-input(id=`Internet${aviones[i].C_avion}`,name='Internet', type='checkbox')
+                          br
+                          label.custom-control-label(for=`Internet${aviones[i].C_avion}`) Internet
+                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#avionesC${aviones[i].C_avion}`) Actualizar
+      
+>>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d
         tfoot
           tr
             td(colspan='8')
@@ -158,7 +326,11 @@ doctype html
           tr
             td(colspan='8')
               #collapseExample1.collapse
+<<<<<<< HEAD
                 form
+=======
+                form(action="/createAvion" method="POST")
+>>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d
                   .form-row
                     .form-group.col-md-6
                       label(for='avion') Avion
@@ -174,6 +346,7 @@ doctype html
                         option Escalado
                   .form-row
                     .form-group.col-md-3
+<<<<<<< HEAD
                       label(for='date') Fecha
                       br
                       input#date(type='date')
@@ -217,3 +390,13 @@ block content
             label(for='C_modelo') Modelo
             input#precio.form-control(type='number' placeholder='Precio' name='precio')
           button.btn.btn-primary(type='submit') Crear
+=======
+                      label(for='Itinerario') CodigoIATA
+                      br
+                      select#it.custom-select(name='itinerario', required='')
+                        option 1212
+                        option 412312
+                        option 56343
+                   
+                  button.btn.btn-primary(type='submit') Guardar
+>>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d

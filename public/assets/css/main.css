@@ -5,7 +5,7 @@ footer{
     color: aliceblue;
     margin: 0%;
     font-family: 'Oleo Script', cursive;
-    background: linear-gradient(rgba(5, 5, 5, 0.05), rgba(0, 0, 0, 0.9)),url(../images/fondo5.jpg) !important;
+    background: linear-gradient(rgba(5, 5, 5, 0.05), rgba(0, 0, 0, 0.9)),url(/fondo5.jpg) !important;
     background-repeat: no-repeat;
     background-attachment: fixed;
      background-size: cover;
@@ -26,7 +26,7 @@ a{
    padding-bottom: 20px;
  margin-bottom: 0px;
  margin-top : 0px;
- background: radial-gradient(rgba(0,0,0,0.03),rgba(0,0,0,0.3),rgba(0,0,0,1)) ,url(../images/avionFondo.jpg);
+ background: radial-gradient(rgba(0,0,0,0.03),rgba(0,0,0,0.3),rgba(0,0,0,1)) ,url(/avionFondo.jpg);
  background-position: top left;
  background-repeat: no-repeat;
  background-attachment: fixed;
@@ -82,7 +82,7 @@ a{
       padding:5px;
     }
     .bg-dark {
-      background: linear-gradient(rgba(5, 5, 5, 0.05), rgba(0, 0, 0, 0.9)),url(../images/fondo5.jpg) !important;
+      background: linear-gradient(rgba(5, 5, 5, 0.05), rgba(0, 0, 0, 0.9)),url(/fondo5.jpg) !important;
      background-repeat: no-repeat;
      background-attachment: fixed;
       background-size: cover;
@@ -129,7 +129,7 @@ a{
     .navbar-dark .navbar-toggler:hover .fa-user , .nav-link:hover .fa-user-cog, .nav-link:focus .fa-user-cog, .nav-link:hover .fa-user-tie, .nav-link:focus .fa-user-tie , .nav-link:hover .fa-history, .nav-link:focus .fa-history
     , .nav-link:hover .fa-shopping-cart, .nav-link:focus .fa-shopping-cart , .nav-link:hover .fa-sign-out-alt, .nav-link:focus .fa-sign-out-alt,
     .nav-link:hover .fa-utensils, .nav-link:focus .fa-utensils {
-      color: chartreuse;
+      color:  rgb(76, 0, 255);
       transition: all .5s ease;
   
     }
@@ -222,6 +222,7 @@ a{
   margin: 20px;
   color: white;
   font-family:'Acme', sans-serif;
+  text-align: center;
   
   }
    .table tbody{
@@ -242,7 +243,11 @@ a{
   color: white;
   font-size: 27px;
   text-shadow: 0px 0px 10px rgb(16, 223, 205);
-   }
+   } 
+   .table tbody td{
+    border-right: rgba(255,255,255,0.3);
+   
+  }
   
    .btn-primary {
     border: ridge 1px crimson;
@@ -254,9 +259,8 @@ a{
     float: right;
   }
   .btn-primary[type="submit"] {
-   border: ridge 1px rgb(43, 220, 20);
-    background: #25dc14ab;
-    background: linear-gradient(#32dc142f,#4ddc14da);
+   border: ridge 0.7px rgb(20, 113, 220);
+    background: linear-gradient(#1417dc2f,#14c5dcda);
  
  }
   .btn-secondary {
@@ -312,14 +316,14 @@ a{
 .form-group input, .form-group select,.form-group textarea{
   background: rgba(0, 0, 0, 0.5);
   border: rgb(16, 223, 205) 0.8px ridge;
-  box-shadow: 0px 0px 5px rgb(16, 223, 205);
+  box-shadow: 0px 0px 5px rgb(16, 223, 205,0.5);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   margin-bottom:10px;
-  color:  chartreuse;
+  color:  rgb(76, 0, 255);
 }
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
-  box-shadow: 0px 1px 10px rgb(16, 223, 205);
+  box-shadow: 0px 1px 10px rgb(16, 223, 205,0.5);
   transition: all .5s ease;
 }
 
@@ -340,7 +344,7 @@ a{
   background-color: #15171a;
 }
 .custom-select:focus::-ms-value {
-  color: chartreuse;
+  color:  rgb(76, 0, 255);
   background-color: rgb(16, 223, 205);
 }
 .custom-select:focus {
@@ -365,9 +369,16 @@ a{
 
 .custom-file-label {
 
-  color: chartreuse;
+  color:  rgb(76, 0, 255);
   background-color: rgba(0, 0, 0,0.5);
   border: 1px ridge rgb(16, 223, 205);
+}
+p {
+  text-align: center;
+  background: rgba(0,0,0,0.45);
+  margin-bottom:2px;
+  box-shadow: 10px 0px 20px rgba(0,0,0,0.6);
+  border-radius: 25px;
 }
 
 .contenedorF h2{
@@ -470,7 +481,7 @@ text-shadow: 0px 0px 4px whitesmoke;
    border-radius: 2px;
    border-bottom-left-radius: 10px;
    border-bottom-right-radius: 10px;
-   box-shadow: 0px 4px 5px rgb(16, 223, 205);
+   box-shadow: 0px 4px 5px rgb(16, 223, 205,0.5);
    box-sizing: border-box;
    font-size: 16px;
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -482,11 +493,11 @@ text-shadow: 0px 0px 4px whitesmoke;
 .contenedorF input[type="number"]:focus,
 .contenedorF input[type="password"]:focus,
 .contenedorF input[type="email"]:focus {
-    box-shadow: 0px 6px 10px  rgb(16, 223, 205);
+    box-shadow: 0px 6px 10px  rgb(16, 223, 205,0.5);
 }
 
 .contenedorF input[type="submit"] {
-  background: linear-gradient(rgba(21, 255, 0, 0.4),rgb(21, 255, 0));
+  background: linear-gradient(rgba(0, 89, 255, 0.4),rgb(16, 223, 205));
   color: #FFF;
  
   width: 100%;
@@ -502,10 +513,10 @@ text-shadow: 0px 0px 4px whitesmoke;
   cursor: pointer;
   transition: all .5s ease;
 }
-
+ 
 .contenedorF input[type="submit"]:hover ,.btn-primary:hover {
   font-weight: bold;
-  box-shadow: 0px 0px 20px rgb(127, 255, 0);
+  box-shadow: 0px 0px 20px rgb(16, 223, 205);
   text-shadow: 0px 0px 4px white;
 }
   .contenedorF input[type="submit"]:focus ,.btn-primary:focus{
@@ -611,29 +622,31 @@ text-shadow: 0px 0px 4px whitesmoke;
 font-size:30px; 
 text-shadow: 0px 0px 10px white;}
   
-.contenedor2 table {
+.contenedor2 table, .contenedorF table {
   width:100%;
   margin-left: auto;
   font-size:25px;
   margin-right: auto;
   max-width: 900px;
+  text-align: center;
 }
-.contenedor2 thead {
+.contenedor2 thead ,.contenedorF thead {
   border-bottom: solid 0.5px whitesmoke;
+  
 }
 .contenedor2 a img{
   border:solid blue 1px;
 }
 
-.contenedor2 input[type="submit"]{
+.contenedor2 input[type="submit"] ,.contenedorF input[type="submit"]{
   margin-top:25px;
  width: 100%;
  margin-left: auto;
  margin-right: auto;
- background: linear-gradient(rgba(21, 255, 0, 0.4),rgb(21, 255, 0));
+ background: linear-gradient(rgba(140, 0, 255, 0.4),rgb(16, 223, 205));
 
  border-radius: 10px;
- border: 1px ridge rgb(127, 255, 0);
+ border: 0.8px ridge rgb(16, 223, 205);
  padding: 5px 0;
  font-size: 1.2em;
  font-weight: bold;

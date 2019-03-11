@@ -3,14 +3,14 @@ block content
   .contenedor2
     .row 
       a(href="/index")
-        img(src="../images/Back.png")
+        img(src="/Back.png")
 
       h2 
         | Vuelos Escalas
         br
         | #{Origen.Ciudad} -- #{Destino.Ciudad}
     .row 
-    form(action=`/compra `, method="POST")
+    form(action=`/formularioCompra2`, method="POST")
       .form-row 
         - for (var i = 0; i < escalas.length; i++)
           table.table-responsive-sm
@@ -21,7 +21,7 @@ block content
                 th Origen 
                 th Destino
                 th
-                  input(type="radio", value =`${escalas[i]}`, name="vueloSel", id=`idVuelo`)
+                  input(type="radio", value =`${JSON.stringify(escalas[i])}`, name="vueloSel", id=`idVuelo`)
             tbody
               tr
                 td #{escalas[i][0].Hora_salida}
@@ -40,5 +40,5 @@ block content
       hr          
       .form-row
         input(type="submit" , value ="Comprar")
-      // Table body
+      // Table body      
     // Table
