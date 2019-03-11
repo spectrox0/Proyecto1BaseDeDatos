@@ -11,7 +11,7 @@ const VueloAsiento = sequelize.define("vueloasientos", {
     allowNull: false,
     defaultValue: 1
   },
-  C_Vuelo: {
+  C_vuelo: {
       type: Sequelize.INTEGER, 
       primaryKey: true, 
       allowNull:false, 

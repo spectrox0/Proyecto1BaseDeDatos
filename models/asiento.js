@@ -1,3 +1,6 @@
+
+const sequelize = require('sequelize');
+const db = require('../config/db');
 const Asiento = db.define('asiento', {
     C_asiento: {
 
@@ -18,4 +21,4 @@ const Asiento = db.define('asiento', {
     freezeTableName: true
 } );
 
-module.exports = Aeropuerto;
+module.exports = Asiento;

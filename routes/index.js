@@ -6,6 +6,7 @@ const vueloController = require("../controllers/vuelosController");
 const boletoController = require("../controllers/boletoController");
 const tripulacionController = require("../controllers/tripulacionController");
 const checkinController = require('../controllers/checkinController');
+const estadisticaController = require('../controllers/estadisticaController');
 
 const passport = require("passport");
 const bcrypt = require("bcryptjs")
@@ -98,9 +99,13 @@ router.post("/delete/Vuelodesviado/:id", catchErrors(vueloController.deleteVuelo
 
 
 //statistics
-router.get("/statistics", (req, res) => {
-  res.render("statistics");
+router.post("/statistics",estadisticaController.getVuelos);
+
+router.get("/searchStatistic", (req,res)=> {
+ 
+  res.render("searchStatistics");
 });
+
 
 
 
