@@ -80,6 +80,12 @@ router.post("/create/Avion", catchErrors(avionController.create));
 router.post("/update/Avion/:id", catchErrors(avionController.update));
 router.post("/delete/Avion/:id", catchErrors(avionController.delete));
 
+router.post("/create/serviciosAdicionales", catchErrors(avionController.createserviciosAdicionales));
+router.post("/update/serviciosAdicionales/:id", catchErrors(avionController.updateserviciosAdicionales));
+router.post("/delete/serviciosAdicionales/:id", catchErrors(avionController.deleteserviciosAdicionales));
+
+
+
 // Crud de Vuelos
 router.get("/vuelos", catchErrors(vueloController.getAllVuelos));
 router.post("/create/vuelo", catchErrors(vueloController.createVuelo));

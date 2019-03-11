@@ -1,33 +1,20 @@
 const Avion = require('../models/avion');
 const ServiciosAdicionales = require('../models/serviciosAdicionales');
-/*
-controller.getAviones = async function (callback) {
-    try {
-        let response = await Avion.findAll({
-            where: {
-                Activo: 1
-            }
-        });
-        let aviones= response.map(result => result.dataValues);
-        console.log(aviones);
-        callback(aviones, null);
-    } catch (error) {
-        callback(null, error);
-    }
-} */
+const Modelo = require('../models/modelo');
+const Mantenimiento = require('../models/mantenimiento');
 
 
 exports.getAviones = async (req, res) => {
-    let aviones = await Avion.findAll( {
-        where: {
-        Activo:1
-    }
-});
+    let aviones = await Avion.findAll();
     aviones = aviones.map(val => val.dataValues);
     let serviciosAdicionales = await ServiciosAdicionales.findAll();
     serviciosAdicionales = serviciosAdicionales.map( val => val.dataValues);
-    if (aviones) {
-      return res.render("aviones", {aviones,serviciosAdicionales});
+    let modelos = await Modelo.findAll();
+    modelos = modelos.map (val => val.dataValues) ;
+    let mantenimiento = Mantenimiento.findAll();
+    mantenimiento = mantenimiento.map (val=> val.dataValues);
+    if (aviones,serviciosAdicionales,modelos) {
+      return res.render("aviones", {aviones,serviciosAdicionales,modelos});
     }
   };
 

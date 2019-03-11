@@ -1,8 +1,8 @@
 extends base2
 block content
   .row
-    .col-sm-3
-      table.table.table-hover
+    .col-md-3
+      table.table.table-hover.table-responsive
         thead
           tr
             th ID Avion
@@ -35,17 +35,16 @@ block content
               .modal-content
                 .modal-header
                   h3.modal-title Edicion Avion
-                  button.close(type='button', data-dismiss='modal') ×
+                  button.close(type='button', data-dismiss='modal')
                 .modal-body
                   form(action=`update/serviciosAdicionales/${serviciosAdicionales[i].C_avion}`, method="POST")
                     .form-row
                       .form-group.col-md-6
                         label(for=`CantTV${serviciosAdicionales[i].C_avion}`) Cantidad TV
                         br
-                        select(id= `CantTV${serviciosAdicionales[i].C_avion}`, name='modelo', required='')
-                          option 1
-                          option 2
-                          option 3
+                        select(id= `CantTV${serviciosAdicionales[i].C_avion}`, name='cantTV', required='')
+                          -for(var j= 0 ; j < 5 ; j ++)
+                             option #{j}
                     .form-row
                      
                       .form-group.col-md-4
@@ -91,10 +90,8 @@ block content
 
 
 
-    .col-sm
-      .row
-    
-      table.table.table-hover
+    .col-md-9
+      table.table.table-hover.table-responsive-md
         thead
           tr
             th Codigo Avion
