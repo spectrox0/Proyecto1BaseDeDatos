@@ -1,98 +1,3 @@
-<<<<<<< HEAD
-doctype html
-html(lang='en')
-  head
-    meta(charset='UTF-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    meta(http-equiv='X-UA-Compatible', content='ie=edge')
-    link(rel='stylesheet', type='text/css', href='/styles/bootstrap.css')
-    link(rel='stylesheet', type='text/css', href='../styles/main.css')
-    link(href='https://fonts.googleapis.com/css?family=Bungee+Inline|Bungee+Shade|Butcherman|Ewert|Creepster|Lobster|Pacifico|Oleo+Script|Pinyon+Script|Acme|Timmana|Bree+Serif', rel='stylesheet')
-    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', integrity='sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut', crossorigin='anonymous')
-    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')
-    script(defer='', src='https://use.fontawesome.com/releases/v5.3.1/js/all.js', integrity='sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB', crossorigin='anonymous')
-    title Document
-  body
-    .container
-      .row
-        h2.titulo
-          img(src='', alt='')
-      #selpr.modal.fade
-        .modal-dialog.modal-lg
-          .modal-content
-            .modal-header
-              h3.modal-title Confirmar
-              button.close(type='button', data-dismiss='modal') ×
-            .modal-body
-              p
-                | Desea eliminar el avion
-                br
-                |                   (NO SE PODRA RECUPERAR DESPUES DE ESTO)
-                br
-                |                   Se sugiere mantener deshabilitado el campo de disponibilidad con anterioridad
-                |                   durante un tiempo para prevenir posibles problemas con clientes
-            .modal-footer
-              button.btn.btn-primary(data-toggle='modal', data-target="'#'+'myModal'+producto.id")
-                i.far.fa-times-circle
-                |  Eliminar Producto
-      #selproductoxid.modal.fade
-        .modal-dialog.modal-lg
-          .modal-content
-            .modal-header
-              h3.modal-title Edicion Avion
-              button.close(type='button', (click)='clearState()', data-dismiss='modal') ×
-            .modal-body
-              form
-              .form-row
-                .form-group.col-md-6
-                  label(for='avion') Avion
-                  select#avion.custom-select(name='avion', required='')
-                    option XXXXX
-                    option yyyyy
-                    option Dasdasd
-                    option asdasd
-                .form-group.col-md-6
-                  label(for='it') Tipo de vuelo
-                  select#it.custom-select(name='it', required='')
-                    option Directo
-                    option Escalado
-              .form-row
-                .form-group.col-md-3
-                  label(for='date') Fecha
-                  br
-                  input#date(type='date')
-                .form-group.col-md-4
-                  label(for='precios') Precio
-                  input#precios.form-control(name='precio', type='text')
-              button.btn.btn-primary(type='submit', data-toggle='modal', data-target='#selproductoid') Actualizar
-      table.table.table-hover
-        thead
-          tr
-            th Codigo Vuelo
-            th Codigo Avion
-            th Tipo de vuelo
-            th Fecha y Hora
-            th Precio base
-            th Opciones
-        tbody.collection
-          tr
-            td  
-            td  
-            td
-            td  
-            td
-            td
-              button.btn.btn-primary(type='button', data-toggle='modal', data-target='#selpr')
-                i.far.fa-times-circle
-                |  Eliminar
-              button.btn.btn-secondary(type='button', data-toggle='modal', data-target='#selproductoxid')
-                i.fas.fa-edit
-                |  Editar
-        tfoot
-          tr
-            td(colspan='6')
-=======
 extends base2
 block content
   .row
@@ -248,7 +153,6 @@ block content
         tfoot
           tr
             td(colspan='8')
->>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d
               button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
                 i.fas.fa-folder-plus
                 |  Crear producto
