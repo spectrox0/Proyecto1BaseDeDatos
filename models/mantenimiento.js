@@ -26,4 +26,4 @@ const Mantenimiento = db.define('mantenimiento', {
     freezeTableName: true
 } );
 
-module.exports = Pasaje;
+module.exports = Mantenimiento;
