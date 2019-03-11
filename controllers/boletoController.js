@@ -67,7 +67,6 @@ exports.compraEscala = async (req, res) => {
 
 exports.confirmCompra = async (req,res) => {
   
-    
   let cliente = await Cliente.findOne( { 
      where: { 
        cedula:req.body.cedula
@@ -203,7 +202,7 @@ exports.confirmCompra = async (req,res) => {
   
       }) ; 
       await pasaje.save();
-
+       
     return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
    
   } else {
@@ -253,7 +252,11 @@ exports.confirmCompra = async (req,res) => {
 
     }) ; 
     await pasaje.save();
-
+       
+    const nombre = req.body.nameC;
+    const apellido = req.body.apellidoC;
+    let asientos = [req.body.tipo];
+    let vuelos = req.params.id;
     
     return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
   }
