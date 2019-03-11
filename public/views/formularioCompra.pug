@@ -49,6 +49,7 @@ block content
                         input#apellidoP.form-control(type='text', name='apellidoP',placeholder='Ingrese su apellido', maxlength="10" ,required='')
                         input#pasaporte.form-control( name='pasaporte',placeholder='Ingrese su pasaporte', maxlength="10" ,type="number" required='')
                         label(for='Genero') Genero
+                        br
                         select(id='Genero', name='genero', required='')
                             option(value="Masculino") Masculino
                             option(value="Femenino") Femenino
@@ -64,5 +65,5 @@ block content
                     label(for='Economica_Premium') Economica Premium
                     input#Economica(type='radio', name='tipo', value='4')
                     label(for='Economica') Economica
-            .form-row
+                .form-row
                 input(type='submit', value='Comprar Boleto')
