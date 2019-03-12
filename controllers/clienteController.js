@@ -16,6 +16,7 @@ exports.getAllClientes = async (req, res) => {
 exports.updateCliente = async (req,res) => {
 
     try{
+      
   let response = await Cliente.update({
     Nombre: req.body.nombre,
     Apellido: req.body.apellido,
