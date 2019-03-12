@@ -58,7 +58,7 @@ block content
                             input.custom-control-input(id=`Internet${serviciosAdicionales[i].C_avion}`,name="Internet",value='off' type='checkbox')
                           br
                           label.custom-control-label(for=`Internet${serviciosAdicionales[i].C_avion}`) Internet
-                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#serviciosAdicionales${serviciosAdicionales[i].C_avion}`) Actualizar
+                    button.btn.btn-primary(type='submit',data-toggle='modal') Actualizar
       
         tfoot
           tr
@@ -210,7 +210,7 @@ block content
                                 -else if(itinerarios[j].IATA_destino=="VC")
                                   |Caracas
                       
-                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#avionesC${aviones[i].C_avion}`) Actualizar
+                    button.btn.btn-primary(type='submit',data-toggle='modal') Actualizar
       
         tfoot
           tr

@@ -91,5 +91,5 @@ router.get("/searchPasajeros", (req,res)=> {
 router.post("/pasajeros", catchErrors(pasajeroController.getPasajeros));
 
 router.get("/clientes", catchErrors(clienteController.getAllClientes));
-
+router.post("/update/cliente/:id", catchErrors(clienteController.updateCliente));
 module.exports = router;

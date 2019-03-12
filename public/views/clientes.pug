@@ -63,35 +63,37 @@ block content
                                                     label(for=`telefono${clientes[i].cedula}`) Telefono
                                                     br
                                                     input(type="number" id=`telefono${clientes[i].cedula}`, value=`${clientes[i].telefono}`, name=`telefono`, required='')
+                                            
+                                            button.btn.btn-primary(type='submit',data-toggle='modal') Actualizar   
+                                            br 
+                                        .row 
+                                            h2(align="center")
+                                                | Pasajes Comprados 
+                                        -for(var j=0 ; j<pasajes.length ;j++)
                                                 
-                                            .row 
-                                                h2(align="center")
-                                                    | Pasajes Comprado 
-                                            -for(var j=0 ; j<pasajes.length ;j++)
-                                                
-                                                -if(pasajes[j].C_cliente==clientes[i].cedula)
+                                            -if(pasajes[j].C_cliente==clientes[i].cedula)
                     
-                                                    .row
-                                                        .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
-                                                            span
-                                                                h3
-                                                                   | Codigo Pasaje
-                                                                br
-                                                                |#{pasajes[j].C_pasaje}
-                                                        .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
-                                                            span 
-                                                                h3
-                                                                   | Fecha Compra
-                                                                br
-                                                                |#{pasajes[j].fechaCompra}
-                                                        .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
-                                                            span
-                                                                h3
-                                                                   | Pago
-                                                                br
-                                                                | #{pasajes[j].Precio_total}
+                                                .row
+                                                    .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
+                                                        span
+                                                            h3
+                                                               | Codigo Pasaje
+                                                            br
+                                                            |#{pasajes[j].C_pasaje}
+                                                    .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
+                                                        span 
+                                                            h3
+                                                               | Fecha Compra
+                                                            br
+                                                            |#{pasajes[j].fechaCompra}
+                                                    .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
+                                                        span
+                                                            h3
+                                                                | Pago
+                                                            br
+                                                            |#{pasajes[j].Precio_total}
                                                 
                                                    
-                                            button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#clienteE${clientes[i].cedula}`) Actualizar
+                                            
                                                         
                                 
