@@ -35,12 +35,12 @@ block content
                             .form-group.col-md-6
                                 label(for=`nombre${modelos[i].C_modelo}`) Nombre
                                 br
-                                input(type="text", value = `${modelos[i].Nombre}` , maxlength="7" id=`nombre${modelos[i].C_modelo}`, name='nombre', required='')
+                                input(type="text", value = `${modelos[i].Nombre}` , maxlength="7", id=`nombre${modelos[i].C_modelo}`, name='nombre', required='')
                             
                             .form-group.col-md-3
                                 label(for=`velmax${modelos[i].C_modelo}`) Vel max
                                 br
-                                input(type="number", value = `${modelos[i].vel_max}` , id=`velmax${modelos[i].C_modelo}`, name='vel_max', required='')
+                                input(type="number", value = `${modelos[i].vel_max}` ,  maxlength="7", id=`velmax${modelos[i].C_modelo}`, name='vel_max', required='')
                             .form-group.col-md-3
                                 label(for=`velcrucero${modelos[i].C_modelo}`) Vel crucero
                                 br
