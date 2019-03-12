@@ -1,6 +1,6 @@
 footer{
 
-    border-top: 1px ridge rgb(20, 220, 210);
+    box-shadow: 0px -5px 10px black;
     width: 100%;
     color: aliceblue;
     margin: 0%;
@@ -53,8 +53,8 @@ a{
    div img {
      width: 40px;
      height: 40px;
-     max-height: 40px;
-     max-width: 40px;
+     max-height: 60px;
+     max-width: 80px;
      object-fit: fill;
      opacity:0.7;
    }
@@ -95,12 +95,12 @@ a{
     }
    .navbar-dark .navbar-toggler {
       color: whitesmoke;
-      border-color: rgba(0, 0, 0, 0.575);
-      background: linear-gradient(rgba(0, 119, 255, 0.575),rgba(0, 0, 0,0.8));
-     
+      background: radial-gradient(#000000,#000000de,#080808cc);
+      border:none;
       font-family: 'Oleo Script', cursive;
+      min-width:200px ;
+      max-width:400px;
       font-size:20px;
-      border-radius: 50%;
       padding:3px;
       margin:1px;
     }
@@ -120,10 +120,12 @@ a{
     }
   
     .navbar-dark .navbar-toggler:hover {
+
+     transition: all .5s ease;
      color: rgb(16, 223, 205);
      text-shadow: 0px 0px 10px rgb(16, 223, 205);
-     box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
-     transition: all .5s ease;
+     background: radial-gradient(#000000,#000000de,#085964cc);
+     box-shadow: 0px 0px 10px 2px rgba(16, 148, 137, 0.295);
     }
   
     .navbar-dark .navbar-toggler:hover .fa-user , .nav-link:hover .fa-user-cog, .nav-link:focus .fa-user-cog, .nav-link:hover .fa-user-tie, .nav-link:focus .fa-user-tie , .nav-link:hover .fa-history, .nav-link:focus .fa-history
@@ -164,7 +166,7 @@ a{
      .modal-title {
       text-align: center;
       font-family: 'Oleo Script',cursive;
-      text-shadow: 0px 0px 10px rgb(16, 223, 205);
+      text-shadow: 0px 0px 6px rgb(255, 255, 255);
      }
     
      .close{
@@ -193,7 +195,7 @@ a{
     }
     
     .modal-content{  background: linear-gradient(rgba(0, 0, 0, 0.05),rgba(0, 0, 0, 0.9));
-      box-shadow:0px 0px 10px chartreuse;
+      box-shadow:3px 2px 15px rgb(46, 12, 105);
     padding:0px;}
     .modal input[type="submit"] {
      width:auto;
@@ -241,8 +243,8 @@ a{
     font-family: 'Oleo script',cursive;
     box-shadow: 0 2px 15px 2px black;
   color: white;
-  font-size: 27px;
-  text-shadow: 0px 0px 10px rgb(16, 223, 205);
+  font-size: 18px;
+  text-shadow: 0px 0px 10px rgb(7, 7, 7);
    } 
    .table tbody td{
     border-right: rgba(255,255,255,0.3);
@@ -257,19 +259,21 @@ a{
     color: whitesmoke;
     margin-right: 0px;
     float: right;
+   font-size: 1em;
   }
   .btn-primary[type="submit"] {
-   border: ridge 0.7px rgb(20, 113, 220);
-    background: linear-gradient(#1417dc2f,#14c5dcda);
+   border: ridge 0.2px rgb(0, 0, 0);
+    background: linear-gradient(#00000098,#470717b6);
  
  }
   .btn-secondary {
-   border: ridge 1px rgb(16, 223, 205);
+   border: ridge 0.2px rgb(0, 0, 0);
    border-radius:15px;
-   background: radial-gradient(rgba(16, 223, 205,0.1),rgba(16, 223, 205, 0.6),black);
+   background: linear-gradient(rgba(0, 0, 0, 0.856),rgb(41, 5, 56));
    color: whitesmoke;
    margin-right: 10px;
    float: right;
+   font-size: 1em;
  }
   button:focus{
    outline :0 !important;
@@ -282,14 +286,10 @@ a{
    font-weight: bold;
  }
  .btn-secondary:hover {
-   box-shadow: 0px 0px 15px rgb(16, 223, 205);
+   box-shadow: 0px 0px 15px rgb(54, 9, 112);
    font-weight: bold;
  }
-  button[type="submit"]:hover{
-   box-shadow: 0px 0px 15px chartreuse;
-   font-weight: bold;
  
- }
  .table tfoot button, table .btn-block{
    float: right;
    color: white;
@@ -298,7 +298,7 @@ a{
  }
  .table tfoot button:hover, table .btn-block:hover{
    text-shadow: 0px 0px 4px white;
-   box-shadow: 0px 0px 15px chartreuse;
+   box-shadow: 3px 2px 15px chartreuse;
  
    }
    .table tbody .btn-primary:hover {
@@ -329,7 +329,7 @@ a{
 
 .custom-control-input:active ~ .custom-control-label::before {
   color: #fff;
-  background-color: chartreuse;
+  background-color: rgb(0, 225, 255);
 }
 
 .custom-control-label::before {
@@ -337,7 +337,7 @@ a{
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: chartreuse;
+  background-color: rgb(0, 4, 255);
 }
 .custom-select:disabled {
   color: rgb(16, 223, 205);
@@ -516,7 +516,6 @@ text-shadow: 0px 0px 4px whitesmoke;
  
 .contenedorF input[type="submit"]:hover ,.btn-primary:hover {
   font-weight: bold;
-  box-shadow: 0px 0px 20px rgb(16, 223, 205);
   text-shadow: 0px 0px 4px white;
 }
   .contenedorF input[type="submit"]:focus ,.btn-primary:focus{

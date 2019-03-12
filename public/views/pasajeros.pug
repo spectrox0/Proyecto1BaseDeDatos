@@ -1,0 +1,33 @@
+extends base3
+block content
+    .contenedorF
+        .row 
+            
+        .form-group.pull-right
+            input.search.form-control(type='text' placeholder='Que desea?')
+            table.table.table-responsive-sm.table-bordered.results
+                thead
+                    tr
+                        th Pasaporte
+                        th Nombre
+                        th Apellido
+                        th Genero
+                        th edad
+                        th nacionalidad
+
+                    tr.warning.no-result
+                        td(colspan='3')
+                            i.fa.fa-warning
+                            |  No result
+                tbody
+                    -for(var i = 0 ; i<pasajeros.length ; i ++)
+                    
+                        tr  
+                            td #{pasajeros[i].Pasaporte_P}
+                            td #{pasajeros[i].Nombre}
+                            td #{pasajeros[i].Apellido}
+                            td #{pasajeros[i].Genero}
+                            td #{pasajeros[i].edad}
+                            td #{pasajeros[i].nacionalidad}
+                            
+                    

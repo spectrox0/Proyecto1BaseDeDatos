@@ -1,0 +1,97 @@
+extends base2
+block content
+    .contenedorF
+        .row 
+            
+        .form-group.pull-right
+            input.search.form-control(type='text' placeholder='Buscar Cliente')
+            table.table.table-responsive-sm.table-bordered.results
+                thead
+                    tr
+                        th Cedula
+                        th Nombre
+                        th Apellido
+                        th Email
+                        th Telefono
+                        th Opciones
+
+                    tr.warning.no-result
+                        td(colspan='3')
+                            i.fa.fa-warning
+                            |  No result
+                tbody
+                    -for(var i = 0 ; i<clientes.length ; i ++)
+                    
+                        tr  
+                            td #{clientes[i].cedula}
+                            td #{clientes[i].Nombre}
+                            td #{clientes[i].Apellido}
+                            td #{clientes[i].email}
+                            td #{clientes[i].telefono}
+                            td  
+                                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#clienteE${clientes[i].cedula}`)
+                                    i.fas.fa-edit
+                                    |  Editar
+                        .modal.fade(id=`clienteE${clientes[i].cedula}`)
+                            .modal-dialog.modal-lg
+                                .modal-content
+                                    .modal-header
+                                        h3.modal-title Edicion Cliente
+                                        button.close(type='button', data-dismiss='modal') ×
+                                    .modal-body
+                                        form(action=`update/cliente/${clientes[i].cedula}`, method="POST")
+                                            .form-row
+                                                .form-group.col-md-6
+                                                    label(for=`Nombre${clientes[i].cedula}`) Nombre
+                                                    br
+                                                    input(type="text", value = `${clientes[i].Nombre}` , maxlength="7", id=`Nombre${clientes[i].cedula}`, name='nombre', required='')
+                                                        
+                                                .form-group.col-md-6
+                                                    label(for=`Apellido${clientes[i].cedula}`) Apellido
+                                                    br
+                                                    input(type="text" ,id=`fecha${clientes[i].cedula}`, value=`${clientes[i].Apellido}`, name=`apellido`, required='')
+                                            .form-row
+                                                .form-group.col-md-6
+                                    
+                                                    label(for=`email${clientes[i].cedula}`) Email
+                                                    br
+                                                    input(type="email" , id=`email${clientes[i].cedula}`,value=`${clientes[i].email}`, name=`email`, required='')
+
+                                            
+                                                .form-group.col-md-6
+                            
+                                                    label(for=`telefono${clientes[i].cedula}`) Telefono
+                                                    br
+                                                    input(type="number" id=`telefono${clientes[i].cedula}`, value=`${clientes[i].telefono}`, name=`telefono`, required='')
+                                                
+                                            .row 
+                                                h2(align="center")
+                                                    | Pasajes Comprado 
+                                            -for(var j=0 ; j<pasajes.length ;j++)
+                                                
+                                                -if(pasajes[j].C_cliente==clientes[i].cedula)
+                    
+                                                    .row
+                                                        .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
+                                                            span
+                                                                h3
+                                                                   | Codigo Pasaje
+                                                                br
+                                                                |#{pasajes[j].C_pasaje}
+                                                        .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
+                                                            span 
+                                                                h3
+                                                                   | Fecha Compra
+                                                                br
+                                                                |#{pasajes[j].fechaCompra}
+                                                        .col-sm-4(style="border: 0.7px solid rgba(255,255,255,0.3)") 
+                                                            span
+                                                                h3
+                                                                   | Pago
+                                                                br
+                                                                | #{pasajes[j].Precio_total}
+                                                
+                                                   
+                                            button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#clienteE${clientes[i].cedula}`) Actualizar
+                                                        
+                                

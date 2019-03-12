@@ -24,6 +24,8 @@ block content
                 | New York
               -if(Vuelodesviado[i].nuevoDestino=="UM")
                 | Miami
+              -if(Vuelodesviado[i].nuevoDestino=="VC")
+                | Caracas
             td   
             
             td
@@ -48,9 +50,13 @@ block content
                       .form-group.col-md-6
                         label(for=`newDestino${Vuelodesviado[i].C_vuelo}`) Nuevo Destino
                         br
-                        select(id= `newDestino${Vuelodesviado[i].C_vuelo}`, name=`nuevoDestino${Vuelodesviado[i].C_vuelo}`, required='')
+                        select(id= `newDestino${Vuelodesviado[i].C_vuelo}`, name="nuevoDestino", required='')
                           -for(var j = 0; j<aeropuertos.length ; j++)
-                            option(value=`${aeropuertos[j].IATA}`) #{aeropuertos[j].Ciudad}}        
+                            -if(aeropuertos[j].IATA==Vuelodesviado[i].nuevoDestino)
+                              option(value=`${aeropuertos[j].IATA}`,selected="selected") #{aeropuertos[j].Ciudad}
+                            -else 
+                              option(value=`${aeropuertos[j].IATA}`) #{aeropuertos[j].Ciudad}
+                              
                     button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#Vuelodesviado${Vuelodesviado[i].C_vuelo}`) Actualizar
       
         tfoot
@@ -104,10 +110,10 @@ block content
                   i.far.fa-times-circle
                   |  Eliminar
               
-              form
-                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#vuelosE${vuelos[i].C_vuelo}`)
-                  i.fas.fa-edit
-                  |  Editar
+              
+              button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#vuelosE${vuelos[i].C_vuelo}`)
+                i.fas.fa-edit
+                |  Editar
           .modal.fade(id=`vuelosE${vuelos[i].C_vuelo}`)
             .modal-dialog.modal-lg
               .modal-content
@@ -122,7 +128,7 @@ block content
                       .form-group.col-md-6
                         label(for=`Avion${vuelos[i].C_vuelo}`) ID Avion
                         br
-                        select(id= `Avion${vuelos[i].C_vuelo}`, name=`C_avion${vuelos[i].C_vuelo}`, required='')
+                        select(id= `Avion${vuelos[i].C_vuelo}`, name=`C_avion`, required='')
                           -for(var j = 0; j<aviones.length ; j++)
                             -if(vuelos[i].C_avion==aviones[j].C_avion)
                               option(selected="selected") #{aviones[j].C_avion}
@@ -131,20 +137,20 @@ block content
                       .form-group.col-md-6
                         label(for=`fecha${vuelos[i].C_vuelo}`) Fecha
                         br
-                        input(type="date" ,id=`fecha${vuelos[i].C_vuelo}`, value=`${vuelos[i].Fecha_salida}`, name=`fecha${vuelos[i].C_vuelo}`, required='')
+                        input(type="date" ,id=`fecha${vuelos[i].C_vuelo}`, value=`${vuelos[i].Fecha_salida}`, name=`fecha`, required='')
                     .form-row
                       .form-group.col-md-6
           
                         label(for=`horaS${vuelos[i].C_vuelo}`) Hora Salida
                         br
-                        input(type="time" , id=`HoraS${vuelos[i].C_vuelo}`,value=`${vuelos[i].Hora_salida}`, name=`horaS${vuelos[i].C_vuelo}`, required='')
+                        input(type="time" , id=`HoraS${vuelos[i].C_vuelo}`,value=`${vuelos[i].Hora_salida}`, name=`horaS`, required='')
 
                   
                       .form-group.col-md-6
   
                         label(for=`horaL${vuelos[i].C_vuelo}`) Hora llegada
                         br
-                        input(type="time" id=`HoraL${vuelos[i].C_vuelo}`, value=`${vuelos[i].hora_llegada}`, name=`horaL${vuelos[i].C_vuelo}`, required='')
+                        input(type="time" id=`HoraL${vuelos[i].C_vuelo}`, value=`${vuelos[i].hora_llegada}`, name=`horaL`, required='')
                       
             
         

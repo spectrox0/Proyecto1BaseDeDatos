@@ -7,51 +7,18 @@ const boletoController = require("../controllers/boletoController");
 const tripulacionController = require("../controllers/tripulacionController");
 const checkinController = require('../controllers/checkinController');
 const estadisticaController = require('../controllers/estadisticaController');
+const modeloController = require('../controllers/modeloController');
+const pasajeroController = require('../controllers/pasajeroController');
+const clienteController = require('../controllers/clienteController');
 
-const passport = require("passport");
-const bcrypt = require("bcryptjs")
-const User = require('../models/cliente');
-
-const authController = require("../controllers/authController");
-const userController = require("../controllers/userController");
 const { catchErrors } = require("../handlers/errorHandlers");
 
 router.get("/", (req, res) => {
   res.redirect('/index');
 });
-
-router.get("/login", (req, res) => {
-  res.render("login");
-});
-
-
-router.get("signin", (req, res) => {
-  res.render("auth/signin", { title: "Iniciar Sesion" });
-});
-router.post("signin", authController.signin);
-router.get("signup", (req, res) => {
-  res.render("auth/signup", { title: "Registrarse" });
-});
-router.post("signup", userController.signup, authController.signin);
-
-
- 
-router.get("/register", (req, res) => {
-  res.render("register");
-});
-
- //router.get("/findVuelo", (req, res) => {
-
-
-
-//res.render("findVuelo");
-//});
  
  router.post("/findVuelo", catchErrors(vueloController.getVuelos));
 
- //router.get("/formularioCompra", (req,res) => {
-  // res.render("formularioCompra");
- //}) 
 
  router.post("/formularioCompra", catchErrors(boletoController.sendForm)) ;
 
@@ -75,15 +42,19 @@ router.post("/update/tripulacion/:id",tripulacionController.updateTripulacion);
 router.post("/delete/tripulacion/:id",tripulacionController.deleteTripulacion);
 router.post("/create/tripulacion", tripulacionController.createTripulacion);
 
+router.get("/vueloTripulacion" , tripulacionController.getTripulacioninVuelo);
+router.post("/asignarVuelo" , tripulacionController.createTripulacioninVuelo);
+router.post("/delete/tripulacionInvuelo/:id1/:id2",tripulacionController.deleteTripulacioninVuelo);
+
 // Crud de Avion
 router.get("/aviones", catchErrors(avionController.getAviones));
 router.post("/create/Avion", catchErrors(avionController.create));
 router.post("/update/Avion/:id", catchErrors(avionController.update));
 router.post("/delete/Avion/:id", catchErrors(avionController.delete));
 
-router.post("/create/serviciosAdicionales", catchErrors(avionController.createserviciosAdicionales));
-router.post("/update/serviciosAdicionales/:id", catchErrors(avionController.updateserviciosAdicionales));
-router.post("/delete/serviciosAdicionales/:id", catchErrors(avionController.deleteserviciosAdicionales));
+router.post("/create/serviciosAdicionales", catchErrors(avionController.createServiciosAdicionales));
+router.post("/update/serviciosAdicionales/:id", catchErrors(avionController.updateServiciosAdicionales));
+router.post("/delete/serviciosAdicionales/:id", catchErrors(avionController.deleteServiciosAdicionales));
 
 
 
@@ -106,9 +77,19 @@ router.get("/searchStatistic", (req,res)=> {
   res.render("searchStatistics");
 });
 
-
-
-
+// Crud Modelo 
+router.get("/modelos", catchErrors(modeloController.getAllModelos));
+router.post("/create/modelo" , catchErrors(modeloController.createModelo) );
+router.post("/delete/modelo/:id" , catchErrors(modeloController.deleteModelo) );
+router.post("/update/modelo/:id" , catchErrors(modeloController.updateModelo) );
  
+// Crud Pasajeros 
+router.get("/searchPasajeros", (req,res)=> {
+ 
+  res.render("searchPasajeros");
+});
+router.post("/pasajeros", catchErrors(pasajeroController.getPasajeros));
+
+router.get("/clientes", catchErrors(clienteController.getAllClientes));
 
 module.exports = router;
