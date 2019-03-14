@@ -10,6 +10,7 @@ const estadisticaController = require('../controllers/estadisticaController');
 const modeloController = require('../controllers/modeloController');
 const pasajeroController = require('../controllers/pasajeroController');
 const clienteController = require('../controllers/clienteController');
+const proveedorController = require('../controllers/proveedorController');
 
 const { catchErrors } = require("../handlers/errorHandlers");
 
@@ -78,14 +79,18 @@ router.get("/searchStatistic", (req,res)=> {
 });
 
 //Tabla de proveedores
-//statistics
-router.post("/proveedores",proveedoresController.getVuelos);
 
+router.get("/proveedores", catchErrors(proveedorController.getAllProveedores));
+router.post("/create/Proveedor", catchErrors(proveedorController.create));
+router.post("/update/Proveedor/:id", catchErrors(proveedorController.update));
+router.post("/delete/Proveedor/:id", catchErrors(proveedorController.delete));
+
+/*router.post("/proveedores", proveedorController.getAllProveedores);
 router.get("/searchProveedor", (req,res)=> {
  
   res.render("searchProveedor");
 });
-
+*/
 // Crud Modelo 
 router.get("/modelos", catchErrors(modeloController.getAllModelos));
 router.post("/create/modelo" , catchErrors(modeloController.createModelo) );

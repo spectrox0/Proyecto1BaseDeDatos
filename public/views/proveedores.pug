@@ -22,5 +22,35 @@ block content
                         tr
                             td #{proveedores[i].nombre}
                             td #{proveedores[i].tiempo_de_respuesta}
-                           
-                    
+                            td
+                                form(action=`delete/proveedor/${proveedores[i].C_proveedor}`,method="POST")
+                                button.btn.btn-primary(type='submit')
+                                    i.far.fa-times-circle
+                                    |  Eliminar
+                                
+                                form
+                                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#proveedorC${proveedores[i].C_proveedor}`)
+                                    i.fas.fa-edit
+                                    |  Editar
+                            .modal.fade(id=`proveedorC${proveedores[i].C_proveedor}`)
+                            .modal-dialog.modal-lg
+                                .modal-content
+                                .modal-header
+                                    h3.modal-title Edicion Proveedor
+                                    button.close(type='button', data-dismiss='modal') 
+                                .modal-body
+                                    form(action=`update/proveedor/${proveedores[i].C_proveedor}`, method="POST")
+                                        .form-row
+                                            .form-group.col-md-6
+                                                label(for=`nombre${proveedores[i].C_proveedor}`) Nombre
+                                                br
+                                                input(type="text", value = `${proveedores[i].nombre}` , maxlength="7", id=`nombre${proveedores[i].C_proveedor}`, name='nombre', required='')
+                                            
+                                            .form-group.col-md-3
+                                                label(for=`velmax${proveedores[i].C_proveedor}`) Tiempo de Respuesta
+                                                br
+                                                input(type="number", value = `${proveedores[i].tiempo_de_respuesta}` ,  maxlength="7", id=`tiempo_de_respuesta${proveedores[i].C_proveedor}`, name='tiempo_de_respuesta', required='')
+                                                                                           
+                                                
+                                            button.btn.btn-primary(type='submit') Guardar
+                                    
