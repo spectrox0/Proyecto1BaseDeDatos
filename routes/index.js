@@ -77,6 +77,15 @@ router.get("/searchStatistic", (req,res)=> {
   res.render("searchStatistics");
 });
 
+//Tabla de proveedores
+//statistics
+router.post("/proveedores",proveedoresController.getVuelos);
+
+router.get("/searchProveedor", (req,res)=> {
+ 
+  res.render("searchProveedor");
+});
+
 // Crud Modelo 
 router.get("/modelos", catchErrors(modeloController.getAllModelos));
 router.post("/create/modelo" , catchErrors(modeloController.createModelo) );

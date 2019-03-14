@@ -1,0 +1,17 @@
+extends base2
+block content
+    .contenedorF
+        
+        h2(align="center")
+            | Busqueda Proveedores por Vuelo
+        hr   
+        form(action=`/proveedores`, method="POST")
+            .form-row 
+                    
+                input.search.form-control(type='text', name="busquedad" , placeholder='Escriba el codigo del Proveedor')  
+
+            hr          
+            .form-row
+                input(type="submit" , value ="Buscar")
+                // Table body
+                // Table

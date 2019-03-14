@@ -1,0 +1,26 @@
+extends base2
+block content
+    .contenedorF
+        .row 
+        a(href="/searchProveedor")
+            img(src="/Back.png")
+
+        .form-group.pull-right
+            input.search.form-control(type='text' placeholder='Que desea?')
+            table.table.table-responsive-sm.table-bordered.results
+                thead
+                    tr
+                        th Nombre
+                        th Tiempo de Respuesta
+                    tr.warning.no-result
+                        td(colspan='3')
+                            i.fa.fa-warning
+                            |  No result
+                tbody
+                    -for(var i = 0 ; i<proveedores.length ; i ++)
+                    
+                        tr
+                            td #{proveedores[i].nombre}
+                            td #{proveedores[i].tiempo_de_respuesta}
+                           
+                    
