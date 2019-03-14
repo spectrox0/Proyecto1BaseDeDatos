@@ -13,6 +13,7 @@ Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 Avion.hasMany(Itinerario ,  {foreignKey: 'C_itinerario', sourceKey:'C_itinerario'}); 
 Itinerario.belongsTo(Avion, {foreignKey: 'C_itinerario' ,targetKey:'C_itinerario'}) ;
 
+
 exports.getVuelos = async (req, res) => {
 
    if (req.body.destino===req.body.origen) { 
