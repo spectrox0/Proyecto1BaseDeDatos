@@ -25,7 +25,7 @@ app.set("view engine", "pug"); // En este caso estamos usando pug, pero ejs o ha
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/assets/css')));
 app.use(express.static(path.join(__dirname, 'public/assets/images')));
-
+app.use(express.static(path.join(__dirname, 'public/assets/scripts')));
 
 
 // Este middleware va convertir las peticiones a json para facilitarnos la vida
@@ -91,7 +91,7 @@ if (app.get("env") === "development") {
   app.use(errorHandlers.developmentErrors);
 }
 // para mostrar estadisticas
-app.use(express.static(path.join(__dirname, 'public/assets/scripts')));
+
 
 // Si la app falla y estamos en produccion los errores cambian
 app.use(errorHandlers.productionErrors);

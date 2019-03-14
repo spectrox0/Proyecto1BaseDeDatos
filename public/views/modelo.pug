@@ -1,0 +1,200 @@
+extends base2
+block content
+
+        table.table.table-hover
+          thead
+            tr
+              th ID
+              th Nombre
+              th Opciones
+          tbody.collection
+          - for (var i = 0; i < modelos.length; i++)
+            tr
+              td   #{modelos[i].C_modelo}
+              td   #{modelos[i].Nombre}
+              
+              td
+                form(action=`delete/modelo/${modelos[i].C_modelo}`,method="POST")
+                  button.btn.btn-primary(type='submit')
+                    i.far.fa-times-circle
+                    |  Eliminar
+                
+                form
+                  button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#modeloC${modelos[i].C_modelo}`)
+                    i.fas.fa-edit
+                    |  Editar
+            .modal.fade(id=`modeloC${modelos[i].C_modelo}`)
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    h3.modal-title Edicion Modelo
+                    button.close(type='button', data-dismiss='modal') ×
+                  .modal-body
+                    form(action=`update/modelo/${modelos[i].C_modelo}`, method="POST")
+                        .form-row
+                            .form-group.col-md-6
+                                label(for=`nombre${modelos[i].C_modelo}`) Nombre
+                                br
+                                input(type="text", value = `${modelos[i].Nombre}` , maxlength="7", id=`nombre${modelos[i].C_modelo}`, name='nombre', required='')
+                            
+                            .form-group.col-md-3
+                                label(for=`velmax${modelos[i].C_modelo}`) Vel max
+                                br
+                                input(type="number", value = `${modelos[i].vel_max}` ,  maxlength="7", id=`velmax${modelos[i].C_modelo}`, name='vel_max', required='')
+                            .form-group.col-md-3
+                                label(for=`velcrucero${modelos[i].C_modelo}`) Vel crucero
+                                br
+                                input(type="number", value = `${modelos[i].vel_crucero}` , id=`velcrucero${modelos[i].C_modelo}`, name='vel_crucero', required='')
+                        .form-row
+                            .form-group.col-md-3   
+                                label(for=`pesovacio${modelos[i].C_modelo}`) peso vacio
+                                br
+                                input(type="number", value=`${modelos[i].peso_vacio}` , id=`pesovacio${modelos[i].C_modelo}`, name='peso_vacio', required='')
+                            .form-group.col-md-3
+                                label(for=`pesomax${modelos[i].C_modelo}`) peso maximo
+                                br
+                                input(type="number", value=`${modelos[i].peso_max}` , id=`pesomax${modelos[i].C_modelo}`, name='peso_max', required='')
+                            .form-group.col-md-3
+                                label(for=`cargaMax${modelos[i].C_modelo}`) carga maxima Equipaje
+                                br
+                                select(id= `cargaMax${modelos[i].C_modelo}`, name='cargaMaxE', required='')
+                                    -for(var j = 0; j<7; j++)
+                                        -if(modelos[i].carga_max_equi==j)
+                                            option(selected="selected") #{j}
+                                        -else 
+                                            option #{j}
+                    
+                            .form-group.col-md-3
+                                label(for=`combustible${modelos[i].C_modelo}`) Combustible
+                                br
+                                input(type="text", value=`${modelos[i].combustible}` , maxlength="6" ,id=`combustible${modelos[i].C_modelo}`, name='combustible', required='')
+                        .form-row
+                            .form-group.col-md-3
+                                label(for=`cant_salida_emerg${modelos[i].C_modelo}`) Salidas Emergencias
+                                br
+                                select(id= `cant_salida_emerg${modelos[i].C_modelo}`, name='cant_salida_emerg', required='')
+                                    -for(var j = 0; j<7; j++)
+                                        -if(modelos[i].cant_salida_emerg==j)
+                                            option(selected="selected") #{j}
+                                        -else 
+                                            option #{j}
+                            .form-group.col-md-3
+                                label(for=`cant_bano${modelos[i].C_modelo}`) Baños
+                                br
+                                select(id= `cant_bano${modelos[i].C_modelo}`, name='cant_banos', required='')
+                                    -for(var j = 0; j<7; j++)
+                                        -if(modelos[i].cant_banos==j)
+                                            option(selected="selected") #{j}
+                                        -else 
+                                            option #{j}
+                            .form-group.col-md-3
+                                label(for=`dist_despegue_carga${modelos[i].C_modelo}`) Distancia despegue carga maxima
+                                br
+                                input(type="number", value=`${modelos[i].dist_despegue_carga_max}` , id=`dist_despegue_carga${modelos[i].C_modelo}`, name='dist_despegue_carga_max', required='')
+                            .form-group.col-md-3
+                                label(for=`cFabricante${modelos[i].C_modelo}`) ID Fabricante
+                                br
+                                select(id= `cFabricante${modelos[i].C_modelo}`, name='C_fabricante', required='')
+                                    -for(var j = 0; j<fabricantes.length; j++)
+                                        -if(modelos[i].C_fabricante==fabricantes[j].C_fabricante)
+                                            option(value=`${fabricantes[j].C_fabricante}`, selected="selected") #{fabricantes[j].C_fabricante} - #{fabricantes[j].Nombre}
+                                        -else 
+                                            option(value=`${fabricantes[j].C_fabricante}`) #{fabricantes[j].C_fabricante} - #{fabricantes[j].Nombre}
+                        button.btn.btn-primary(type='submit',data-toggle='modal') Actualizar
+        
+          tfoot
+            tr
+                td(colspan='8')
+                    button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+                        i.fas.fa-folder-plus
+                        |  Crear Tripulante
+            tr
+              td(colspan='8')
+                    #collapseExample1.collapse
+                        form(action='/create/modelo' method="POST")
+                            .form-row
+                                .form-group.col-md-6
+                                    label(for=`nombre`) Nombre
+                                    br
+                                    input(type="text" , id=`nombre`, name='nombre', required='')
+                                
+                                .form-group.col-md-3
+                                    label(for=`velmax`) Vel max
+                                    br
+                                    input(type="number" , id=`velmax`, name='vel_max', required='')
+                                .form-group.col-md-3
+                                    label(for=`velcrucero`) Vel crucero
+                                    br
+                                    input(type="number" , id=`velcrucero`, name='vel_crucero', required='')
+                            .form-row
+                                .form-group.col-md-3   
+                                    label(for=`pesovacio`) peso vacio
+                                    br
+                                    input(type="number" , id=`pesovacio`, name='peso_vacio', required='')
+                                .form-group.col-md-3
+                                    label(for=`pesomax`) peso maximo
+                                    br
+                                    input(type="number" , id=`pesomax`, name='peso_max', required='')
+                                .form-group.col-md-3
+                                    label(for=`cargaMax`) carga maxima Equipaje
+                                    br
+                                    select(id= `cargaMax`, name='cargaMaxE', required='')
+                                        -for(var j = 0; j<7; j++)
+                
+                                            option #{j}
+                        
+                                .form-group.col-md-3
+                                    label(for=`combustible`) Combustible
+                                    br
+                                    input(type="text" , maxlength="6" ,id=`combustible`, name='combustible', required='')
+                            .form-row
+                                .form-group.col-md-3
+                                    label(for=`cant_salida_emerg`) Salidas Emergencias
+                                    br
+                                    select(id= `cant_salida_emerg`, name='cant_salida_emerg', required='')
+                                        -for(var j = 0; j<7; j++)
+                
+                                            option #{j}
+                                .form-group.col-md-3
+                                    label(for=`cant_bano`) Baños
+                                    br
+                                    select(id= `cant_bano`, name='cant_banos', required='')
+                                        -for(var j = 0; j<7; j++)
+                                            
+                                            option #{j}
+                                .form-group.col-md-3
+                                    label(for=`dist_despegue_carga`) Distancia despegue carga maxima
+                                    br
+                                    input(type="number" , id=`dist_despegue_carga`, name='dist_despegue_carga_max', required='')
+                                .form-group.col-md-3
+                                    label(for=`cFabricante`) ID Fabricante
+                                    br
+                                    select(id= `cFabricante`, name='C_fabricante', required='')
+                                        -for(var j = 0; j<fabricantes.length; j++)
+                                             option(value=`${fabricantes[j].C_fabricante}`) #{fabricantes[j].C_fabricante} - #{fabricantes[j].Nombre}
+                            .form-row
+                                .form-group.col-md-3
+                                    label(for=`Asiento1`) Asiento Primera Clase
+                                    br
+                                    select(id=`Asiento1`, name='asiento1', required='')
+                                        -for(var j = 0; j<=15; j++)
+                                                option #{j}
+                                .form-group.col-md-3
+                                    label(for=`Asiento2`) Asiento Ejecutiva
+                                    br
+                                    select(id=`Asiento2`, name='asiento2', required='')
+                                        -for(var j = 0; j<=20; j++)
+                                                option #{j}
+                                .form-group.col-md-3
+                                    label(for=`Asiento3`) Asiento Economico Premium
+                                    br
+                                    select(id=`Asiento3`, name='asiento3', required='')
+                                        -for(var j = 0; j<=20; j++)
+                                                option #{j}
+                                .form-group.col-md-3
+                                    label(for=`Asiento4`) Asiento Economico
+                                    br
+                                    select(id=`Asiento4`, name='asiento4', required='')
+                                        -for(var j = 0; j<=20; j++)
+                                                option #{j}
+                            button.btn.btn-primary(type='submit') Guardar

@@ -6,7 +6,6 @@ const ServiciosAdicionales = db.define('serviciosadicionales', {
 
         type: sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
         allowNull: false
     },
 
@@ -14,20 +13,16 @@ const ServiciosAdicionales = db.define('serviciosadicionales', {
     internet: {
         type: sequelize.TINYINT,
         allowNull: false,
-        defaultValue: 1,
-
-        validate: {
-        notEmpty: true
-        }
+    }
     ,
-    cant_tv: {
+    cant_TV: {
         type: sequelize.INTEGER,
         allowNull: false,
 
     }
     
 
-} }, {
+} , {
     timestamps: false,
     freezeTableName: true
 } );

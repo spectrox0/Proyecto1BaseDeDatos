@@ -1,4 +1,4 @@
-const User = require("../models/cliente");
+
 const Pasaje = require("../models/pasaje");
 const Boleto = require("../models/boleto");
 const Vuelo = require("../models/vuelo");
@@ -66,7 +66,7 @@ exports.compraEscala = async (req, res) => {
 };
 
 exports.confirmCompra = async (req,res) => {
-  
+    console.log(req.params.id);
   let cliente = await Cliente.findOne( { 
      where: { 
        cedula:req.body.cedula
@@ -195,14 +195,28 @@ exports.confirmCompra = async (req,res) => {
        } }
      ) ;
 
+     var today = await new Date();
+     var dd = await today.getDate();
+     var mm = await today.getMonth() + 1; 
+     
+     var yyyy = await today.getFullYear();
+     if (dd < 10) {
+       dd = '0' + dd;
+     } 
+     if (mm < 10) {
+       mm = '0' + mm;
+     } 
+     var today = dd + '/' + mm + '/' + yyyy;
+
      let pasaje = await Pasaje.build({
       Precio_total: req.params.precio,
-      fechaCompra: Date.now(),
+      fechaCompra: today,
       C_cliente: req.body.cedula,
   
       }) ; 
       await pasaje.save();
-       
+      
+       console.log("dsdsdas");
     return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
    
   } else {

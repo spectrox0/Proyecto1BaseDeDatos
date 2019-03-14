@@ -1,22 +1,20 @@
-const Sequelize = require("sequelize");
-Sequelize.Promise = global.Promise;
-
-const sequelize = require("../config/db");
+const sequelize = require('sequelize');
+const db = require('../config/db');
 
 
-const ModeloAsiento = sequelize.define("modeloasientos", {
+const ModeloAsiento = db.define("modeloasientos", {
  
   Cantidad: {
-    type: Sequelize.INTEGER,
+    type: sequelize.INTEGER,
     allowNull: false,
   },
   C_modelo: {
-      type: Sequelize.INTEGER, 
+      type: sequelize.INTEGER, 
       primaryKey: true, 
       allowNull:false, 
   } , 
   C_asiento: {
-    type: Sequelize.INTEGER, 
+    type: sequelize.INTEGER, 
     primaryKey: true, 
     allowNull:false, 
 } 

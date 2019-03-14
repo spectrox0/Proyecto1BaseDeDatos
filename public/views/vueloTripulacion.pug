@@ -1,0 +1,56 @@
+extends base2
+block content
+    .contenedorF
+        .row 
+        a(href="/tripulacion")
+            img(src="/Back.png")
+
+        .form-group.pull-right
+            input.search.form-control(type='text' placeholder='Buscar por vuelo o tripulante')
+            table.table.table-responsive-sm.table-bordered.results
+                thead
+                    tr
+                        th ID Vuelo
+                        th Pasaporte Tripulante
+                        th Opciones
+                    tr.warning.no-result
+                        td(colspan='3')
+                            i.fa.fa-warning
+                            |  No result
+                tbody
+                    -for(var i = 0 ; i<tripulacionVuelos.length ; i ++)
+                    
+                        tr
+                            td #{tripulacionVuelos[i].C_vuelo}
+                            td #{tripulacionVuelos[i].Pasaporte_T}
+                            td 
+                                form(action=`delete/tripulacionInvuelo/${tripulacionVuelos[i].Pasaporte_T}/${tripulacionVuelos[i].C_vuelo} `,method="POST")
+                                    button.btn.btn-primary(type='submit')
+                                        i.far.fa-times-circle
+                                        |  Eliminar
+                tfoot
+                    tr
+                        td(colspan='3')
+                            button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+                                i.fas.fa-folder-plus    
+                                |  Asignar Tripulacion a Vuelo
+                    tr
+                        td(colspan='3')
+                            #collapseExample1.collapse
+                                form(action='/asignarVuelo' method="POST")
+                                    .form-row
+                                        .form-group.col-md-6
+                                            label(for=`IDvuelo`) ID Vuelo
+                                            br
+                                            select(id=`IDvuelo`, name='vuelo', required='')
+                                                -for(var j= 0 ; j<vuelos.length ; j++)
+                                                    option #{vuelos[j].C_vuelo}
+                                        .form-group.col-md-6
+                                            label(for=`pasaporte`) Pasaporte Tripulante
+                                            br
+                                            select(id= `pasaporte`, name='pasaporte', required='')
+                                                -for(var j= 0 ; j<tripulantes.length ; j++)
+                                                    option #{tripulantes[j].Pasaporte_T}
+                                    
+                                    button.btn.btn-primary(type='submit') Guardar
+                

@@ -3,7 +3,8 @@ const Itinerario = require('../models/itinerario');
 const Aeropuerto = require('../models/aeropuerto')
 const Avion = require("../models/avion") ;
 const modeloAsiento = require("../models/modeloAsiento");
-const VueloDesviado = require("../models/vueloDesviado")
+const VueloDesviado = require("../models/vueloDesviado");
+const asientoVuelo = require("../models/vueloAsiento");
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
 Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 
@@ -199,6 +200,36 @@ exports.createVuelo = async (req, res) => {
       hora_llegada: req.body.horaL 
   });
   await vuelo.save();
+
+  let Asientos1 = await asientoVuelo.build({
+   C_vuelo: vuelo.C_vuelo,
+   C_asiento:1,
+   Disponibles:1,
+   Cant_vendidos:0
+  });
+  let Asientos2 = await asientoVuelo.build({
+    C_vuelo: vuelo.C_vuelo,
+    C_asiento:2,
+    Disponibles:1,
+    Cant_vendidos:0
+   });
+   let Asientos3 = await asientoVuelo.build({
+    C_vuelo: vuelo.C_vuelo,
+    C_asiento:3,
+    Disponibles:1,
+    Cant_vendidos:0
+   });
+   let Asientos4 = await asientoVuelo.build({
+    C_vuelo: vuelo.C_vuelo,
+    C_asiento:4,
+    Disponibles:1,
+    Cant_vendidos:0
+   });
+   await Asientos1.save();
+   await Asientos2.save();
+   await Asientos3.save();
+   await Asientos4.save();
+
   if (!!vuelo) {
     return res.redirect("vuelos");
   } else {
@@ -228,7 +259,7 @@ exports.createVuelodesviado = async (req, res) => {
  
   const vueloDesviado = await VueloDesviado.update(
     { 
-       nuevoDestino: req.body.nuevoDestino`${C_vuelo}`,
+       nuevoDestino: req.body.nuevoDestino,
     }, { where: {C_vuelo} }
     );
     if (!!vueloDesviado) {
@@ -242,10 +273,10 @@ exports.updateVuelo = async (req, res) => {
  
   const Vuelo = await Vuelo.update(
     { 
-      C_avion: req.body.C_avion`${C_vuelo}`,
-      Fecha_salida: req.body.fecha`${C_vuelo}`,
-      Hora_salida:req.body.horaS`${C_vuelo}`, 
-      hora_llegada: req.body.horaL`${C_vuelo}`
+      C_avion: req.body.C_avion,
+      Fecha_salida: req.body.fecha,
+      Hora_salida:req.body.horaS, 
+      hora_llegada: req.body.horaL
     },
       
     { where: {C_vuelo} }
@@ -259,9 +290,12 @@ exports.updateVuelo = async (req, res) => {
 exports.deleteVuelo = async (req, res) => {
   const C_vuelo=req.params.id;
   try{
-  const response = await Vuelo.update({
-      Activo: false
-  }, {
+  const response1 = await asientoVuelo.destroy( {
+    where: {
+      C_vuelo:C_vuelo
+  }
+  });
+  const response = await Vuelo.destroy({
       where: {
           C_vuelo:C_vuelo
       }

@@ -1,85 +1,101 @@
 extends base2
 block content
-      .row
-        h2.titulo
-        img(src='', alt='')
-    
-      table.table.table-hover
-        thead
-          tr
-            th ID
-            th Nombre
-            th Apellido
-            th Cargo
-            th Opciones
-        tbody.collection
-        - for (var i = 0; i < tripulacion.length; i++)
-          tr
-            td   #{tripulacion[i].Pasaporte_T}
-            td   #{tripulacion[i].Nombre}
-            td   #{tripulacion[i].Apellido}
-            td   #{tripulacion[i].Cargo}
-            td
-              form(action=`delete/tripulacion/${tripulacion[i].Pasaporte_T}`,method="POST")
-                button.btn.btn-primary(type='submit')
-                  i.far.fa-times-circle
-                  |  Eliminar
-              
-              form
-                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#avionesC${tripulacion[i].C_avion}`)
-                  i.fas.fa-edit
-                  |  Editar
-          .modal.fade(id=`avionesC${tripulacion[i].Pasaporte_T}`)
-            .modal-dialog.modal-lg
-              .modal-content
-                .modal-header
-                  h3.modal-title Edicion Tripulacion
-                  button.close(type='button', data-dismiss='modal') ×
-                .modal-body
-                  form(action=`update/tripulacion${aviones[i].PasaporteT}`, method="POST")
-                    .form-row
-                      .form-group.col-md-6
-                        label(for=`pasaporte${tripulacion[i].Pasaporte_T}`) Pasaporte
-                        br
-                        input(type="number" id=`pasaporte${tripulacion[i].Pasaporte_T}`, name='pasaporte', required='')
-                         
-                      .form-group.col-md-6
-                        label(for=`modelo${tripulacion[i].Pasaporte_T}`) Cargo
-                        br
-                        select(id= `modelo${tripulacion[i].Pasaporte_T}`, name='cargo', required='')
-                          option Piloto
-                          option Copiloto
-                          option Ayudante Cabina
-                          option Mantemiento
-                    .form-row
-                      .form-group.col-md-6
-                        label(for=`nombre${tripulacion[i].Pasaporte_T}`) Nombre
-                        br
-                        input(type="text" id=`nombre${tripulacion[i].Pasaporte_T}`, name='nombre', required='')
-                      .form-group.col-md-6
-                        .custom-control.custom-checkbox
-                        label(for=`apellido${tripulacion[i].Pasaporte_T}`) Apellido
-                        br
-                        input(type="text" id=`apellido${tripulacion[i].Pasaporte_T}`, name='apellido', required='')
-        
-                    button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#tripulacinC${tripulacion[i].Pasaporte_T}`) Actualizar
       
-        tfoot
-          tr
-            td(colspan='8')
-              button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
-                i.fas.fa-folder-plus
-                |  Crear producto
-          tr
-            td(colspan='8')
-              #collapseExample1.collapse
-                form(action='/create/tripulacion' method="POST")
-                  .form-row
-                    .form-group.col-md-6
+      .contenedorF
+        .toggle
+            span
+                a(href="/vueloTripulacion")
+                  | Asignar 
+        h2(align="center")
+          | Tripulacion
+    
+        table.table.table-hover
+          thead
+            tr
+              th ID
+              th Nombre
+              th Apellido
+              th Cargo
+              th Opciones
+          tbody.collection
+          - for (var i = 0; i < tripulacion.length; i++)
+            tr
+              td   #{tripulacion[i].Pasaporte_T}
+              td   #{tripulacion[i].Nombre}
+              td   #{tripulacion[i].Apellido}
+              td   #{tripulacion[i].cargo}
+              td
+                form(action=`delete/tripulacion/${tripulacion[i].Pasaporte_T}`,method="POST")
+                  button.btn.btn-primary(type='submit')
+                    i.far.fa-times-circle
+                    |  Eliminar
+                
+                form
+                  button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#avionesC${tripulacion[i].Pasaporte_T}`)
+                    i.fas.fa-edit
+                    |  Editar
+            .modal.fade(id=`avionesC${tripulacion[i].Pasaporte_T}`)
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    h3.modal-title Edicion Tripulacion
+                    button.close(type='button', data-dismiss='modal') ×
+                  .modal-body
+                    form(action=`update/tripulacion/${tripulacion[i].PasaporteT}`, method="POST")
+                      .form-row
+                        .form-group.col-md-6
+                          label(for=`pasaporte${tripulacion[i].Pasaporte_T}`) Pasaporte
+                          br
+                          input(type="number", value = `${tripulacion[i].Pasaporte_T}` , id=`pasaporte${tripulacion[i].Pasaporte_T}`, name='pasaporte', required='')
+                          
+                        .form-group.col-md-6
+                          label(for=`modelo${tripulacion[i].Pasaporte_T}`) Cargo
+                          br
+                          select(id= `modelo${tripulacion[i].Pasaporte_T}`, name='cargo', required='')
+                            -if(tripulacion[i].cargo=="Piloto")
+                              option(selected="selected") Piloto
+                            -else 
+                              option Piloto
+                            -if(tripulacion[i].cargo=="Copiloto")
+                              option(selected="selected") Copiloto
+                            -else 
+                              option Copiloto
+                            -if(tripulacion[i].cargo=="Ayudante Cabina")
+                              option(selected="selected") Ayudante Cabina
+                            -else 
+                              option Ayudante Cabina
+                            -if(tripulacion[i].cargo=="Mantenimiento")
+                              option(selected="selected") Mantenimiento
+                            -else 
+                              option Mantenimiento
+                      .form-row
+                        .form-group.col-md-6
+                          label(for=`nombre${tripulacion[i].Pasaporte_T}`) Nombre
+                          br
+                          input(type="text" value=`${tripulacion[i].Nombre}` , id=`nombre${tripulacion[i].Pasaporte_T}`, name='nombre', required='')
+                        .form-group.col-md-6
+                          label(for=`apellido${tripulacion[i].Pasaporte_T}`) Apellido
+                          br
+                          input(type="text" value=`${tripulacion[i].Apellido}` id=`apellido${tripulacion[i].Pasaporte_T}`, name='apellido', required='')
+          
+                      button.btn.btn-primary(type='submit',data-toggle='modal', data-target=`#tripulacinC${tripulacion[i].Pasaporte_T}`) Actualizar
+        
+          tfoot
+            tr
+              td(colspan='8')
+                button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+                  i.fas.fa-folder-plus
+                  |  Crear Tripulante
+            tr
+              td(colspan='8')
+                #collapseExample1.collapse
+                  form(action='/create/tripulacion' method="POST")
+                    .form-row
+                      .form-group.col-md-6
                         label(for=`pasaporte`) Pasaporte
                         br
                         input(type="number" id=`pasaporte`, name='pasaporte', required='')
-                         
+                          
                       .form-group.col-md-6
                         label(for=`modelo`) Cargo
                         br
@@ -94,8 +110,7 @@ block content
                         br
                         input(type="text" id=`nombre`, name='nombre', required='')
                       .form-group.col-md-6
-                        .custom-control.custom-checkbox
                         label(for=`apellido`) Apellido
                         br
                         input(type="text" id=`apellido`, name='apellido', required='')
-                  button.btn.btn-primary(type='submit') Guardar
+                    button.btn.btn-primary(type='submit') Guardar

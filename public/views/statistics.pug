@@ -1,41 +1,27 @@
-extends base3
+extends base2
 block content
     .contenedorF
-
-
+        .row 
+        a(href="/searchStatistic")
+            img(src="/Back.png")
 
         .form-group.pull-right
-            input.search.form-control(type='text' placeholder='What you looking for?')
-            span.counter.pull-right
-            table.table.table-hover.table-bordered.results
+            input.search.form-control(type='text' placeholder='Que desea?')
+            table.table.table-responsive-sm.table-bordered.results
                 thead
                     tr
-                        th #
-                        th.col-md-5.col-xs-5 Código de Vuelo 
-                        th.col-md-4.col-xs-4 Cantidad de asientos vendidos 
-                        th.col-md-3.col-xs-3 City
+                        th Boletos Vendidos
+                        th Abordados
+                        th Tipo Asiento
                     tr.warning.no-result
-                        td(colspan='4')
+                        td(colspan='3')
                             i.fa.fa-warning
                             |  No result
                 tbody
-                    tr
-                        th(scope='row') 1
-                        td Vatanay &Ouml;zbeyli
-                        td UI &amp; UX
-                        td Istanbul
-                    tr
-                        th(scope='row') 2
-                        td Burak &Ouml;zkan
-                        td Software Developer
-                        td Istanbul
-                    tr
-                        th(scope='row') 3
-                        td Egemen &Ouml;zbeyli
-                        td Purchasing
-                        td Kocaeli
-                    tr
-                        th(scope='row') 4
-                        td Engin K&imath;z&imath;l
-                        td Sales
-                        td Bozuy&uuml;k
+                    -for(var i = 0 ; i<abordados.length ; i ++)
+                    
+                        tr
+                            td #{vuelosAsientos[i].Cant_vendidos}
+                            td #{abordados[i]}
+                            td   #{Asientos[i].tipo}
+                    

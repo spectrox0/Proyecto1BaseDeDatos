@@ -1,28 +1,25 @@
-const Sequelize = require("sequelize");
-Sequelize.Promise = global.Promise;
+const sequelize = require('sequelize');
+const db = require('../config/db');
 
-const sequelize = require("../config/db");
-
-
-const VueloAsiento = sequelize.define("vueloasientos", {
+const VueloAsiento = db.define("vueloasientos", {
  
   Cant_vendidos: {
-    type: Sequelize.INTEGER,
+    type: sequelize.INTEGER,
     allowNull: false,
     defaultValue: 1
   },
-  C_Vuelo: {
-      type: Sequelize.INTEGER, 
+  C_vuelo: {
+      type: sequelize.INTEGER, 
       primaryKey: true, 
       allowNull:false, 
   } , 
   C_asiento: {
-    type: Sequelize.INTEGER, 
+    type: sequelize.INTEGER, 
     primaryKey: true, 
     allowNull:false, 
 } ,
  Disponibles: {
-    type: Sequelize.TINYINT, 
+    type: sequelize.TINYINT, 
     allowNull:false, 
     defaultValue: 1
  }

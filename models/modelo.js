@@ -13,6 +13,11 @@ const Modelo = db.define('modelo', {
         allowNull: false
 
     } ,
+    carga_max_equi: {
+        type: sequelize.INTEGER,
+        allowNull: false
+
+    } ,
     vel_max: {
         type: sequelize.FLOAT,
         allowNull: false
@@ -49,6 +54,11 @@ const Modelo = db.define('modelo', {
     } ,
     dist_despegue_carga_max: {
         type: sequelize.FLOAT,
+        allowNull: false
+
+    } , 
+   C_fabricante: {
+        type: sequelize.INTEGER,
         allowNull: false
 
     }
