@@ -5,6 +5,8 @@ const Avion = require("../models/avion") ;
 const modeloAsiento = require("../models/modeloAsiento");
 const VueloDesviado = require("../models/vueloDesviado");
 const asientoVuelo = require("../models/vueloAsiento");
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
 Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 
@@ -48,8 +50,8 @@ exports.getVuelos = async (req, res) => {
     vuelos = vuelos.map(val => val.dataValues);
 
       for (var i = 0 ; i<vuelos.length ; i++) { 
-
-
+   
+      var hora = vuelos[i].hora_llegada ; 
       var newOrigen = await Itinerario.findOne( {
          include:[ {
            model:Avion,
@@ -74,9 +76,13 @@ exports.getVuelos = async (req, res) => {
   }] ,
    where : { 
      Activo:1, 
-     Fecha_salida: req.body.fecha
+     Fecha_salida: req.body.fecha,
+     Hora_salida:{ 
+      [Op.gte] : hora
    }
-    } );
+    } }
+    )
+     ;
 
   if(vuelo2!=null) {
     const vuelox =[] ;

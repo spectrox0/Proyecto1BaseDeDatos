@@ -1,25 +1,23 @@
-
 const sequelize = require('sequelize');
 const db = require('../config/db');
-const Asiento = db.define('asiento', {
-    C_asiento: {
 
-        type: sequelize.STRING,
+const EstadoAvion = db.define('estadoavion', {
+    C_estado: {
+
+        type: sequelize.INTEGER,
         primaryKey: true,
-        unique: true,
-     
+        autoIncrement: true,
         allowNull: false
     },
-    tipo: {
+
+    Nombre: {
+
         type: sequelize.STRING,
         allowNull: false
-
     } 
-    ,
-   
    }, {
     timestamps: false,
     freezeTableName: true
 } );
 
-module.exports = Asiento;
+module.exports = EstadoAvion;

@@ -3,7 +3,7 @@ block content
   .contenedor2
     .row 
       a(href="/index")
-        img(src="/Back.png")
+        img(src="Back.png")
 
       h2 
         | Vuelos Escalas
@@ -21,7 +21,7 @@ block content
                 th Origen 
                 th Destino
                 th
-                  input(type="radio", value =`${JSON.stringify(escalas[i])}`, name="vueloSel", id=`idVuelo`)
+                  input(type="radio", class="option-input radio",value =`${JSON.stringify(escalas[i])}`, name="vueloSel", id=`idVuelo`)
             tbody
               tr
                 td #{escalas[i][0].Hora_salida}

@@ -56,7 +56,9 @@ router.post("/create/serviciosAdicionales", catchErrors(avionController.createSe
 router.post("/update/serviciosAdicionales/:id", catchErrors(avionController.updateServiciosAdicionales));
 router.post("/delete/serviciosAdicionales/:id", catchErrors(avionController.deleteServiciosAdicionales));
 
-
+router.post("/create/mantenimiento", catchErrors(avionController.createMantenimiento)) ;
+router.post("/update/mantenimiento/:id", catchErrors(avionController.updateMantenimiento));
+router.post("/delete/mantenimiento/:id", catchErrors(avionController.deleteMantenimiento));
 
 // Crud de Vuelos
 router.get("/vuelos", catchErrors(vueloController.getAllVuelos));
