@@ -143,14 +143,14 @@ block content
           
                         label(for=`horaS${vuelos[i].C_vuelo}`) Hora Salida
                         br
-                        input(type="time" , id=`HoraS${vuelos[i].C_vuelo}`,value=`${vuelos[i].Hora_salida}`, name=`horaS`, required='')
+                        input(type="time" , step="2", id=`HoraS${vuelos[i].C_vuelo}`,value=`${vuelos[i].Hora_salida}`, name=`horaS`, required='')
 
                   
                       .form-group.col-md-6
   
                         label(for=`horaL${vuelos[i].C_vuelo}`) Hora llegada
                         br
-                        input(type="time" id=`HoraL${vuelos[i].C_vuelo}`, value=`${vuelos[i].hora_llegada}`, name=`horaL`, required='')
+                        input(type="time" , step="2", id=`HoraL${vuelos[i].C_vuelo}`, value=`${vuelos[i].hora_llegada}`, name=`horaL`, required='')
                       
             
         
@@ -174,7 +174,10 @@ block content
                         br
                         select(id= `Avion`, name='C_avion', required='')
                           -for(var j = 0; j<aviones.length ; j++)
-                            option #{aviones[j].C_avion}
+                            -if(aviones[j].avionalquilado!=null)
+                              option(style="color:red") #{aviones[j].avionalquilado.C_avion} (Alquilado)
+                            -else 
+                              option #{aviones[j].C_avion}
 
                     .form-group.col-md-6
                       label(for=`fechaS`) Fecha
@@ -185,14 +188,21 @@ block content
           
                       label(for=`horaS`) Hora Salida
                       br
-                      input(type="time" id=`HoraS`, name='horaS', required='')
+                      input(type="time",  step="2", id=`HoraS`, name='horaS', required='')
                       
                   
                     .form-group.col-md-6
   
                       label(for=`horaL`) Hora llegada
                       br
-                      input(type="time" id=`HoraL`, name='horaL', required='')
-                      
-                   
+                      input(type="time",  step="2", id=`HoraL`, name='horaL', required='')
+                  hr    
+                  .form-row
+                    h2
+                      | Vuelo charter
+                  .form-row
+                    .form-group.col-md
+                      label(for=`Precio distancia`) Precio por distancia
+                      br
+                      input(type="number", id= `Precio distancia`, name="precio_distancia")
                 button.btn.btn-primary(type='submit') Guardar

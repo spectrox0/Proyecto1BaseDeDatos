@@ -7,6 +7,7 @@ const Itinerario = require('../models/itinerario');
 const Aeropuerto = require('../models/aeropuerto');
 const AvionMantenimiento= require("../models/avionmantenimiento");
 const AvionAlquilado = require("../models/avionalquilado");
+const Proveedor = require("../models/proveedor");
 AvionMantenimiento.hasMany(Mantenimiento ,  {foreignKey: 'C_mantenimiento', sourceKey:'C_mantenimiento'});
 Mantenimiento.belongsTo(AvionMantenimiento, {foreignKey: 'C_mantenimiento' ,targetKey:'C_mantenimiento'} );
 
@@ -40,7 +41,7 @@ exports.getAviones = async (req, res) => {
     }] });
 
     aviones = aviones.map(val => val.dataValues);
-    console.log(aviones);
+   
     let serviciosAdicionales = await ServiciosAdicionales.findAll();
     serviciosAdicionales = serviciosAdicionales.map( val => val.dataValues);
     let modelos = await Modelo.findAll();
@@ -61,25 +62,41 @@ exports.getAviones = async (req, res) => {
     });
 
      avionmantenimiento = avionmantenimiento.map( val => val.dataValues);
- 
+     let proveedores = await Proveedor.findAll();
+     proveedores = proveedores.map(val => val.dataValues);
     let avionalquilado = await AvionAlquilado.findAll();
     avionalquilado = avionalquilado.map(val => val.dataValues);
     if (aviones,serviciosAdicionales,modelos,itinerarios) {
       return res.render("aviones", {aviones,serviciosAdicionales,modelos,mantenimiento,itinerarios,estados,
-                                     avionmantenimiento , avionalquilado});
+                                     avionmantenimiento , avionalquilado, proveedores});
     }
   };
 
   exports.create = async (req, res) => {
   
-
+ try {
     const aviones = await Avion.build({
         C_estado: req.body.estado,
         C_modelo: req.body.modelo,
+        C_itinerario : req.body.itinerario
     });
     await aviones.save();
+
+     if(req.body.alquilado=='on' && req.body.Proveedor!=null) {
+      const avionAlquilado = await AvionAlquilado.build({
+       C_avion: aviones.C_avion,
+       C_proveedor: req.body.Proveedor
+       
+      }) ;
+      await avionAlquilado.save();
+
+     }
+     
     if (!!aviones) {
       return res.redirect("/aviones");
+    } } catch(error) {
+       return res.render("mensajeError", { message: "Error no se pudo crear el avion correctamente", dir: "aviones"});
+
     }
     
   };
@@ -88,12 +105,11 @@ exports.getAviones = async (req, res) => {
     var cantTV = req.body.CantTV;
     var Internet = req.body.Internet;
     var internet ;
-     console.log(cantTV);
    
     if (Internet=='on') {
         internet=1
     } else internet=0;
-    console.log(req.body)
+   
     try{
     const serviciosAdicionales = await ServiciosAdicionales.build({
 
@@ -102,7 +118,6 @@ exports.getAviones = async (req, res) => {
            cant_TV: cantTV
     });
     await serviciosAdicionales.save();
-    console.log(serviciosAdicionales)
     if (!!serviciosAdicionales) {
       return res.redirect("/aviones");
     }else { 
@@ -148,7 +163,7 @@ return res.render("mensajeError", {message: "No se pudo actualizar el servicio A
 exports.update = async (req, res) => {
     const C_avion = req.params.id;
  
-
+try{
     const aviones = await Avion.update(
       {  C_estado: req.body.estado,
         C_modelo: req.body.modelo,
@@ -162,6 +177,8 @@ exports.update = async (req, res) => {
     // await aviones.save();
     if (!!aviones) {
       return res.redirect("/aviones");
+    } } catch (error) {
+      res.render("mensajeError", {message:"Error actualizando el avion", dir:"aviones"});
     }
   };
 

@@ -4,7 +4,9 @@ const Aeropuerto = require('../models/aeropuerto')
 const Avion = require("../models/avion") ;
 const modeloAsiento = require("../models/modeloAsiento");
 const VueloDesviado = require("../models/vueloDesviado");
+const VueloCharter = require("../models/vueloCharter");
 const asientoVuelo = require("../models/vueloAsiento");
+const AvionAlquilado = require("../models/avionalquilado");
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
@@ -13,6 +15,10 @@ Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
 Avion.hasMany(Itinerario ,  {foreignKey: 'C_itinerario', sourceKey:'C_itinerario'}); 
 Itinerario.belongsTo(Avion, {foreignKey: 'C_itinerario' ,targetKey:'C_itinerario'}) ;
 
+Avion.belongsTo(AvionAlquilado, {foreignKey: 'C_avion' ,targetKey:'C_avion'}) ;
+
+Vuelo.hasMany(VueloDesviado ,   {foreignKey: 'C_vuelo', sourceKey:'C_vuelo'});
+Vuelo.hasMany(VueloCharter ,   {foreignKey: 'C_vuelo', sourceKey:'C_vuelo'});
 
 exports.getVuelos = async (req, res) => {
 
@@ -180,13 +186,19 @@ exports.getVuelos = async (req, res) => {
 
 exports.getAllVuelos = async (req, res) => {
 
-  let vuelos = await Vuelo.findAll();
+  let vuelos = await Vuelo.findAll( {
+    include:[{model:Avion}, {model:VueloDesviado}, {model:VueloCharter}]
+  });
 
   vuelos= vuelos.map(val => val.dataValues);
-
   let Vuelodesviado = await VueloDesviado.findAll();
   let aeropuertos = await Aeropuerto.findAll();
-  let aviones = await Avion.findAll();
+  let aviones = await Avion.findAll({
+    include: [
+   {
+    model:AvionAlquilado,
+  } 
+ ] });
 
   Vuelodesviado = Vuelodesviado.map(val => val.dataValues);
   aeropuertos = aeropuertos.map(val => val.dataValues);

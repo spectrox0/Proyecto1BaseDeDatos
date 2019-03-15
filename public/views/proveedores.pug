@@ -1,0 +1,57 @@
+extends base2
+block content
+    .contenedorF
+        .form-group.pull-right
+            h2 
+                | Proveedores
+            input.search.form-control(type='text' placeholder='Buscar proveedor')
+            table.table.table-responsive-sm.table-bordered.results
+                thead
+                    tr  
+                        th ID
+                        th Nombre
+                        th Tiempo de Respuesta
+                        th Opciones
+                    tr.warning.no-result
+                        td(colspan='3')
+                            i.fa.fa-warning
+                            |  No result
+                tbody
+                    -for(var i = 0 ; i<proveedores.length ; i ++)
+                    
+                        tr  
+                            td #{proveedores[i].C_proveedor}
+                            td #{proveedores[i].Nombre}
+                            td #{proveedores[i].tiempo_respuesta} Minutos
+                            td
+                                form(action=`delete/proveedor/${proveedores[i].C_proveedor}`,method="POST")
+                                    button.btn.btn-primary(type='submit')
+                                        i.far.fa-times-circle
+                                        |  Eliminar
+                                
+                                form
+                                    button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#proveedorC${proveedores[i].C_proveedor}`)
+                                        i.fas.fa-edit
+                                        |  Editar
+                            .modal.fade(id=`proveedorC${proveedores[i].C_proveedor}`)
+                                .modal-dialog.modal-lg
+                                    .modal-content
+                                        .modal-header
+                                            h3.modal-title Edicion Proveedor
+                                            button.close(type='button', data-dismiss='modal') 
+                                        .modal-body
+                                            form(action=`update/proveedor/${proveedores[i].C_proveedor}`, method="POST")
+                                            .form-row
+                                                .form-group.col-md-6
+                                                    label(for=`nombre${proveedores[i].C_proveedor}`) Nombre
+                                                    br
+                                                    input(type="text", value = `${proveedores[i].Nombre}` , maxlength="7", id=`nombre${proveedores[i].C_proveedor}`, name='nombre', required='')
+                                                        
+                                                .form-group.col-md-3
+                                                    label(for=`tiempoRespuesta${proveedores[i].C_proveedor}`) Tiempo de Respuesta (min)
+                                                    br
+                                                    input(type="number", class="without_ampm" ,value = `${proveedores[i].tiempo_respuesta}` ,id=`tiempo_de_respuesta${proveedores[i].C_proveedor}`, name='tiempo_de_respuesta', required='')
+                                                                                                
+                                                    
+                                            button.btn.btn-primary(type='submit') Guardar
+                                    
