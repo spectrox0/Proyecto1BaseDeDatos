@@ -26,9 +26,9 @@ block content
                 | Miami
               -if(Vuelodesviado[i].nuevoDestino=="VC")
                 | Caracas
-            td   
+            td  #{Vuelodesviado[i].C_vueloCharter} 
             
-            td
+            td  
               form(action=`delete/Vuelodesviado/${Vuelodesviado[i].C_vuelo}`,method="POST")
                 button.btn.btn-primary(type='submit')
                   i.far.fa-times-circle
