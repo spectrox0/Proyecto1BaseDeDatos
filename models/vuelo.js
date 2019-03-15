@@ -35,18 +35,10 @@ const Vuelo = db.define('vuelo', {
     type: sequelize.STRING,
     allowNull: false
 
-},
-    Activo: {
-        type: sequelize.TINYINT,
-        allowNull: false,
-        defaultValue: 1,
-
-        validate: {
-            notEmpty: true
-        }
+}
     
 
-} }, {
+ }, {
     timestamps: false,
     freezeTableName: true
 } );

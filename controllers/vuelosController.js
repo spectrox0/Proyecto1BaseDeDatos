@@ -16,7 +16,7 @@ Avion.hasMany(Itinerario ,  {foreignKey: 'C_itinerario', sourceKey:'C_itinerario
 Itinerario.belongsTo(Avion, {foreignKey: 'C_itinerario' ,targetKey:'C_itinerario'}) ;
 
 Avion.belongsTo(AvionAlquilado, {foreignKey: 'C_avion' ,targetKey:'C_avion'}) ;
-
+AvionAlquilado.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey:'C_avion'}) ;
 Vuelo.hasMany(VueloDesviado ,   {foreignKey: 'C_vuelo', sourceKey:'C_vuelo'});
 Vuelo.hasMany(VueloCharter ,   {foreignKey: 'C_vuelo', sourceKey:'C_vuelo'});
 
@@ -46,7 +46,6 @@ exports.getVuelos = async (req, res) => {
            }, } ] 
   }] ,
    where : { 
-     Activo:1, 
      Fecha_salida: req.body.fecha
    }
    
@@ -82,7 +81,6 @@ exports.getVuelos = async (req, res) => {
            }, } ] 
   }] ,
    where : { 
-     Activo:1, 
      Fecha_salida: req.body.fecha,
      Hora_salida:{ 
       [Op.gte] : hora
@@ -144,7 +142,6 @@ exports.getVuelos = async (req, res) => {
            }, } ] 
   }] ,
    where : { 
-     Activo:1, 
      Fecha_salida: req.body.fecha
    }
    
@@ -189,7 +186,6 @@ exports.getAllVuelos = async (req, res) => {
   let vuelos = await Vuelo.findAll( {
     include:[{model:Avion}, {model:VueloDesviado}, {model:VueloCharter}]
   });
-
   vuelos= vuelos.map(val => val.dataValues);
   let Vuelodesviado = await VueloDesviado.findAll();
   let aeropuertos = await Aeropuerto.findAll();
@@ -212,6 +208,11 @@ exports.getAllVuelos = async (req, res) => {
 
 exports.createVuelo = async (req, res) => {
  try{
+  let avionalquilado = await AvionAlquilado.findOne({where:{C_avion:req.body.C_avion}});
+  if(avionalquilado!=null ) {
+    if(req.body.precio_distancia==null || req.body.precio_distancia=='')
+    return res.render("mensajeError",{message:"Error, debe ingresar el precio por distancia para vuelos charter", dir:"vuelos"}) }
+
   const vuelo = await Vuelo.build({
       C_avion: req.body.C_avion,
       Fecha_salida: req.body.fecha,
@@ -219,7 +220,16 @@ exports.createVuelo = async (req, res) => {
       hora_llegada: req.body.horaL 
   });
   await vuelo.save();
+  
+ 
+  if(avionalquilado!=null ) {
 
+   let Vuelocharter = await VueloCharter.build({
+     C_vuelo: vuelo.C_vuelo,
+     precio_distancia: req.body.precio_distancia
+   });
+   await Vuelocharter.save();
+  }
   let Asientos1 = await asientoVuelo.build({
    C_vuelo: vuelo.C_vuelo,
    C_asiento:1,
@@ -250,19 +260,63 @@ exports.createVuelo = async (req, res) => {
    await Asientos4.save();
 
   if (!!vuelo) {
-    return res.redirect("vuelos");
+    return res.redirect("/vuelos");
   } else {
-      return req.flash({ 'error': 'No se creo' }); }
-} catch(callback) {
-  return  req.flash({ 'error': 'No se creo' });
+    return res.render("mensajeError",{message:"Error, no se pudo crear el vuelo", dir:"vuelos"}) }
+} catch(error) {
+  return res.render("mensajeError",{message:"Error, no se pudo crear el vuelo", dir:"vuelos"});
 } }
 
 exports.createVuelodesviado = async (req, res) => {
   try{
+     let vuelo = await Vuelo.findOne({
+       where:{
+         C_vuelo:  req.body.idVuelotoDesviado,
+       },
+       include:[{
+         model: Avion,
+         required:true,
+         include: [{
+           model:Itinerario,
+           required:true,
+         }]
+       }]
+     });
+    let vuelocharter = await Vuelo.findOne({ 
+      include:[
+         { model:VueloCharter,
+           required:true
+            } ,
+
+           { model:Avion,
+            required:true,
+            include: [{
+              model:Itinerario,
+              required:true,
+              where:{
+                IATA_origen:req.body.nuevoDestino,
+                IATA_destino: vuelo.avions[0].itinerarios[0].IATA_destino
+              }
+            }]
+           
+          }
+        ] , 
+        where: {
+         Hora_salida: {
+          [Op.gte] : vuelo.Hora_llegada
+         }
+        }
+       
+      });
+     if(vuelocharter==null)
+     return res.render("mensajeError",
+                        {message:"El desvio del vuelo no se pudo crear, no existe ningun vuelo charter que asignar",
+                         dir:"vuelos"})
    
    const vuelosDesviado = await VueloDesviado.build({
        C_vuelo: req.body.idVuelotoDesviado,
        nuevoDestino: req.body.nuevoDestino,
+       C_vueloCharter: req.body.vuelocharter.C_vuelo
    });
    await vuelosDesviado.save();
    if (!!vuelosDesviado) {
@@ -308,7 +362,19 @@ exports.updateVuelo = async (req, res) => {
 
 exports.deleteVuelo = async (req, res) => {
   const C_vuelo=req.params.id;
+
+
   try{
+  let vuelocharter = await VueloCharter.findOne({ where:{C_vuelo:C_vuelo}});
+
+  if(vuelocharter!=null) {
+     let VueloDestroy = await VueloCharter.destroy( {
+      where: {
+        C_vuelo:C_vuelo
+    }
+     });
+  }
+
   const response1 = await asientoVuelo.destroy( {
     where: {
       C_vuelo:C_vuelo

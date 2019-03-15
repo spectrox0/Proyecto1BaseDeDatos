@@ -13,13 +13,13 @@ const VueloCharter = db.define('vuelocharter', {
  precio_distancia: {
         
 
-    type: sequelize.INTEGER,
+    type: sequelize.FLOAT,
     allowNull: false
 
 
     
 
-} }, {
+} ,  }, {
     timestamps: false,
     freezeTableName: true
 } );

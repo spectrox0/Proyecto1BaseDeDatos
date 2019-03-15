@@ -99,13 +99,18 @@ block content
         tbody.collection
         -for(var i = 0; i < vuelos.length; i++)
           tr
-            td   #{vuelos[i].C_vuelo}
+            -if(vuelos[i].vuelocharters[0]!=null)  
+              td(style="color: green; text-shadow:0 0 15px green")
+                | #{vuelos[i].C_vuelo} (Vuelo Charter)
+            -else 
+              td
+                | #{vuelos[i].C_vuelo}
             td   #{vuelos[i].C_avion}
             td   #{vuelos[i].Fecha_salida}
             td   #{vuelos[i].Hora_salida}
             td   #{vuelos[i].hora_llegada}
             td
-              form(action=`delete/${vuelos[i].C_vuelo}`,method="POST")
+              form(action=`delete/vuelo/${vuelos[i].C_vuelo}`,method="POST")
                 button.btn.btn-primary(type='submit')
                   i.far.fa-times-circle
                   |  Eliminar
@@ -121,7 +126,7 @@ block content
                   h3.modal-title Edicion Vuelo
                   button.close(type='button', data-dismiss='modal') ×
                 .modal-body
-                  form(action=`update/vuelos/${vuelos[i].C_vuelo}`, method="POST")
+                  form(action=`update/vuelo/${vuelos[i].C_vuelo}`, method="POST")
                     .form-row
               
                          
@@ -131,9 +136,9 @@ block content
                         select(id= `Avion${vuelos[i].C_vuelo}`, name=`C_avion`, required='')
                           -for(var j = 0; j<aviones.length ; j++)
                             -if(vuelos[i].C_avion==aviones[j].C_avion)
-                              option(selected="selected") #{aviones[j].C_avion}
+                              option(value=`${aviones[j].C_avion}`, selected="selected") #{aviones[j].C_avion}
                             -else 
-                              option #{aviones[j].C_avion}
+                              option(value=`${aviones[j].C_avion}`) #{aviones[j].C_avion}
                       .form-group.col-md-6
                         label(for=`fecha${vuelos[i].C_vuelo}`) Fecha
                         br
@@ -165,7 +170,7 @@ block content
           tr
             td(colspan='8')
               #collapseExample1.collapse
-                form(action='create' method="POST")
+                form(action='create/vuelo', method="POST")
                   .form-row
               
                          
@@ -175,9 +180,9 @@ block content
                         select(id= `Avion`, name='C_avion', required='')
                           -for(var j = 0; j<aviones.length ; j++)
                             -if(aviones[j].avionalquilado!=null)
-                              option(style="color:red") #{aviones[j].avionalquilado.C_avion} (Alquilado)
+                              option(value=`${aviones[j].C_avion}`,style="color:red") #{aviones[j].avionalquilado.C_avion} (Alquilado)
                             -else 
-                              option #{aviones[j].C_avion}
+                              option(value=`${aviones[j].C_avion}`) #{aviones[j].C_avion}
 
                     .form-group.col-md-6
                       label(for=`fechaS`) Fecha
@@ -205,4 +210,4 @@ block content
                       label(for=`Precio distancia`) Precio por distancia
                       br
                       input(type="number", id= `Precio distancia`, name="precio_distancia")
-                button.btn.btn-primary(type='submit') Guardar
+                  button.btn.btn-primary(type='submit') Guardar

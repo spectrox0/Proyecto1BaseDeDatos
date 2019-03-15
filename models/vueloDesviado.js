@@ -16,6 +16,11 @@ const VueloDesviado = db.define('vuelodesviado', {
     
             allowNull: false
         },
+
+        C_vueloCharter: {
+            type: sequelize.INTEGER,
+            allowNull: false
+        } 
   
 
  }, {
