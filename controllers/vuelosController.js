@@ -560,9 +560,10 @@ exports.decisionVueloCancelado = async (req,res) => {
      }]
 
     }) ;
-
+   if(newVuelo==null) { 
+     return res.render("mensajeError", {message:"No existe otro vuelo proximo con el mismo origen y destino", dir:"index"})};
    
-   }
+   } 
 
 }
 
