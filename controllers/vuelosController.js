@@ -433,7 +433,7 @@ exports.cancelacionVuelo = async (req,res) => {
     where:{
     C_vuelo:C_vuelo
   }});
-  console.log(response);
+
   if(response!=null) { 
     var today = await new Date();
     var dd = await today.getDate();
@@ -453,7 +453,6 @@ exports.cancelacionVuelo = async (req,res) => {
 
   }); 
   await vueloCancelado.save();
-   console.log(vueloCancelado);
   if (vueloCancelado) { 
     res.render("manifiestoCancelacion",{vueloCancelado});
   }
@@ -482,7 +481,7 @@ exports.decisionVueloCancelado = async (req,res) => {
    if(response2==null) {
      return res.render("mensajeError",{message: "Error , el pasajero para el vuelo especificado no existe ", dir:"index"});
    }
-   var opcion = req.body.opcion ; 
+   var opcion = req.body.opcion; 
    if(opcion==1) { 
     let itinerario = await Itinerario.findOne({ 
        include:[{ 
@@ -562,7 +561,6 @@ exports.decisionVueloCancelado = async (req,res) => {
     }) ;
    if(newVuelo==null) { 
      return res.render("mensajeError", {message:"No existe otro vuelo proximo con el mismo origen y destino", dir:"index"})};
-   
    } 
 
 }
