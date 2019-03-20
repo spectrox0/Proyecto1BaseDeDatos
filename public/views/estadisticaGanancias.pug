@@ -7,21 +7,24 @@ block content
 
         .form-group.pull-right
             input.search.form-control(type='text' placeholder='Que desea?')
+            h2 
+                | Ganancias totales: #{gananciaTotal} $
             table.table.table-responsive-sm.table-bordered.results
                 thead
                     tr
-                        th Boletos Vendidos
-                        th Abordados
-                        th Tipo Asiento
+                        th ID cliente
+                        th Fecha_Compra
+                        th Pago 
                     tr.warning.no-result
                         td(colspan='3')
                             i.fa.fa-warning
                             |  No result
                 tbody
-                    -for(var i = 0 ; i<abordados.length ; i ++)
+                    -for(var i = 0 ; i<pasajes.length ; i ++)
                     
                         tr
-                            td #{vuelosAsientos[i].Cant_vendidos} / #{(100*vuelosAsientos[i].Cant_vendidos/mAsiento[i].Cantidad).toFixed(2)} %
-                            td #{abordados[i]} / #{(100*(abordados[i])/mAsiento[i].Cantidad).toFixed(2)} %
-                            td #{Asientos[i].tipo}
+                            td  #{pasajes[i].C_cliente} 
+                            td  #{pasajes[i].fechaCompra} 
+                            td  #{pasajes[i].PrecioTotal} 
+                      
                     

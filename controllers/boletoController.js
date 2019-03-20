@@ -206,7 +206,7 @@ exports.confirmCompra = async (req,res) => {
      if (mm < 10) {
        mm = '0' + mm;
      } 
-     var today = dd + '/' + mm + '/' + yyyy;
+     var today = yyyy + '-' + mm + '-' + dd;
 
      let pasaje = await Pasaje.build({
       Precio_total: req.params.precio,

@@ -98,7 +98,8 @@ block content
           thead
             tr
               th ID Avion
-              th Mantenimiento     
+              th Mantenimiento
+              th Fecha_Salida     
               th Opciones
           tbody.collection
           - for (var i = 0; i < avionmantenimiento.length; i++)
@@ -107,13 +108,13 @@ block content
               td   #{avionmantenimiento[i].C_avion}
              
               td   #{avionmantenimiento[i].mantenimientos[0].Nombre} / Dias:  #{avionmantenimiento[i].mantenimientos[0].dias}
-              
+              td #{avionmantenimiento[i].FechaSalida}  
               td
                 form(action=`delete/mantenimiento/${avionmantenimiento[i].C_avion}`,method="POST")
                   button.btn.btn-primary(type='submit')
                     i.far.fa-times-circle
                     
-                
+               
                 form
                   button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#mantenimiento${avionmantenimiento[i].C_avion}`)
                     i.fas.fa-edit

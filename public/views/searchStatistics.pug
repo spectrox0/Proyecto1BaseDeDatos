@@ -3,15 +3,42 @@ block content
     .contenedorF
         
         h2(align="center")
-            | Busqueda estadisticas
+            | ESTADISTICAS
         hr   
         form(action=`/statistics`, method="POST")
-            .form-row 
-                    
-                input.search.form-control(type='text', name="busquedad" , placeholder='Escriba el codigo del Vuelo')  
-
-            hr          
             .form-row
-                input(type="submit" , value ="Buscar")
-                // Table body
-                // Table
+                input.search.form-control(style="margin-bottom:0px",type='text', name="busquedad" , required='', placeholder='Escriba el codigo del Vuelo')  
+            .form-row
+                input(type="submit" , value ="Buscar Abordados VS Vendidos")
+        hr   
+        form(action='/estadisticaVisitas' , method = 'GET')
+            .form-row
+                 button.btn-secondary(type="submit", style="width:100%; max-width:500px; margin-left:auto; margin-right:auto ")
+                    | Destinos mas visitados
+        hr           
+        form(action='/estadisticasEstadosAviones' , method = 'GET')
+            .form-row
+                 button.btn-secondary(type="submit", style="width:100%; max-width:500px; margin-left:auto; margin-right:auto ")
+                    | Estados Aviones  
+        hr 
+        form(action='/estadisticaUsoAvion' , method = 'GET')
+            .form-row
+                 button.btn-secondary(type="submit", style="width:100%; max-width:500px; margin-left:auto; margin-right:auto ")
+                    | Uso de aviones   
+        hr             
+        form(action='/estadisticaSobreventa' , method = 'GET')
+            .form-row
+                 button.btn-secondary(type="submit", style="width:100%; max-width:500px; margin-left:auto; margin-right:auto ")
+                    | Sobreventas 
+        hr 
+        hr 
+        form(action=`/estadisticaGanancias`, method="POST")
+            .form-row
+                .form-group.col-md-3
+                    label(for="fecha1") Fecha Inicial
+                    input(style="margin-bottom:0px",type='date', id ="fecha1" , name="fecha1", required='' )  
+                .form-group.col-md-3
+                    label(for="fecha2") Fecha Final
+                    input(style="margin-bottom:0px",type='date', id ="fecha2" name="fecha2", required='') 
+            .form-row
+                input(type="submit" , value ="Ganancias en un periodo")

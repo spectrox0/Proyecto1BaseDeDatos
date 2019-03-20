@@ -75,8 +75,12 @@ router.post("/delete/Vuelodesviado/:id", catchErrors(vueloController.deleteVuelo
 //statistics
 router.post("/statistics",estadisticaController.getVuelos);
 
+router.get("/estadisticaVisitas",estadisticaController.getAllVuelosDestinos);
+router.get("/estadisticasEstadosAviones", estadisticaController.getAllAvionesEstados);
+router.get("/estadisticaUsoAvion", estadisticaController.getAllAvionesVuelo);
+router.post("/estadisticaGanancias" , estadisticaController.getAllGanancias);
+router.get("/estadisticaSobreventa", estadisticaController.getAllSobreventas);
 router.get("/searchStatistic", (req,res)=> {
- 
   res.render("searchStatistics");
 });
 

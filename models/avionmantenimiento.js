@@ -14,7 +14,11 @@ const avionMantenimiento = db.define('avionmantenimiento', {
         primaryKey: true,
         allowNull: false
     },
+    FechaSalida: {
 
+        type: sequelize.STRING,
+        allowNull: false
+    },
    }, {
     timestamps: false,
     freezeTableName: true

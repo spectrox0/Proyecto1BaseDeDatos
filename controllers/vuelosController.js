@@ -182,6 +182,8 @@ exports.getVuelos = async (req, res) => {
  
 
 exports.getAllVuelos = async (req, res) => {
+ 
+
 
   let vuelos = await Vuelo.findAll( {
     include:[{model:Avion}, {model:VueloDesviado}, {model:VueloCharter}]
@@ -208,6 +210,12 @@ exports.getAllVuelos = async (req, res) => {
 
 exports.createVuelo = async (req, res) => {
  try{
+
+   if(req.body.horaS>req.body.horaL) {
+     console.log(req.body.horaS)
+     console.log(req.body.fecha);
+     return res.render("mensajeError", {message:"Error la hora de llegada debe ser posterior a la hora de salida", dir:"vuelos"}) ;
+   } ; 
   let avionalquilado = await AvionAlquilado.findOne({where:{C_avion:req.body.C_avion}});
   if(avionalquilado!=null ) {
     if(req.body.precio_distancia==null || req.body.precio_distancia=='')

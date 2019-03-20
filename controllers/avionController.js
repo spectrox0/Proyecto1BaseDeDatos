@@ -75,6 +75,8 @@ exports.getAviones = async (req, res) => {
   exports.create = async (req, res) => {
   
  try {
+
+
     const aviones = await Avion.build({
         C_estado: req.body.estado,
         C_modelo: req.body.modelo,
@@ -221,9 +223,31 @@ try{
 
 exports.createMantenimiento = async (req, res) => {
  try{
+  var today = await new Date();
+  let response = await Mantenimiento.findOne(
+    {
+      where: {
+    C_mantenimiento: req.body.mantenimiento
+  }}) ; 
+   var dias = response.dias;
+  await today.setDate(today.getDate()+dias);
+ 
+  var dd = await today.getDate();
+  var mm = await today.getMonth() + 1; 
+  var yyyy = await today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  } 
+  if (mm < 10) {
+    mm = '0' + mm;
+  } 
+  var today = yyyy + '-' + mm + '-' + dd;
+
+  
    let mantenimiento = await AvionMantenimiento.build({ 
     C_avion: req.body.C_avion,
-    C_mantenimiento: req.body.mantenimiento
+    C_mantenimiento: req.body.mantenimiento,
+    FechaSalida: today
    }) ; 
   await mantenimiento.save();
    if (!!mantenimiento) {
@@ -257,9 +281,31 @@ return res.render("mensajeError",{message:"No se pudo eliminar el mantenimiento"
 
 exports.updateMantenimiento = async (req,res) =>{
 
-try {
-  const mantenimiento = await AvionMantenimiento.update( {
+try {   
+
+  var today = await new Date();
+  let response = await Mantenimiento.findOne(
+    {
+      where: {
     C_mantenimiento: req.body.mantenimiento
+  }}) ; 
+   var dias = response.dias;
+  await today.setDate(today.getDate()+dias);
+ 
+  var dd = await today.getDate();
+  var mm = await today.getMonth() + 1; 
+  var yyyy = await today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  } 
+  if (mm < 10) {
+    mm = '0' + mm;
+  } 
+  var today = yyyy + '-' + mm + '-' + dd;
+
+  const mantenimiento = await AvionMantenimiento.update( {
+    C_mantenimiento: req.body.mantenimiento,
+    FechaSalida: today
       
   }, {
   where: {
