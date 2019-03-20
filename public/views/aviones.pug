@@ -1,6 +1,7 @@
 extends base2
 block content
   .row
+    
     .col-md-3
       table.table.table-hover.table-responsive
         thead
@@ -11,8 +12,8 @@ block content
             th Opciones
         tbody.collection
         - for (var i = 0; i < serviciosAdicionales.length; i++)
-          tr
-            td   #{serviciosAdicionales[i].C_avion}
+          tr  
+            td  #{serviciosAdicionales[i].C_avion}
             td 
               -if(serviciosAdicionales[i].internet==1)
                 | Si
@@ -53,9 +54,9 @@ block content
                       .form-group.col-md-4
                         .custom-control.custom-checkbox
                           -if(serviciosAdicionales[i].internet==1)
-                            input.custom-control-input(id=`Internet${serviciosAdicionales[i].C_avion}`,name="Internet", type='checkbox' )
+                            input.custom-control-input(id=`Internet${serviciosAdicionales[i].C_avion}`,name="Internet", checked ,type='checkbox' )
                           -else 
-                            input.custom-control-input(id=`Internet${serviciosAdicionales[i].C_avion}`,name="Internet",value='off' type='checkbox')
+                            input.custom-control-input(id=`Internet${serviciosAdicionales[i].C_avion}`,name="Internet", type='checkbox')
                           br
                           label.custom-control-label(for=`Internet${serviciosAdicionales[i].C_avion}`) Internet
                     button.btn.btn-primary(type='submit',data-toggle='modal') Actualizar
@@ -63,12 +64,12 @@ block content
         tfoot
           tr
             td(colspan='8')
-              button.btn(type='button', data-toggle='collapse', data-target='#collapseExample1', aria-expanded='false', aria-controls='collapseExample1')
+              button.btn(type='button', data-toggle='collapse', data-target='#collapseExample2', aria-expanded='false', aria-controls='collapseExample1')
                 i.fas.fa-folder-plus
                 |  Crear ServicioAdicional
           tr
             td(colspan='8')
-              #collapseExample1.collapse
+              #collapseExample2.collapse
                 form(action="/create/serviciosAdicionales" method="POST")
                   .form-row
                     .form-group.col-md-6
@@ -90,8 +91,81 @@ block content
                         input.custom-control-input(id=`Internet`,name='Internet', type='checkbox')
                         br
                         label.custom-control-label(for=`Internet`) Internet
-                   
+                    
                   button.btn.btn-primary(type='submit') Guardar
+     
+      table.table.table-hover.table-responsive
+          thead
+            tr
+              th ID Avion
+              th Mantenimiento
+              th Fecha_Salida     
+              th Opciones
+          tbody.collection
+          - for (var i = 0; i < avionmantenimiento.length; i++)
+            tr
+            
+              td   #{avionmantenimiento[i].C_avion}
+             
+              td   #{avionmantenimiento[i].mantenimientos[0].Nombre} / Dias:  #{avionmantenimiento[i].mantenimientos[0].dias}
+              td #{avionmantenimiento[i].FechaSalida}  
+              td
+                form(action=`delete/mantenimiento/${avionmantenimiento[i].C_avion}`,method="POST")
+                  button.btn.btn-primary(type='submit')
+                    i.far.fa-times-circle
+                    
+               
+                form
+                  button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#mantenimiento${avionmantenimiento[i].C_avion}`)
+                    i.fas.fa-edit
+                    
+            .modal.fade(id=`mantenimiento${avionmantenimiento[i].C_avion}`)
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    h3.modal-title Edicion Avion
+                    button.close(type='button', data-dismiss='modal')
+                  .modal-body
+                    form(action=`update/mantenimiento/${avionmantenimiento[i].C_avion}`, method="POST")
+                      .form-row
+                        .form-group.col-md-6
+                          label(for=`mantenimiento${avionmantenimiento[i].C_avion}`) Mantenimiento
+                          br
+                          select(id= `mantenimiento${avionmantenimiento[i].C_avion}`, name="mantenimiento", required='')
+                            -for(var j= 0 ; j < mantenimiento.length ; j ++)
+                              -if(avionmantenimiento[i].C_mantenimiento==mantenimiento[j].C_mantenimiento)
+                                option(selected="selected", value =`${mantenimiento[j].C_mantenimiento}` ) #{mantenimiento[j].Nombre} - Dias: #{mantenimiento[j].dias}
+                              -else 
+                                option(value= `${mantenimiento[j].C_mantenimiento}`) #{mantenimiento[j].Nombre} - Dias: #{mantenimiento[j].dias}
+                      .form-row
+                    
+                      button.btn.btn-primary(type='submit',data-toggle='modal') Actualizar
+        
+          tfoot
+            tr
+              td(colspan='8')
+                button.btn(type='button', data-toggle='collapse', data-target='#collapseExample3', aria-expanded='false', aria-controls='collapseExample1')
+                  i.fas.fa-folder-plus
+                  |  Crear Mantenimiento
+            tr
+              td(colspan='8')
+                #collapseExample3.collapse
+                  form(action="/create/mantenimiento" method="POST")
+                    .form-row
+                      .form-group.col-md-6
+                        label(for=`Cavion`) Codigo Avion
+                        br
+                        select(id=`Cavion`, name='C_avion', required='')
+                          -for(var j = 0; j<aviones.length ; j++)
+                            option #{aviones[j].C_avion}
+                      .form-group.col-md-6
+                        label(for=`Cmantenimiento`) Mantenimiento
+                        br
+                        select(id= `Cmantenimiento`, name="mantenimiento", required='')
+                          -for(var j= 0 ; j < mantenimiento.length ; j ++)  
+                            option(value=`${mantenimiento[j].C_mantenimiento}`) #{mantenimiento[j].Nombre}- - Dias: #{mantenimiento[j].dias}                              
+                    
+                    button.btn.btn-primary(type='submit') Guardar
 
 
 
@@ -99,18 +173,46 @@ block content
       table.table.table-hover.table-responsive-md
         thead
           tr
-            th Codigo Avion
+            th ID Avion
             th Estado
             th Modelo
             th Itinerario
             th Opciones
         tbody.collection
           tr
-            td   #{aviones[i].C_avion}
-            td   #{aviones[i].C_estado}
-            td   #{aviones[i].C_modelo}
-            td   #{aviones[i].C_itinerario} 
+            -if(aviones[i].avionalquilado!=null)
+              td(style='color:red ; text-shadow:0 0 10px red') #{aviones[i].C_avion} (Alquilado)
+            -else 
+              td   #{aviones[i].C_avion}
+            td   #{aviones[i].estadoavions[0].Nombre}
+            td   #{aviones[i].C_modelo} - #{aviones[i].modelos[0].Nombre} 
             
+            td
+              -if(aviones[i].itinerarios[0].IATA_origen=="UA")
+                | Atlanta
+              -else if(aviones[i].itinerarios[0].IATA_origen=="AUD")
+                | Dubai
+              -else if(aviones[i].itinerarios[0].IATA_origen=="FP")
+                | Paris
+              -else if(aviones[i].itinerarios[0].IATA_origen=="UN")
+                | New York
+              -else if(aviones[i].itinerarios[0].IATA_origen=="UM")
+                | Miami
+              -else if(aviones[i].itinerarios[0].IATA_origen=="VC")
+                | Caracas
+              | -- 
+              -if(aviones[i].itinerarios[0].IATA_destino=="UA")
+                |Atlanta
+              -else if(aviones[i].itinerarios[0].IATA_destino=="AUD")
+                |Dubai
+              -else if(aviones[i].itinerarios[0].IATA_destino=="FP")
+                |Paris
+              -else if(aviones[i].itinerarios[0].IATA_destino=="UN")
+                |New York
+              -else if(aviones[i].itinerarios[0].IATA_destino=="UM")
+                |Miami
+              -else if(aviones[i].itinerarios[0].IATA_destino=="VC")
+                |Caracas
             td
               form(action=`delete/avion/${aviones[i].C_avion}`,method="POST")
                 button.btn.btn-primary(type='submit')
@@ -131,18 +233,18 @@ block content
                   form(action=`update/avion/${aviones[i].C_avion}`, method="POST")
                     .form-row
                       .form-group.col-md-6
-                        label(for=`estado${aviones[i].C_avion}`) Mantenimiento
+                        label(for=`estado${aviones[i].C_avion}`) Estado
                         br
-                        select(id=`estado${aviones[i].C_avion}`, name=`estado${aviones[i].C_avion}`, required='')
-                          -for(var j= 0 ; j < mantenimiento.length ; j ++)
-                            -if(mantenimiento[j].C_mantenimiento==aviones[i].C_estado) 
-                              option(value=`${mantenimiento[j].C_mantenimiento}`, selected="selected") #{mantenimiento[j].Nombre} - Dias: #{mantenimiento[j].dias}
+                        select(id=`estado${aviones[i].C_avion}`, name=`estado`, required='')
+                          -for(var j= 0 ; j < estados.length ; j ++)
+                            -if(estados[j].C_estado==aviones[i].C_estado) 
+                              option(value=`${estados[j].C_estado}`, selected="selected") #{estados[j].Nombre} 
                             -else 
-                              option(value=`${mantenimiento[j].C_mantenimiento}`) #{mantenimiento[j].Nombre} - Dias: #{mantenimiento[j].dias}
+                              option(value=`${estados[j].C_estado}`) #{estados[j].Nombre} 
                       .form-group.col-md-6
                         label(for=`modelo${aviones[i].C_avion}`) Modelo
                         br
-                        select(id= `modelo${aviones[i].C_avion}`, name=`modelo${aviones[i].C_avion}`, required='')
+                        select(id= `modelo${aviones[i].C_avion}`, name=`modelo`, required='')
                           -for(var j= 0 ; j < modelos.length ; j ++)
                             -if(modelos[j].C_modelo==aviones[i].C_modelo) 
                               option(value=`${modelos[j].C_modelo}`, selected="selected") #{modelos[j].C_modelo}--#{modelos[j].Nombre}
@@ -152,7 +254,7 @@ block content
                       .form-group.col-md
                         label(for=`itinerario${aviones[i].C_avion}`) Itinerario
                         br
-                        select(id=`itinerario${aviones[i].C_avion}`, name=`IATA${aviones[i].C_avion}`, required='')
+                        select(id=`itinerario${aviones[i].C_avion}`, name=`itinerario`, required='')
                           -for(var j= 0 ; j < itinerarios.length ; j ++)
                             -if(itinerarios[j].C_itinerario==aviones[i].C_itinerario) 
                               option(value=`${itinerarios[j].C_itinerario}`, selected="selected") 
@@ -208,9 +310,11 @@ block content
                                   |Miami
                                 -else if(itinerarios[j].IATA_destino=="VC")
                                   |Caracas
-                      
+                    
                     button.btn.btn-primary(type='submit',data-toggle='modal') Actualizar
-      
+                .modal-footer
+                  -if(aviones[i].avionalquilado!=null)             
+                    | Codigo Proveedor: #{aviones[i].avionalquilado.C_proveedor}
         tfoot
           tr
             td(colspan='8')
@@ -220,7 +324,7 @@ block content
           tr
             td(colspan='8')
               #collapseExample1.collapse
-                form(action="/createAvion" method="POST")
+                form(action="/create/Avion" method="POST")
                   .form-row
                     .form-group.col-md-6
 <<<<<<< HEAD
@@ -286,8 +390,9 @@ block content
 =======
                       label(for='estado') Estado
                       select#avion.custom-select(name='estado', required='')
-                       -for(var j= 0 ; j < mantenimiento.length ; j ++) 
-                          option(value=`${mantenimiento[j].C_mantenimiento}`) #{mantenimiento[j].Nombre} - Dias: #{mantenimiento[j].dias}
+                        -for(var j= 0 ; j < estados.length ; j ++)
+                          option(value=`${estados[j].C_estado}`) #{estados[j].Nombre} 
+                            
                     .form-group.col-md-6
                       label(for='modelo') Modelo
                       br
@@ -327,7 +432,16 @@ block content
                               |Miami
                             -else if(itinerarios[j].IATA_destino=="VC")
                               |Caracas
-
-                   
+                  .form-row
+                    .form-group.col-md
+                      .custom-control.custom-checkbox
+                        input.custom-control-input(id=`Alquilado`,name="alquilado",type='checkbox' )
+                        label.custom-control-label(for=`Alquilado`) Alquilado
+                        br
+                        label(for=`Proveedor`) Proveedor
+                        br
+                        select(id= `Proveedor`, name="Proveedor", required='')
+                          -for(var j= 0 ; j < proveedores.length; j ++)
+                            option(value=`${proveedores[j].C_proveedor}`) #{proveedores[j].C_proveedor} - #{proveedores[j].Nombre}
                   button.btn.btn-primary(type='submit') Guardar
 >>>>>>> 7792e8223f65f6820d74b684201a3006db2dcc4d

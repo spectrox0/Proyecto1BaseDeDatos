@@ -1,37 +1,31 @@
 const sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Boleto = db.define('boleto', {
-    C_boleto: {
-
+const reembolsoCliente = db.define('reembolsoP', {
+    C_manifiesto: {
         type: sequelize.INTEGER,
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+        unique: true, 
     },
 
-    C_vuelo: {
-
+     cedula: {
+        type: sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true
+    },
+     Pago: {
         type: sequelize.INTEGER,
         allowNull: false
     },
-    
-    C_asiento: {
+    fecha_reembolso: {
 
-        type: sequelize.INTEGER,
+        type: sequelize.STRING,
         allowNull: false
     },
-    Pasaporte_P: {
-
-        type: sequelize.INTEGER,
-        allowNull: false
-    },
-   
-    
-
- }, {
+   }, {
     timestamps: false,
     freezeTableName: true
 } );
 
-module.exports = Boleto;
+module.exports = reembolsoCliente;

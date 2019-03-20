@@ -10,18 +10,17 @@ block content
             table.table.table-responsive-sm.table-bordered.results
                 thead
                     tr
-                        th Boletos Vendidos
-                        th Abordados
-                        th Tipo Asiento
+                        th Lugar
+                        th Vuelos Programados
                     tr.warning.no-result
                         td(colspan='3')
                             i.fa.fa-warning
                             |  No result
                 tbody
-                    -for(var i = 0 ; i<abordados.length ; i ++)
+                    -for(var i = 0 ; i<Vuelos.length ; i ++)
                     
                         tr
-                            td #{vuelosAsientos[i].Cant_vendidos} / #{(100*vuelosAsientos[i].Cant_vendidos/mAsiento[i].Cantidad).toFixed(2)} %
-                            td #{abordados[i]} / #{(100*(abordados[i])/mAsiento[i].Cantidad).toFixed(2)} %
-                            td #{Asientos[i].tipo}
+                            td  #{aeropuertos[i].Ciudad} / #{aeropuertos[i].Pais} 
+                            td  #{Vuelos[i].count} vuelos / #{((100*Vuelos[i].count)/nroVuelos).toFixed(2)} %
+                      
                     

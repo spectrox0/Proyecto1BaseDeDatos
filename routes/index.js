@@ -57,7 +57,9 @@ router.post("/create/serviciosAdicionales", catchErrors(avionController.createSe
 router.post("/update/serviciosAdicionales/:id", catchErrors(avionController.updateServiciosAdicionales));
 router.post("/delete/serviciosAdicionales/:id", catchErrors(avionController.deleteServiciosAdicionales));
 
-
+router.post("/create/mantenimiento", catchErrors(avionController.createMantenimiento)) ;
+router.post("/update/mantenimiento/:id", catchErrors(avionController.updateMantenimiento));
+router.post("/delete/mantenimiento/:id", catchErrors(avionController.deleteMantenimiento));
 
 // Crud de Vuelos
 router.get("/vuelos", catchErrors(vueloController.getAllVuelos));
@@ -73,11 +75,19 @@ router.post("/delete/Vuelodesviado/:id", catchErrors(vueloController.deleteVuelo
 //statistics
 router.post("/statistics",estadisticaController.getVuelos);
 
+router.get("/estadisticaVisitas",estadisticaController.getAllVuelosDestinos);
+router.get("/estadisticasEstadosAviones", estadisticaController.getAllAvionesEstados);
+router.get("/estadisticaUsoAvion", estadisticaController.getAllAvionesVuelo);
+router.post("/estadisticaGanancias" , estadisticaController.getAllGanancias);
+router.get("/estadisticaSobreventa", estadisticaController.getAllSobreventas);
 router.get("/searchStatistic", (req,res)=> {
- 
   res.render("searchStatistics");
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 //Tabla de proveedores
 
 router.get("/proveedores", catchErrors(proveedorController.getAllProveedores));
@@ -85,12 +95,16 @@ router.post("/create/Proveedor", catchErrors(proveedorController.create));
 router.post("/update/Proveedor/:id", catchErrors(proveedorController.update));
 router.post("/delete/Proveedor/:id", catchErrors(proveedorController.delete));
 
+<<<<<<< HEAD
 /*router.post("/proveedores", proveedorController.getAllProveedores);
 router.get("/searchProveedor", (req,res)=> {
  
   res.render("searchProveedor");
 });
 */
+=======
+
+>>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 // Crud Modelo 
 router.get("/modelos", catchErrors(modeloController.getAllModelos));
 router.post("/create/modelo" , catchErrors(modeloController.createModelo) );
@@ -104,6 +118,21 @@ router.get("/searchPasajeros", (req,res)=> {
 });
 router.post("/pasajeros", catchErrors(pasajeroController.getPasajeros));
 
+ // Crud Clientes 
 router.get("/clientes", catchErrors(clienteController.getAllClientes));
 router.post("/update/cliente/:id", catchErrors(clienteController.updateCliente));
+
+
+ // Cancelacion Vuelo
+ router.get("/cancelacionvuelo", (req,res) => {
+   return res.render("cancelacionVuelo") ; 
+ }) ; 
+
+ router.post("/cancelaVuelo", vueloController.cancelacionVuelo); 
+  router.get("/VueloCancelado" ,(req,res) => { 
+    return res.render("VueloCancelado") ;
+    
+  }); 
+  router.post("/DecisionVueloCancelado", vueloController.decisionVueloCancelado);
+
 module.exports = router;
