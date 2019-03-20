@@ -1,19 +1,6 @@
 extends base2
 block content
     .contenedorF
-<<<<<<< HEAD
-        .row 
-        a(href="/searchProveedor")
-            img(src="/Back.png")
-
-        .form-group.pull-right
-            input.search.form-control(type='text' placeholder='Que desea?')
-            table.table.table-responsive-sm.table-bordered.results
-                thead
-                    tr
-                        th Nombre
-                        th Tiempo de Respuesta
-=======
         .form-group.pull-right
             h2 
                 | Proveedores
@@ -25,7 +12,6 @@ block content
                         th Nombre
                         th Tiempo de Respuesta
                         th Opciones
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
                     tr.warning.no-result
                         td(colspan='3')
                             i.fa.fa-warning
@@ -33,41 +19,6 @@ block content
                 tbody
                     -for(var i = 0 ; i<proveedores.length ; i ++)
                     
-<<<<<<< HEAD
-                        tr
-                            td #{proveedores[i].nombre}
-                            td #{proveedores[i].tiempo_de_respuesta}
-                            td
-                                form(action=`delete/proveedor/${proveedores[i].C_proveedor}`,method="POST")
-                                button.btn.btn-primary(type='submit')
-                                    i.far.fa-times-circle
-                                    |  Eliminar
-                                
-                                form
-                                button.btn.btn-secondary(type='button', data-toggle='modal', data-target=`#proveedorC${proveedores[i].C_proveedor}`)
-                                    i.fas.fa-edit
-                                    |  Editar
-                            .modal.fade(id=`proveedorC${proveedores[i].C_proveedor}`)
-                            .modal-dialog.modal-lg
-                                .modal-content
-                                .modal-header
-                                    h3.modal-title Edicion Proveedor
-                                    button.close(type='button', data-dismiss='modal') 
-                                .modal-body
-                                    form(action=`update/proveedor/${proveedores[i].C_proveedor}`, method="POST")
-                                        .form-row
-                                            .form-group.col-md-6
-                                                label(for=`nombre${proveedores[i].C_proveedor}`) Nombre
-                                                br
-                                                input(type="text", value = `${proveedores[i].nombre}` , maxlength="7", id=`nombre${proveedores[i].C_proveedor}`, name='nombre', required='')
-                                            
-                                            .form-group.col-md-3
-                                                label(for=`velmax${proveedores[i].C_proveedor}`) Tiempo de Respuesta
-                                                br
-                                                input(type="number", value = `${proveedores[i].tiempo_de_respuesta}` ,  maxlength="7", id=`tiempo_de_respuesta${proveedores[i].C_proveedor}`, name='tiempo_de_respuesta', required='')
-                                                                                           
-                                                
-=======
                         tr  
                             td #{proveedores[i].C_proveedor}
                             td #{proveedores[i].Nombre}
@@ -102,6 +53,5 @@ block content
                                                     input(type="number", class="without_ampm" ,value = `${proveedores[i].tiempo_respuesta}` ,id=`tiempo_de_respuesta${proveedores[i].C_proveedor}`, name='tiempo_de_respuesta', required='')
                                                                                                 
                                                     
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
                                             button.btn.btn-primary(type='submit') Guardar
                                     

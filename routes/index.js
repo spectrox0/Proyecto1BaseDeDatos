@@ -84,10 +84,6 @@ router.get("/searchStatistic", (req,res)=> {
   res.render("searchStatistics");
 });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 //Tabla de proveedores
 
 router.get("/proveedores", catchErrors(proveedorController.getAllProveedores));
@@ -95,16 +91,6 @@ router.post("/create/Proveedor", catchErrors(proveedorController.create));
 router.post("/update/Proveedor/:id", catchErrors(proveedorController.update));
 router.post("/delete/Proveedor/:id", catchErrors(proveedorController.delete));
 
-<<<<<<< HEAD
-/*router.post("/proveedores", proveedorController.getAllProveedores);
-router.get("/searchProveedor", (req,res)=> {
- 
-  res.render("searchProveedor");
-});
-*/
-=======
-
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 // Crud Modelo 
 router.get("/modelos", catchErrors(modeloController.getAllModelos));
 router.post("/create/modelo" , catchErrors(modeloController.createModelo) );

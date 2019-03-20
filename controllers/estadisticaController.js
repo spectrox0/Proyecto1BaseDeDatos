@@ -10,17 +10,12 @@ const Asiento = require('../models/asiento');
 const estadoAvion = require("../models/estadoAvion");
 const Boleto = require("../models/boleto");
 const Abordados = require("../models/abordados");
-<<<<<<< HEAD
-Vuelo.hasMany(Avion, { foreignKey: 'C_avion', sourceKey: "C_avion" });
-Avion.belongsTo(Vuelo, { foreignKey: 'C_avion', targetKey: "C_avion" });
-=======
 const Estado = require('../models/estadoAvion');
 const Pasaje = require("../models/pasaje");
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
 Avion.belongsTo (Vuelo, {foreignKey: 'C_avion' ,targetKey: "C_avion"});
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 
 Avion.hasMany(Itinerario, { foreignKey: 'C_itinerario', sourceKey: 'C_itinerario' });
 Itinerario.belongsTo(Avion, { foreignKey: 'C_itinerario', targetKey: 'C_itinerario' });
@@ -42,9 +37,6 @@ exports.getVuelos = async (req, res) => {
         }
 
     });
-<<<<<<< HEAD
-    vuelosAsientos = vuelosAsientos.map(val => val.dataValues);
-=======
 
     let vuelo = await Vuelo.findOne({include:[{model:Avion, required:true, include:[{model:Modelo,required:true}]}] , where:{C_vuelo:C_vuelo}});
     var  C_modelo = await vuelo.avions[0].modelos[0].C_modelo;
@@ -52,7 +44,6 @@ exports.getVuelos = async (req, res) => {
     
     vuelosAsientos = await vuelosAsientos.map( val => val.dataValues);
     mAsiento = await mAsiento.map(val => val.dataValues) ;
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 
     let Asientos = await Asiento.findAll();
     Asientos = Asientos.map(val => val.dataValues);
@@ -74,9 +65,6 @@ exports.getVuelos = async (req, res) => {
 
     }
 
-<<<<<<< HEAD
-    res.render("statistics", { abordados, Asientos, vuelosAsientos })
-=======
      res.render("statistics", {abordados,Asientos,vuelosAsientos,mAsiento})
 
 
@@ -271,6 +259,5 @@ exports.getAllSobreventas = async (req,res) => {
        
           }
 
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 
 }

@@ -2,11 +2,7 @@ const sequelize = require('sequelize');
 const db = require('../config/db');
 
 // Modelo de Proveedor
-<<<<<<< HEAD
-const Proveedor = db.define('proveedor', {
-=======
 const Proveedores = db.define('proveedores', {
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
     C_proveedor: {
 
         type: sequelize.INTEGER,
@@ -15,20 +11,12 @@ const Proveedores = db.define('proveedores', {
         allowNull: false
     },
 
-<<<<<<< HEAD
-    nombre: {
-=======
     Nombre: {
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 
         type: sequelize.STRING,
         allowNull: false
     },
-<<<<<<< HEAD
-    tiempo_de_respuesta: {
-=======
     tiempo_respuesta: {
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 
             type: sequelize.INTEGER,
             allowNull: false
@@ -42,8 +30,4 @@ const Proveedores = db.define('proveedores', {
     freezeTableName: true
 });
 
-<<<<<<< HEAD
-module.exports = Proveedor;
-=======
 module.exports = Proveedores;
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd

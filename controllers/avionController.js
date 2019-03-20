@@ -25,48 +25,6 @@ Avion.hasMany(Modelo ,  {foreignKey: 'C_modelo', sourceKey:'C_modelo'});
 Modelo.belongsTo(Avion, {foreignKey: 'C_modelo' ,targetKey:'C_modelo'}) ;
 
 exports.getAviones = async (req, res) => {
-<<<<<<< HEAD
-  let aviones = await Avion.findAll();
-  aviones = aviones.map(val => val.dataValues);
-  let serviciosAdicionales = await ServiciosAdicionales.findAll();
-  serviciosAdicionales = serviciosAdicionales.map(val => val.dataValues);
-  let modelos = await Modelo.findAll();
-  modelos = modelos.map(val => val.dataValues);
-  let mantenimiento = await Mantenimiento.findAll();
-  mantenimiento = mantenimiento.map(val => val.dataValues);
-  let itinerarios = await Itinerario.findAll();
-  itinerarios = itinerarios.map(val => val.dataValues);
-  if (aviones, serviciosAdicionales, modelos, itinerarios) {
-    return res.render("aviones", { aviones, serviciosAdicionales, modelos, mantenimiento, itinerarios });
-  }
-};
-
-exports.create = async (req, res) => {
-
-
-  const aviones = await Avion.build({
-    C_estado: req.body.estado,
-    C_modelo: req.body.modelo,
-  });
-  await aviones.save();
-  if (!!aviones) {
-    return res.redirect("/aviones");
-  }
-
-};
-
-exports.createServiciosAdicionales = async (req, res) => {
-  var cantTV = req.body.CantTV;
-  var Internet = req.body.Internet;
-  var internet;
-  console.log(cantTV);
-
-  if (Internet == 'on') {
-    internet = 1
-  } else internet = 0;
-  console.log(req.body)
-  try {
-=======
     let aviones = await Avion.findAll({
       include: [{
         model:Itinerario,
@@ -155,7 +113,6 @@ exports.createServiciosAdicionales = async (req, res) => {
     } else internet=0;
    
     try{
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
     const serviciosAdicionales = await ServiciosAdicionales.build({
 
       C_avion: req.body.C_avion,
@@ -208,19 +165,6 @@ exports.updateServiciosAdicionales = async (req, res) => {
 
 
 exports.update = async (req, res) => {
-<<<<<<< HEAD
-  const C_avion = req.params.id;
-
-
-  const aviones = await Avion.update(
-    {
-      C_estado: req.body.estado,
-      C_modelo: req.body.modelo,
-      C_itinerario: req.body.itinerario
-
-
-    },
-=======
     const C_avion = req.params.id;
  
 try{
@@ -241,7 +185,6 @@ try{
       res.render("mensajeError", {message:"Error actualizando el avion", dir:"aviones"});
     }
   };
->>>>>>> 19803b2457ee8ab59b480aa9d3dbd449ac7acffd
 
     { where: { C_avion: C_avion } }
   );
