@@ -269,7 +269,6 @@ exports.confirmCompra = async (req,res) => {
       pasap:req.body.pasaporte
     }, type: sql.QueryTypes.INSERT}); */
    
-     console.log("holsasa");
     let bol = await Boleto.build({ 
       C_vuelo: req.params.id,
       C_asiento: req.body.tipo, 

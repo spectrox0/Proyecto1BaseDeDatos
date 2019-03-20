@@ -121,6 +121,6 @@ router.post("/update/cliente/:id", catchErrors(clienteController.updateCliente))
     return res.render("VueloCancelado") ;
     
   }); 
-  router.post('/DecisionVueloCancelado')
+  router.post("/DecisionVueloCancelado", vueloController.decisionVueloCancelado);
 
 module.exports = router;
