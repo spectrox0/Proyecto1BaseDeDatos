@@ -757,3 +757,6 @@ input[type=time]::-webkit-clear-button {
   appearance: none;
   margin: -10px; 
 }
+
+::-webkit-scrollbar {width: 9px; height: 6px; background: rgb(0, 0, 0);}
+::-webkit-scrollbar-thumb {background-color:rgb(90, 20, 220) ; box-shadow:0px 0px 10px rgb(40, 20, 220);border: 1px ridge rgb(40, 20, 220);}

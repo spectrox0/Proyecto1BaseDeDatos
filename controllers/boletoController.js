@@ -6,6 +6,7 @@ const asientoModelo = require ("../models/modeloAsiento");
 const asientoVuelo = require("../models/vueloAsiento");
 const Pasajero = require ("../models/pasajero") ;
 const Cliente = require ("../models/cliente");
+const ClienteBoleto = require("../models/clienteBoleto");
 const sql = require('../config/db');
 
 
@@ -66,7 +67,7 @@ exports.compraEscala = async (req, res) => {
 };
 
 exports.confirmCompra = async (req,res) => {
-    console.log(req.params.id);
+  try{ 
   let cliente = await Cliente.findOne( { 
      where: { 
        cedula:req.body.cedula
@@ -150,15 +151,41 @@ exports.confirmCompra = async (req,res) => {
 
     }
  
-    let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
+    /* let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false), (:vuelo2, :asiento2, :pasap, false)',
     {replacements: {
       vuelo: vuelos[0].C_vuelo,
       asiento: req.body.tipo1,
       pasap:req.body.pasaporte,
       vuelo2: vuelos[1].C_vuelo,
       asiento2: req.body.tipo2,
-    }, type: sql.QueryTypes.INSERT});  
+    }, type: sql.QueryTypes.INSERT});  */
 
+    let bol1 = await Boleto.build({ 
+      C_vuelo: vuelos[0].C_vuelo,
+      C_asiento: req.body.tipo1,
+      Pasaporte_P: req.body.pasaporte
+    }); 
+    let bol2 = await Boleto.build( { 
+      C_vuelo: vuelos[1].C_vuelo,
+      C_asiento: req.body.tipo2,
+      Pasaporte_P: req.body.pasaporte
+    });
+    await bol1.save(); 
+    await bol2.save();
+    
+    
+    let clienteBo = await ClienteBoleto.build({ 
+      cedula: req.body.cedula, 
+      C_boleto : bol1.C_boleto
+    }) ; 
+    await clienteBo.save();
+
+    let clienteBo2 = await ClienteBoleto.build({ 
+      cedula: req.body.cedula, 
+      C_boleto : bol2.C_boleto
+    }) ; 
+    await clienteBo2.save();
+  
     const nombre = req.body.nameC;
     const apellido = req.body.apellidoC;
     let asientos = [req.body.tipo1,req.body.tipo2]   
@@ -206,8 +233,8 @@ exports.confirmCompra = async (req,res) => {
      if (mm < 10) {
        mm = '0' + mm;
      } 
-     var today = yyyy + '-' + mm + '-' + dd;
-
+     today = yyyy + '-' + mm + '-' + dd;
+     
      let pasaje = await Pasaje.build({
       Precio_total: req.params.precio,
       fechaCompra: today,
@@ -216,7 +243,6 @@ exports.confirmCompra = async (req,res) => {
       }) ; 
       await pasaje.save();
       
-       console.log("dsdsdas");
     return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
    
   } else {
@@ -236,14 +262,27 @@ exports.confirmCompra = async (req,res) => {
       return res.render('mensajeError', { dir,message});
 
     }
-    let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
+    /*let bol = await sql.query('INSERT INTO boleto (C_vuelo, C_asiento, Pasaporte_P, Activo) values (:vuelo, :asiento, :pasap, false)',
     {replacements: {
       vuelo: req.params.id,
       asiento: req.body.tipo,
       pasap:req.body.pasaporte
-    }, type: sql.QueryTypes.INSERT});
+    }, type: sql.QueryTypes.INSERT}); */
    
-    
+     console.log("holsasa");
+    let bol = await Boleto.build({ 
+      C_vuelo: req.params.id,
+      C_asiento: req.body.tipo, 
+      Pasaporte_P: req.body.pasaporte
+    }); 
+    await bol.save();
+    console.log(bol);
+    let clienteBo = await ClienteBoleto.build({ 
+      cedula: req.body.cedula, 
+      C_boleto : bol.C_boleto
+    }) ; 
+    await clienteBo.save();
+    console.log(clienteBo); 
     let asienAux = await asientoVuelo.findOne( {
      where: {
      C_vuelo: req.params.id,
@@ -258,10 +297,21 @@ exports.confirmCompra = async (req,res) => {
         C_asiento: req.body.tipo
       }
     }) ;
+    var today = await new Date();
+    var dd = await today.getDate();
+    var mm = await today.getMonth() + 1; 
     
+    var yyyy = await today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    } 
+    if (mm < 10) {
+      mm = '0' + mm;
+    } 
+    today = yyyy + '-' + mm + '-' + dd;
     let pasaje = await Pasaje.build({
     Precio_total: req.params.precio,
-    fechaCompra: Date.now(),
+    fechaCompra: today,
     C_cliente: req.body.cedula,
 
     }) ; 
@@ -274,19 +324,10 @@ exports.confirmCompra = async (req,res) => {
     
     return res.render("confirmCompra", {vuelos,asientos,nombre,apellido});
   }
-
-  // //insert into boleto (C_vuelo,C_asiento,Pasaporte_P,Activo) values (1,1,1111111,false)
-
-  // // let vuelo = undefined;
-  // // let cliente = undefined;
-  // // let pasaporte = undefined;
-  // // let asiento = undefined;
-
-  // // res.render("confirmCompra", {vuelo,cliente,pasaporte,asiento});
-
-  res.send("hola");
-
-  };
+}catch(error){ 
+  res.render("mensajeError", {message:"Ha ocurrido un error durante la compra", dir:"index"});
+}
+  }; 
    
    
 

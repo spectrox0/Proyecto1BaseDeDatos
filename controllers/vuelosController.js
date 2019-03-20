@@ -7,6 +7,11 @@ const VueloDesviado = require("../models/vueloDesviado");
 const VueloCharter = require("../models/vueloCharter");
 const asientoVuelo = require("../models/vueloAsiento");
 const AvionAlquilado = require("../models/avionalquilado");
+const VueloCancelado = require("../models/manifiestoVueloCancelado");
+const ClienteBoleto = require("../models/clienteBoleto");
+const Pasajero = require ("../models/pasajero") ; 
+const Boleto = require("../models/boleto");
+const ReembolsoCliente = require("../models/reembolsoC");
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 Vuelo.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey: "C_avion"});
@@ -17,8 +22,11 @@ Itinerario.belongsTo(Avion, {foreignKey: 'C_itinerario' ,targetKey:'C_itinerario
 
 Avion.belongsTo(AvionAlquilado, {foreignKey: 'C_avion' ,targetKey:'C_avion'}) ;
 AvionAlquilado.hasMany(Avion ,  {foreignKey: 'C_avion', sourceKey:'C_avion'}) ;
+
 Vuelo.hasMany(VueloDesviado ,   {foreignKey: 'C_vuelo', sourceKey:'C_vuelo'});
 Vuelo.hasMany(VueloCharter ,   {foreignKey: 'C_vuelo', sourceKey:'C_vuelo'});
+
+VueloCancelado.belongsTo(Vuelo, {foreignKey: 'C_vuelo' ,targetKey:'C_vuelo'} );
 
 exports.getVuelos = async (req, res) => {
 
@@ -417,6 +425,146 @@ exports.deleteVuelodesviado = async (req, res) => {
     }
 
 };
+
+exports.cancelacionVuelo = async (req,res) => { 
+  try{ 
+  const C_vuelo = req.body.vuelo; 
+  response = await Vuelo.findOne({
+    where:{
+    C_vuelo:C_vuelo
+  }});
+  console.log(response);
+  if(response!=null) { 
+    var today = await new Date();
+    var dd = await today.getDate();
+    var mm = await today.getMonth() + 1; 
+    
+    var yyyy = await today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    } 
+    if (mm < 10) {
+      mm = '0' + mm;
+    } 
+    today = yyyy + '-' + mm + '-' + dd; 
+  let vueloCancelado = await VueloCancelado.build({ 
+  C_vuelo: C_vuelo, 
+  fecha_cancelacion: today
+
+  }); 
+  await vueloCancelado.save();
+   console.log(vueloCancelado);
+  if (vueloCancelado) { 
+    res.render("manifiestoCancelacion",{vueloCancelado});
+  }
+  } else{ res.render("mensajeError", {message:"No se encontro ningun Vuelo con el Codigo especificado",dir:"cancelacionvuelo"})}; 
+} catch (error) { 
+  res.render("mensajeError", {message:"No se logro cancelar el vuelo",dir:"cancelacionvuelo"}) ;
+}
+}
+
+exports.decisionVueloCancelado = async (req,res) => { 
+  const C_vuelo = req.body.vuelo ; 
+  let response = await VueloCancelado.findOne({where:{
+    C_vuelo: C_vuelo
+  }}); 
+
+  if(response==null) { 
+    return res.render("mensajeError",{message: "Error , el vuelo no existe o no se encuentra cancelado", dir:"index"});
+  } 
+  const pasajero = req.body.pasaporte; 
+  let response2 = await Boleto.findOne({ 
+    where: { 
+      Pasaporte_P: pasajero,
+      C_vuelo: C_vuelo
+    }
+  }) ; 
+   if(response2==null) {
+     return res.render("mensajeError",{message: "Error , el pasajero para el vuelo especificado no existe ", dir:"index"});
+   }
+   var opcion = req.body.opcion ; 
+   if(opcion==1) { 
+    let itinerario = await Itinerario.findOne({ 
+       include:[{ 
+         model:Avion , 
+         required: true , 
+         include: [{ 
+           model:Vuelo, 
+           required:true, 
+           where: { 
+             C_vuelo:C_vuelo
+           }
+         }]
+       }]
+    }) ; 
+  var precioBase = itinerario.precio_base;
+  var cliente = await ClienteBoleto.findOne({
+    C_boleto: response2.C_boleto
+  }) ; 
+  var cedulaCliente = cliente.cedula;
+
+  var today = await new Date();
+    var dd = await today.getDate();
+    var mm = await today.getMonth() + 1; 
+    
+    var yyyy = await today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    } 
+    if (mm < 10) {
+      mm = '0' + mm;
+    } 
+    today = yyyy + '-' + mm + '-' + dd; 
+   
+    let reembolso = await ReembolsoCliente.build({
+     cedula: cedulaCliente, 
+     Pago: precioBase,
+     fecha_reembolso:today,
+     C_manifiesto: response.C_manifiesto
+    }) ; 
+   }
+   else {
+    let itinerario = await Itinerario.findOne({ 
+      include:[{ 
+        model:Avion , 
+        required: true , 
+        include: [{ 
+          model:Vuelo, 
+          required:true, 
+          where: { 
+            C_vuelo:C_vuelo
+          }
+        }]
+      }]
+   }) ; 
+   var vuelo = await Vuelo.findOne({where:{C_vuelo:C_vuelo}});
+   var fechaini = vuelo.Fecha_salida; 
+  
+    var newVuelo = await Vuelo.findOne( { 
+      where:{
+        Fecha_salida:{
+        [Op.gt] : fechaini
+        }
+      },
+     include:[{
+      model:Avion,
+       required:true,
+       include:[{
+      model:Itinerario,
+      required:true , 
+      where:{ 
+        IATA_origen : itinerario.IATA_origen,
+        IATA_destino : itinerario.IATA_destino
+      }
+       }]
+     }]
+
+    }) ;
+
+   
+   }
+
+}
 
  
  

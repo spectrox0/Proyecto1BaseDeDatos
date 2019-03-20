@@ -1,0 +1,17 @@
+extends base2
+block content
+    .contenedorF
+        
+        h2(align="center")
+            | Cancelacion de Vuelo
+        hr   
+        form(action=`/cancelaVuelo`, method="POST")
+            .form-row 
+                    
+                input.form-control(type='number', name="vuelo" , placeholder='Escriba el codigo del vuelo que desea cancelar')
+
+            hr          
+            .form-row
+                input(type="submit" , value ="Cancelar Vuelo")
+                // Table body
+                // Table

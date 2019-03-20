@@ -106,6 +106,21 @@ router.get("/searchPasajeros", (req,res)=> {
 });
 router.post("/pasajeros", catchErrors(pasajeroController.getPasajeros));
 
+ // Crud Clientes 
 router.get("/clientes", catchErrors(clienteController.getAllClientes));
 router.post("/update/cliente/:id", catchErrors(clienteController.updateCliente));
+
+
+ // Cancelacion Vuelo
+ router.get("/cancelacionvuelo", (req,res) => {
+   return res.render("cancelacionVuelo") ; 
+ }) ; 
+
+ router.post("/cancelaVuelo", vueloController.cancelacionVuelo); 
+  router.get("/VueloCancelado" ,(req,res) => { 
+    return res.render("VueloCancelado") ;
+    
+  }); 
+  router.post('/DecisionVueloCancelado')
+
 module.exports = router;

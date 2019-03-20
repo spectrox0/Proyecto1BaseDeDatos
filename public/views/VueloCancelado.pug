@@ -1,0 +1,25 @@
+extends base2
+block content
+    .contenedorF
+        
+        h2(align="center")
+            | Vuelo Cancelado
+        hr   
+        form(action=`/DecisionVueloCancelado`, method="POST")
+            .form-row 
+                    
+                input.form-control(type='number', name="vuelo" , placeholder='Escriba el codigo del vuelo cancelado en el que desea efectuar una accion')
+            .form-row 
+                    
+                input.form-control(type='number', name="pasaporte" , placeholder='Escriba el pasaporte del pasajero')       
+            .form-row-md-6
+                .switch-field
+                    .switch-title Opcion a efectuar
+                    input#Exigir_Reembolso(type='radio', name='opcion', value='1', checked='')
+                    label(for='Exigir_Reembolso') Reembolso 
+                    input#Asignar_Vuelo(type='radio', name='opcion', value='2')
+                    label(for='Asignar_Vuelo') Vuelo_Nuevo
+            .form-row
+                input(type="submit" , value ="Aceptar")
+                // Table body
+                // Table
